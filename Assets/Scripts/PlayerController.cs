@@ -16,13 +16,14 @@ public class PlayerController : MonoBehaviour
   private Vector2 movementDirection = new Vector2(0, 0);
   
   private new Rigidbody2D rigidbody;
-
+  private Animator animator;
 
   // Start is called before the first frame update
   void Start()
   {
     equippedGun = gameObject.AddComponent<Pistol>();
     rigidbody = gameObject.GetComponent<Rigidbody2D>();
+    animator = gameObject.GetComponent<Animator>();
   }
 
   // Update is called once per frame
@@ -47,6 +48,13 @@ public class PlayerController : MonoBehaviour
   public void Move(InputAction.CallbackContext context)
   {
     movementDirection = context.ReadValue<Vector2>();
+    animator.SetBool("walking", movementDirection != new Vector2(0, 0));
+    if (movementDirection.x < 0)
+    {
+      transform.localScale = new Vector3(-1, 1, 1);
+    } else if (movementDirection.x > 0) {
+      transform.localScale = new Vector3(1, 1, 1);
+    }
   }
 
   public void Fire(InputAction.CallbackContext context)
