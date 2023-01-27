@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Desert wall decoration corner top left
+  m_Name: Desert wall decoration left_0
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -2128301906, guid: 71a1f5cd8448b5447a8756d9bb364243, type: 3}
+  m_Sprite: {fileID: -1562467987, guid: 71a1f5cd8448b5447a8756d9bb364243, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
