@@ -6,7 +6,7 @@ public class FollowPlayer : MonoBehaviour
 {
 
   [SerializeField]
-  private GameObject player;
+  public GameObject player;
 
   private float height = 3;
 

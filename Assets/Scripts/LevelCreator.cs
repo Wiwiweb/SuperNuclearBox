@@ -30,6 +30,9 @@ public class LevelCreator : MonoBehaviour
   private TileBase wallDecorationsCornerBottomLeftTiles;
   private TileBase wallDecorationsCornerBottomRightTiles;
 
+  public GameObject playerPrefabTemp;
+  public GameObject cameraTemp;
+
   private int[,] level_int = {
     { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
     { 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1 },
@@ -77,6 +80,10 @@ public class LevelCreator : MonoBehaviour
     InitializeTileArrays();
 
     FillLevelTilemaps();
+
+    GameObject player = Instantiate(playerPrefabTemp, new Vector3(17,16,1), Quaternion.identity);
+    FollowPlayer cameraScript = cameraTemp.GetComponent<FollowPlayer>();
+    cameraScript.player = player;
   }
 
   // Update is called once per frame
@@ -101,14 +108,11 @@ public class LevelCreator : MonoBehaviour
 
   private void FillLevelTilemaps()
   {
+    floorTilemap.size = new Vector3Int(floorGridSize, floorGridSize, 1);
+    wallTilemap.size = new Vector3Int(floorGridSize*2, floorGridSize*2, 1);
+
     // Floors
-    for (int x = 0; x < floorGridSize; x++)
-    {
-      for (int y = 0; y < floorGridSize; y++)
-      {
-        floorTilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
-      }
-    }
+    floorTilemap.FloodFill(new Vector3Int(0, 0, 0), floorTile);
 
     // Walls
     int levelOffsetX = floorGridSize - (level.GetLength(0) / 2);
@@ -123,5 +127,6 @@ public class LevelCreator : MonoBehaviour
         }     
       }
     }
+    wallTilemap.FloodFill(new Vector3Int(0, 0, 0), wallTile);
   }
 }
