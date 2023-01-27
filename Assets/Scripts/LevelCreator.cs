@@ -18,29 +18,17 @@ public class LevelCreator : MonoBehaviour
     Wall,
   }
 
-  private struct TileWithProbability
-  {
-    public TileWithProbability(TileBase tile, float probability)
-    {
-      this.tile = tile;
-      this.probability = probability;
-    }
-
-    public TileBase tile;
-    public float probability;
-  }
-
-  private TileWithProbability[] floorTiles;
-  private TileWithProbability[] wallTiles;
-  private TileWithProbability[] wallDecorationsBottomTiles;
-  private TileWithProbability[] wallDecorationsTopTiles;
-  private TileWithProbability[] wallDecorationsDownTiles;
-  private TileWithProbability[] wallDecorationsLeftTiles;
-  private TileWithProbability[] wallDecorationsRightTiles;
-  private TileWithProbability[] wallDecorationsCornerTopLeftTiles;
-  private TileWithProbability[] wallDecorationsCornerTopRightTiles;
-  private TileWithProbability[] wallDecorationsCornerBottomLeftTiles;
-  private TileWithProbability[] wallDecorationsCornerBottomRightTiles;
+  private TileBase floorTile;
+  private TileBase wallTile;
+  private TileBase wallDecorationsBottomTiles;
+  private TileBase wallDecorationsTopTiles;
+  private TileBase wallDecorationsDownTiles;
+  private TileBase wallDecorationsLeftTiles;
+  private TileBase wallDecorationsRightTiles;
+  private TileBase wallDecorationsCornerTopLeftTiles;
+  private TileBase wallDecorationsCornerTopRightTiles;
+  private TileBase wallDecorationsCornerBottomLeftTiles;
+  private TileBase wallDecorationsCornerBottomRightTiles;
 
   private int[,] level_int = {
     { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
@@ -99,30 +87,17 @@ public class LevelCreator : MonoBehaviour
 
   private void InitializeTileArrays()
   {
-    floorTiles = InitializeTileArray("Floor tiles/Desert floor", new float[] { 0.335f, 0.33f, 0.33f, 0.005f });
-    wallTiles = InitializeTileArray("Wall tiles/Desert wall", new float[] { 0.25f, 0.25f, 0.25f, 0.25f });
-    wallDecorationsBottomTiles = InitializeTileArray("Wall decorations tiles/Desert wall decoration bottom", new float[] { 0.25f, 0.25f, 0.25f, 0.25f });
-    wallDecorationsTopTiles = InitializeTileArray("Wall decorations tiles/Desert wall decoration top", new float[] { 1f });
-    wallDecorationsLeftTiles = InitializeTileArray("Wall decorations tiles/Desert wall decoration left", new float[] { 1f });
-    wallDecorationsRightTiles = InitializeTileArray("Wall decorations tiles/Desert wall decoration right", new float[] { 1f });
-    wallDecorationsCornerTopLeftTiles = InitializeTileArray("Wall decorations tiles/Desert wall decoration corner top left", new float[] { 1f });
-    wallDecorationsCornerTopRightTiles = InitializeTileArray("Wall decorations tiles/Desert wall decoration corner top right", new float[] { 1f });
+    floorTile = Resources.Load<TileBase>("Tiles/Floor tiles/Desert floor");
+    wallTile = Resources.Load<TileBase>("Tiles/Wall tiles/Desert wall");
+    wallDecorationsBottomTiles = Resources.Load<TileBase>("Tiles/Wall decorations tiles/Desert wall decoration bottom");
+    wallDecorationsTopTiles = Resources.Load<TileBase>("Tiles/Wall decorations tiles/Desert wall decoration top");
+    wallDecorationsLeftTiles = Resources.Load<TileBase>("Tiles/Wall decorations tiles/Desert wall decoration left");
+    wallDecorationsRightTiles = Resources.Load<TileBase>("Tiles/Wall decorations tiles/Desert wall decoration right");
+    wallDecorationsCornerTopLeftTiles = Resources.Load<TileBase>("Tiles/Wall decorations tiles/Desert wall decoration corner top left");
+    wallDecorationsCornerTopRightTiles = Resources.Load<TileBase>("Tiles/Wall decorations tiles/Desert wall decoration corner top right");
     // wallDecorationsCornerBottomLeftTiles = InitializeTileArray("Wall decorations tiles/Desert wall decoration corner bottom left", new float[] {1f});
-    wallDecorationsCornerBottomRightTiles = InitializeTileArray("Wall decorations tiles/Desert wall decoration corner bottom right", new float[] { 1f });
+    wallDecorationsCornerBottomRightTiles = Resources.Load<TileBase>("Tiles/Wall decorations tiles/Desert wall decoration corner bottom right");
   }
-
-  private TileWithProbability[] InitializeTileArray(string tilePrefix, float[] probabilities)
-  {
-    TileWithProbability[] tileArray = new TileWithProbability[probabilities.Length];
-    for (int i = 0; i < probabilities.Length; i++)
-    {
-      string tilePath = "Tiles/" + tilePrefix + "_" + i;
-      TileBase tile = Resources.Load<TileBase>(tilePath);
-      tileArray[i] = new TileWithProbability(tile, probabilities[i]);
-    }
-    return tileArray;
-  }
-
 
   private void FillLevelTilemaps()
   {
@@ -131,7 +106,7 @@ public class LevelCreator : MonoBehaviour
     {
       for (int y = 0; y < floorGridSize; y++)
       {
-        floorTilemap.SetTile(new Vector3Int(x, y, 0), getRandomTile(floorTiles));
+        floorTilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
       }
     }
 
@@ -144,24 +119,9 @@ public class LevelCreator : MonoBehaviour
       {
         if (level[x,y] == TileType.Wall)
         {
-          wallTilemap.SetTile(new Vector3Int(x + levelOffsetX, y + levelOffsetY, 0), getRandomTile(wallTiles));
+          wallTilemap.SetTile(new Vector3Int(x + levelOffsetX, y + levelOffsetY, 0), wallTile);
         }     
       }
     }
-  }
-
-  private TileBase getRandomTile(TileWithProbability[] tileArray)
-  {
-    float rand = Random.Range(0f, 1f);
-    for (int i = 0; i < tileArray.Length - 1; i++)
-    {
-      TileWithProbability tileWithProbability = tileArray[i];
-      if (rand <= tileWithProbability.probability)
-      {
-        return tileWithProbability.tile;
-      }
-      rand -= tileWithProbability.probability;
-    }
-    return tileArray[^1].tile;
   }
 }
