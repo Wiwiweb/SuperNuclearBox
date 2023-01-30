@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static LevelManager;
@@ -16,9 +14,6 @@ public class LevelTileLayer
   private Tilemap wallDecorationCornerTopRightTilemap;
   private Tilemap wallDecorationCornerBottomLeftTilemap;
   private Tilemap wallDecorationCornerBottomRightTilemap;
-
-  private int floorGridSize = 100;
-
 
   private TileBase floorTile;
   private TileBase wallTile;
@@ -67,6 +62,7 @@ public class LevelTileLayer
 
   public void FillLevelTilemaps()
   {
+    int floorGridSize = LevelGridSize / 2;
     floorTilemap.size = new Vector3Int(floorGridSize, floorGridSize, 1);
     wallTilemap.size = new Vector3Int(floorGridSize * 2, floorGridSize * 2, 1);
 
