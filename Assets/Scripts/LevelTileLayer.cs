@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static LevelManager;
 
-public class LevelCreator : MonoBehaviour
+public class LevelTileLayer
 {
   private Tilemap floorTilemap;
   private Tilemap wallTilemap;
@@ -18,11 +19,6 @@ public class LevelCreator : MonoBehaviour
 
   private int floorGridSize = 100;
 
-  public enum TileType
-  {
-    Floor,
-    Wall,
-  }
 
   private TileBase floorTile;
   private TileBase wallTile;
@@ -35,31 +31,15 @@ public class LevelCreator : MonoBehaviour
   private TileBase wallDecorationsCornerBottomLeftTile;
   private TileBase wallDecorationsCornerBottomRightTile;
 
-  public GameObject playerPrefabTemp;
-  public GameObject cameraTemp;
-
-  private int[,] level_int = {
-    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-    { 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1 },
-    { 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1 },
-    { 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1 },
-    { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 },
-    { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 },
-    { 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
-    { 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
-    { 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
-    { 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
-    { 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1 },
-    { 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1 },
-    { 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1 },
-    { 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1 },
-    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-  };
-
   private TileType[,] level;
 
-  // Start is called before the first frame update
-  void Start()
+  public LevelTileLayer(TileType[,] level)
+  {
+    this.level = level;
+    InitializeResources();
+  }
+
+  void InitializeResources()
   {
     floorTilemap = GameObject.Find("Tilemap_Floors").GetComponent<Tilemap>();
     wallTilemap = GameObject.Find("Tilemap_Walls").GetComponent<Tilemap>();
@@ -72,39 +52,6 @@ public class LevelCreator : MonoBehaviour
     wallDecorationCornerBottomLeftTilemap = GameObject.Find("Tilemap_WallDecorations_Corner_Bottom_Left").GetComponent<Tilemap>();
     wallDecorationCornerBottomRightTilemap = GameObject.Find("Tilemap_WallDecorations_Corner_Bottom_Right").GetComponent<Tilemap>();
 
-    level = new TileType[level_int.GetLength(1), level_int.GetLength(0)];
-    for (int x = 0; x <= level.GetUpperBound(0); x++)
-    {
-      for (int y = 0; y <= level.GetUpperBound(1); y++)
-      {
-        if (level_int[y, x] == 0)
-        {
-          level[x, level.GetUpperBound(1) - y] = TileType.Floor;
-        }
-        else
-        {
-          level[x, level.GetUpperBound(1) - y] = TileType.Wall;
-        }
-      }
-    }
-
-    InitializeTileArrays();
-
-    FillLevelTilemaps();
-
-    GameObject player = Instantiate(playerPrefabTemp, new Vector3(16, 16, 1), Quaternion.identity);
-    FollowPlayer cameraScript = cameraTemp.GetComponent<FollowPlayer>();
-    cameraScript.player = player;
-  }
-
-  // Update is called once per frame
-  void Update()
-  {
-
-  }
-
-  private void InitializeTileArrays()
-  {
     floorTile = Resources.Load<TileBase>("Tiles/Floor tiles/Desert floor");
     wallTile = Resources.Load<TileBase>("Tiles/Wall tiles/Desert wall");
     wallDecorationsBottomTile = Resources.Load<TileBase>("Tiles/Wall decorations tiles/Desert wall decoration bottom");
@@ -118,7 +65,7 @@ public class LevelCreator : MonoBehaviour
     wallDecorationsCornerBottomRightTile = Resources.Load<TileBase>("Tiles/Wall decorations tiles/Desert wall decoration corner bottom right");
   }
 
-  private void FillLevelTilemaps()
+  public void FillLevelTilemaps()
   {
     floorTilemap.size = new Vector3Int(floorGridSize, floorGridSize, 1);
     wallTilemap.size = new Vector3Int(floorGridSize * 2, floorGridSize * 2, 1);
