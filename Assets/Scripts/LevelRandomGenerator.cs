@@ -19,12 +19,12 @@ public class LevelRandomGenerator
   }
 
   public int FloorsMax = 300;
-  public float TurnChanceLeft = 2/14f;
-  public float TurnChanceRight = 2/14f;
-  public float TurnChance180 = 1/14f;
+  public float TurnChanceLeft = 2 / 14f;
+  public float TurnChanceRight = 2 / 14f;
+  public float TurnChance180 = 1 / 14f;
   public int WalkersMax = 5;
-  public float WalkerSpawnChance = 1/8f;
-  public float WalkerDieChance = 1/19f;
+  public float WalkerSpawnChance = 1 / 8f;
+  public float WalkerDieChance = 1 / 19f;
 
   public TileType[,] GenerateRandomLevel()
   {
@@ -49,6 +49,10 @@ public class LevelRandomGenerator
     // Main loop
     int i = 0;
     int nbFloors = 0;
+    int minX = center;
+    int maxX = center;
+    int minY = center;
+    int maxY = center;
     while (nbFloors < FloorsMax && i < 10000)
     {
       foreach (FloorWalker walker in floorWalkers)
@@ -57,6 +61,10 @@ public class LevelRandomGenerator
         {
           level[walker.position.x, walker.position.y] = TileType.Floor;
           nbFloors++;
+          minX = Math.Min(minX, walker.position.x);
+          maxX = Math.Max(maxX, walker.position.x);
+          minY = Math.Min(minY, walker.position.y);
+          maxY = Math.Max(maxY, walker.position.y);
           if (nbFloors >= FloorsMax)
           {
             floorWalkersToDie.Clear();
@@ -101,7 +109,23 @@ public class LevelRandomGenerator
       i++;
     }
 
-    return level;
+    // Include boundary walls
+    minX -= 1;
+    minY -= 1;
+    maxX += 1;
+    maxY += 1;
+
+    // Shrink level array for faster tile laying
+    TileType[,] shrunkLevel = new TileType[maxX - minX + 1, maxY - minY + 1];
+    for (int x = 0; x <= shrunkLevel.GetUpperBound(0); x++)
+    {
+      for (int y = 0; y <= shrunkLevel.GetUpperBound(1); y++)
+      {
+        shrunkLevel[x, y] = level[x + minX, y + minY];
+      }
+    }
+
+    return shrunkLevel;
   }
 
   private Vector2Int randomDirection()
