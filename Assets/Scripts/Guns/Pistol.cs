@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class Pistol : AbstractGun
 {
 
-  public float cooldown = 0.4f;
+  public float cooldown = 0.1f;
 
   public GameObject bulletPrefab;
   private float cantFireUntil = 0;
