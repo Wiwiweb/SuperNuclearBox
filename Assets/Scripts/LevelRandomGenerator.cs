@@ -18,13 +18,13 @@ public class LevelRandomGenerator
     public Vector2Int direction;
   }
 
-  public int FloorsMax = 220;
-  public float TurnChanceLeft = 0.25f;
-  public float TurnChanceRight = 0.25f;
-  public float TurnChance180 = 0.10f;
+  public int FloorsMax = 300;
+  public float TurnChanceLeft = 2/14f;
+  public float TurnChanceRight = 2/14f;
+  public float TurnChance180 = 1/14f;
   public int WalkersMax = 5;
-  public float WalkerSpawnChance = 0.10f;
-  public float WalkerDieChance = 0.10f;
+  public float WalkerSpawnChance = 1/8f;
+  public float WalkerDieChance = 1/19f;
 
   public TileType[,] GenerateRandomLevel()
   {
