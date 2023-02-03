@@ -90,7 +90,7 @@ public class LevelTileLayer
         }
       }
     }
-    // wallTilemap.FloodFill(new Vector3Int(0, 0, 0), wallTile);
+    wallTilemap.FloodFill(new Vector3Int(0, 0, 0), wallTile);
   }
 
   private void checkAndPlaceWallDecoration(int x, int y, int tilemapX, int tilemapY, Tilemap tilemap, TileBase tile)

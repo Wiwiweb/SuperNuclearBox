@@ -1,7 +1,6 @@
-// using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Util;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,6 +16,9 @@ public class PlayerController : MonoBehaviour
   
   private new Rigidbody2D rigidbody;
   private Animator animator;
+  private GameObject gunSpriteObject;
+  private GameObject gunRotationObject;
+  private new Camera camera;
 
   // Start is called before the first frame update
   void Start()
@@ -24,15 +26,31 @@ public class PlayerController : MonoBehaviour
     equippedGun = gameObject.AddComponent<Pistol>();
     rigidbody = gameObject.GetComponent<Rigidbody2D>();
     animator = gameObject.GetComponent<Animator>();
+    gunRotationObject = gameObject.transform.Find("GunRotation").gameObject;
+    gunSpriteObject = gunRotationObject.transform.Find("Gun").gameObject;
+    camera = GameObject.Find("Main Camera").GetComponent<Camera>();
   }
 
   // Update is called once per frame
   void Update()
   {
-    // rigidbody.velocity = movementDirection * speed;
-
     Vector2 newPosition = (Vector2) transform.position + movementDirection * speed * Time.deltaTime;
     rigidbody.MovePosition(newPosition);
+
+    Vector2 mousePosition = Mouse.current.position.ReadValue();
+    mousePosition = camera.ScreenToWorldPoint(mousePosition);
+    Vector2 shootDirection = mousePosition - (Vector2)transform.position;
+    if (shootDirection.x > 0) // Flip gun sprite when pointing backwards
+    {
+      gunSpriteObject.transform.localScale = new Vector3(1, transform.localScale.x, 1);
+    }
+    else
+    {
+      gunSpriteObject.transform.localScale = new Vector3(1, -transform.localScale.x, 1);
+    }
+    Quaternion gunRotation = Quaternion.LookRotation(Vector3.forward, shootDirection);
+    gunRotation = RoundRotation(gunRotation);
+    gunRotationObject.transform.rotation = gunRotation;
 
     if (Keyboard.current.oKey.wasPressedThisFrame)
     {

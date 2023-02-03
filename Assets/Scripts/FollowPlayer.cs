@@ -8,6 +8,7 @@ public class FollowPlayer : MonoBehaviour
   [SerializeField]
   public GameObject player;
 
+  [SerializeField]
   private float height = 3;
 
   // Start is called before the first frame update

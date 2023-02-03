@@ -13,9 +13,10 @@ public class MachineGun : AbstractGun
   private bool isFiring = false;
 
   // Start is called before the first frame update
-  void Start()
+  new void Start()
   {
     bulletPrefab = Resources.Load<GameObject>("Prefabs/SmallBullet");
+    base.Start();
   }
 
   // Update is called once per frame

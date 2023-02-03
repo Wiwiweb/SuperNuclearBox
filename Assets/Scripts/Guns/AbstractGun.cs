@@ -8,10 +8,16 @@ public abstract class AbstractGun : MonoBehaviour
   public abstract void onFirePush();
   public abstract void onFireStop();
 
+  private new Camera camera;
+
+  public void Start()
+  {
+    camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+  }
+
   protected void createBulletTowardsCursor(GameObject bulletPrefab)
   {
       Vector2 mousePosition = Mouse.current.position.ReadValue();
-      Camera camera = GameObject.Find("Main Camera").GetComponent<Camera>();
       mousePosition = camera.ScreenToWorldPoint(mousePosition);
 
       Vector2 shootDirection = mousePosition - (Vector2)transform.position;

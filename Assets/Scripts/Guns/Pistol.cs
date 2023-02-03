@@ -11,13 +11,12 @@ public class Pistol : AbstractGun
   public GameObject bulletPrefab;
   private float cantFireUntil = 0;
 
-  // Start is called before the first frame update
-  void Start()
+  new void Start()
   {
     bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
+    base.Start();
   }
 
-  // Update is called once per frame
   void Update()
   {
 
