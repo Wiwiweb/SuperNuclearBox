@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,27 +14,37 @@ public class LevelManager : MonoBehaviour
     Wall,
   }
 
+  public class LevelData
+  {
+    public TileType[,] tiles;
+    public Vector2Int spawnPointTile;
+    // public List<Vector2> boxSpawnPoints;
+
+    public LevelData(TileType[,] tiles, Vector2Int spawnPointTile)
+    {
+      this.tiles = tiles;
+      this.spawnPointTile = spawnPointTile;
+    }
+  }
+
   public static int LevelGridSize = 301; // Odd for a center point
 
   public GameObject playerPrefabTemp;
   public GameObject cameraTemp;
 
+  [SerializeField]
+  private GameObject player;
+
   // Start is called before the first frame update
   void Start()
   {
     LevelRandomGenerator levelRandomGenerator = new LevelRandomGenerator();
-    TileType[,] level = levelRandomGenerator.GenerateRandomLevel();
+    LevelData level = levelRandomGenerator.GenerateRandomLevel();
 
-    LevelTileLayer levelTileLayer = new LevelTileLayer(level);
+    LevelTileLayer levelTileLayer = new LevelTileLayer(level.tiles);
     levelTileLayer.FillLevelTilemaps();
 
-    Tilemap wallTilemap = GameObject.Find("Tilemap_Walls").GetComponent<Tilemap>();
-    int centerTile = (LevelGridSize - 1) / 2;
-    Vector3 playerSpawnPosition = wallTilemap.GetCellCenterWorld(new Vector3Int(centerTile, centerTile, 1));
-    playerSpawnPosition.z = 1;
-    GameObject player = Instantiate(playerPrefabTemp, playerSpawnPosition, Quaternion.identity);
-    FollowPlayer cameraScript = cameraTemp.GetComponent<FollowPlayer>();
-    cameraScript.player = player;
+    spawnPlayer(level.spawnPointTile);
   }
 
   void Update()
@@ -52,9 +63,12 @@ public class LevelManager : MonoBehaviour
       GameObject.Find("Tilemap_WallDecorations_Corner_Bottom_Right").GetComponent<Tilemap>().ClearAllTiles();
 
       LevelRandomGenerator levelRandomGenerator = new LevelRandomGenerator();
-      TileType[,] level = levelRandomGenerator.GenerateRandomLevel();
-      LevelTileLayer levelTileLayer = new LevelTileLayer(level);
+      LevelData level = levelRandomGenerator.GenerateRandomLevel();
+      LevelTileLayer levelTileLayer = new LevelTileLayer(level.tiles);
       levelTileLayer.FillLevelTilemaps();
+
+      Destroy(player);
+      spawnPlayer(level.spawnPointTile);
     }
 
   }
@@ -65,5 +79,15 @@ public class LevelManager : MonoBehaviour
     Debug.Log($"Stopwatch: {stopwatch.ElapsedMilliseconds}");
     stopwatch.Reset();
     stopwatch.Start();
+  }
+
+  private void spawnPlayer(Vector2Int spawnPointTile)
+  {
+    Tilemap wallTilemap = GameObject.Find("Tilemap_Walls").GetComponent<Tilemap>();
+    Vector3 playerSpawnPosition = wallTilemap.GetCellCenterWorld(new Vector3Int(spawnPointTile.x, spawnPointTile.y, 1));
+    playerSpawnPosition.z = 1;
+    player = Instantiate(playerPrefabTemp, playerSpawnPosition, Quaternion.identity);
+    FollowPlayer cameraScript = cameraTemp.GetComponent<FollowPlayer>();
+    cameraScript.player = player;
   }
 }

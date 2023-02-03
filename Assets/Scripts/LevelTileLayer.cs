@@ -64,14 +64,14 @@ public class LevelTileLayer
   {
     int floorGridSize = LevelGridSize / 2;
     floorTilemap.size = new Vector3Int(floorGridSize, floorGridSize, 1);
-    wallTilemap.size = new Vector3Int(floorGridSize * 2, floorGridSize * 2, 1);
+    wallTilemap.size = new Vector3Int(LevelGridSize, LevelGridSize, 1);
 
-    // Floors
+    // Floors 
     floorTilemap.FloodFill(new Vector3Int(0, 0, 0), floorTile);
 
     // Walls
-    int levelOffsetX = floorGridSize - (level.GetLength(0) / 2);
-    int levelOffsetY = floorGridSize - (level.GetLength(1) / 2);
+    int levelOffsetX = LevelGridSize / 2 - (level.GetLength(0) / 2);
+    int levelOffsetY = LevelGridSize / 2 - (level.GetLength(1) / 2);
     for (int x = 0; x <= level.GetUpperBound(0); x++)
     {
       for (int y = 0; y <= level.GetUpperBound(1); y++)

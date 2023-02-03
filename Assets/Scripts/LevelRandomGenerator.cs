@@ -26,14 +26,14 @@ public class LevelRandomGenerator
   public float WalkerSpawnChance = 1 / 8f;
   public float WalkerDieChance = 1 / 19f;
 
-  public TileType[,] GenerateRandomLevel()
+  public LevelData GenerateRandomLevel()
   {
-    TileType[,] level = new TileType[LevelGridSize, LevelGridSize];
-    for (int x = 0; x <= level.GetUpperBound(0); x++)
+    TileType[,] levelTiles = new TileType[LevelGridSize, LevelGridSize];
+    for (int x = 0; x <= levelTiles.GetUpperBound(0); x++)
     {
-      for (int y = 0; y <= level.GetUpperBound(1); y++)
+      for (int y = 0; y <= levelTiles.GetUpperBound(1); y++)
       {
-        level[x, y] = TileType.Wall;
+        levelTiles[x, y] = TileType.Wall;
       }
     }
 
@@ -57,9 +57,9 @@ public class LevelRandomGenerator
     {
       foreach (FloorWalker walker in floorWalkers)
       {
-        if (level[walker.position.x, walker.position.y] != TileType.Floor)
+        if (levelTiles[walker.position.x, walker.position.y] != TileType.Floor)
         {
-          level[walker.position.x, walker.position.y] = TileType.Floor;
+          levelTiles[walker.position.x, walker.position.y] = TileType.Floor;
           nbFloors++;
           minX = Math.Min(minX, walker.position.x);
           maxX = Math.Max(maxX, walker.position.x);
@@ -116,16 +116,27 @@ public class LevelRandomGenerator
     maxY += 1;
 
     // Shrink level array for faster tile laying
-    TileType[,] shrunkLevel = new TileType[maxX - minX + 1, maxY - minY + 1];
-    for (int x = 0; x <= shrunkLevel.GetUpperBound(0); x++)
+    TileType[,] shrunkLevelTiles = new TileType[maxX - minX + 1, maxY - minY + 1];
+    for (int x = 0; x <= shrunkLevelTiles.GetUpperBound(0); x++)
     {
-      for (int y = 0; y <= shrunkLevel.GetUpperBound(1); y++)
+      for (int y = 0; y <= shrunkLevelTiles.GetUpperBound(1); y++)
       {
-        shrunkLevel[x, y] = level[x + minX, y + minY];
+        shrunkLevelTiles[x, y] = levelTiles[x + minX, y + minY];
       }
     }
 
-    return shrunkLevel;
+    // Now that we have shrunk the level, it will be recentered.
+    // Adjust the coordinates of spawn points.
+    Vector2Int originaLevelOffset = new Vector2Int(minX, minY); // Offset of level during generation
+    Vector2Int newLevelOffset = new Vector2Int(
+      LevelGridSize / 2 - (shrunkLevelTiles.GetLength(0) / 2),
+      LevelGridSize / 2 - (shrunkLevelTiles.GetLength(1) / 2)
+    ); // Offset of level after re-centering
+    Vector2Int coordinatesAdjustment = newLevelOffset - originaLevelOffset;
+    Vector2Int spawnCoordinates = startPoint + coordinatesAdjustment;
+    Debug.Log($"originaLevelOffset: {originaLevelOffset}, newLevelOffset: {newLevelOffset}, coordinatesAdjustment: {coordinatesAdjustment}, startPoint: {startPoint}, spawnCoordinates: {spawnCoordinates}");
+
+    return new LevelData(shrunkLevelTiles, spawnCoordinates);
   }
 
   private Vector2Int randomDirection()
