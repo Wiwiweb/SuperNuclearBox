@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
   private GameObject gunRotationObject;
   private new Camera camera;
 
-  // Start is called before the first frame update
   void Start()
   {
     equippedGun = gameObject.AddComponent<Pistol>();
@@ -31,10 +30,10 @@ public class PlayerController : MonoBehaviour
     camera = GameObject.Find("Main Camera").GetComponent<Camera>();
   }
 
-  // Update is called once per frame
   void Update()
   {
     Vector2 newPosition = (Vector2) transform.position + movementDirection * speed * Time.deltaTime;
+    newPosition = RoundToPixel(newPosition);
     rigidbody.MovePosition(newPosition);
 
     Vector2 mousePosition = Mouse.current.position.ReadValue();
@@ -49,7 +48,7 @@ public class PlayerController : MonoBehaviour
       gunSpriteObject.transform.localScale = new Vector3(1, -transform.localScale.x, 1);
     }
     Quaternion gunRotation = Quaternion.LookRotation(Vector3.forward, shootDirection);
-    gunRotation = RoundRotation(gunRotation);
+    gunRotation = RoundRotation(gunRotation, 5);
     gunRotationObject.transform.rotation = gunRotation;
 
     if (Keyboard.current.oKey.wasPressedThisFrame)
