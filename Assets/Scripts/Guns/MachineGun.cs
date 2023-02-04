@@ -5,17 +5,15 @@ using UnityEngine.InputSystem;
 
 public class MachineGun : AbstractGun
 {
-
-  public GameObject bulletPrefab;
-
   public float cooldown = 0.2f;
-  private float cantFireUntil = 0;
   private bool isFiring = false;
+
 
   // Start is called before the first frame update
   new void Start()
   {
-    bulletPrefab = Resources.Load<GameObject>("Prefabs/SmallBullet");
+    bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
+    gunSprite = Resources.Load<Sprite>("Weapon sprites/Machine gun");
     base.Start();
   }
 

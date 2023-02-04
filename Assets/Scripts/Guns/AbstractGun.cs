@@ -10,14 +10,19 @@ public abstract class AbstractGun : MonoBehaviour
 
   private new Camera camera;
   private GameObject gunSpriteObject;
-
   private float gunWidth;
+
+  protected float cantFireUntil = 0;
+  protected Sprite gunSprite;
+  protected GameObject bulletPrefab;
 
   public void Start()
   {
     camera = GameObject.Find("Main Camera").GetComponent<Camera>();
     gunSpriteObject = gameObject.transform.Find("GunRotation").transform.Find("Gun").gameObject;
-    gunWidth = gunSpriteObject.GetComponent<SpriteRenderer>().bounds.size.x;
+    SpriteRenderer spriteRenderer = gunSpriteObject.GetComponent<SpriteRenderer>();
+    spriteRenderer.sprite = gunSprite;
+    gunWidth = spriteRenderer.bounds.size.x;
   }
 
   protected void createBulletTowardsCursor(GameObject bulletPrefab)

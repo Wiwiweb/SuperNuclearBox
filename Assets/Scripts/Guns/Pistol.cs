@@ -8,12 +8,10 @@ public class Pistol : AbstractGun
 
   public float cooldown = 0.1f;
 
-  public GameObject bulletPrefab;
-  private float cantFireUntil = 0;
-
   new void Start()
   {
     bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
+    gunSprite = Resources.Load<Sprite>("Weapon sprites/Pistol");
     base.Start();
   }
 
