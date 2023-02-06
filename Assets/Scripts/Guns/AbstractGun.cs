@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,9 +10,11 @@ public abstract class AbstractGun : MonoBehaviour
   private GameObject gunSpriteObject;
   private float gunWidth;
 
-  protected float cantFireUntil = 0;
   protected Sprite gunSprite;
   protected GameObject bulletPrefab;
+  protected float cooldown = 0f;
+  protected float spread = 0f;
+  protected float cantFireUntil = 0;
 
   public void Start()
   {
@@ -32,6 +32,9 @@ public abstract class AbstractGun : MonoBehaviour
 
       Vector2 shootDirection = mousePosition - (Vector2)transform.position;
       shootDirection = shootDirection.normalized;
+      float inaccuracy = Random.Range(-spread/2, spread/2);
+      shootDirection = Quaternion.AngleAxis(inaccuracy, Vector3.forward) * shootDirection;
+
       Vector2 edgeOfGun = gunSpriteObject.transform.position + gunSpriteObject.transform.right * gunWidth/2 * transform.localScale.x;
       GameObject bullet = Instantiate(bulletPrefab, edgeOfGun, Quaternion.LookRotation(Vector3.forward, shootDirection));
       BulletController bulletScript = bullet.GetComponent<BulletController>();
