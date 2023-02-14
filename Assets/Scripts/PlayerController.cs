@@ -13,11 +13,12 @@ public class PlayerController : MonoBehaviour
 
   [SerializeField]
   private Vector2 movementDirection = new Vector2(0, 0);
-  
+
   private new Rigidbody2D rigidbody;
   private Animator animator;
   private GameObject gunSpriteObject;
   private GameObject gunRotationObject;
+  private GameManager gameManager;
   private new Camera camera;
 
   void Start()
@@ -28,11 +29,12 @@ public class PlayerController : MonoBehaviour
     gunRotationObject = gameObject.transform.Find("GunRotation").gameObject;
     gunSpriteObject = gunRotationObject.transform.Find("Gun").gameObject;
     camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+    gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
   }
 
   void Update()
   {
-    Vector2 newPosition = (Vector2) transform.position + movementDirection * speed * Time.deltaTime;
+    Vector2 newPosition = (Vector2)transform.position + movementDirection * speed * Time.deltaTime;
     newPosition = RoundToPixel(newPosition);
     rigidbody.MovePosition(newPosition);
 
@@ -55,7 +57,8 @@ public class PlayerController : MonoBehaviour
     {
       Destroy(equippedGun);
       equippedGun = gameObject.AddComponent<Pistol>();
-    } else if (Keyboard.current.pKey.wasPressedThisFrame)
+    }
+    else if (Keyboard.current.pKey.wasPressedThisFrame)
     {
       Destroy(equippedGun);
       equippedGun = gameObject.AddComponent<MachineGun>();
@@ -69,7 +72,9 @@ public class PlayerController : MonoBehaviour
     if (movementDirection.x < 0)
     {
       transform.localScale = new Vector3(-1, 1, 1);
-    } else if (movementDirection.x > 0) {
+    }
+    else if (movementDirection.x > 0)
+    {
       transform.localScale = new Vector3(1, 1, 1);
     }
   }
@@ -79,9 +84,20 @@ public class PlayerController : MonoBehaviour
     if (context.started)
     {
       equippedGun.onFirePush();
-    } else if (context.canceled) 
+    }
+    else if (context.canceled)
     {
       equippedGun.onFireStop();
+    }
+  }
+
+  private void OnTriggerEnter2D(Collider2D other)
+  {
+    if (other.gameObject.tag.Equals("Box"))
+    {
+      Destroy(other);
+      gameManager.spawnBox();
+      
     }
   }
 }

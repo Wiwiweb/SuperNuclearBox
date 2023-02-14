@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 internal static class Util
 {
@@ -20,5 +22,13 @@ internal static class Util
       Mathf.Round(vector.x * PixelsPerUnit) / PixelsPerUnit,
       Mathf.Round(vector.y * PixelsPerUnit) / PixelsPerUnit
     );
+  }
+
+  public static void printStopwatch(Stopwatch stopwatch)
+  {
+    stopwatch.Stop();
+    Debug.Log($"Stopwatch: {stopwatch.ElapsedMilliseconds}");
+    stopwatch.Reset();
+    stopwatch.Start();
   }
 }

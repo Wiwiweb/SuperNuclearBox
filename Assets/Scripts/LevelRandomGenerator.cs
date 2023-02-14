@@ -45,6 +45,9 @@ public class LevelRandomGenerator
     List<FloorWalker> floorWalkersToDie = new List<FloorWalker>();
     List<FloorWalker> floorWalkersToSpawn = new List<FloorWalker>();
 
+    ISet<Vector2Int> enemySpawnPoints = new HashSet<Vector2Int>();
+    ISet<Vector2Int> boxSpawnPoints = new HashSet<Vector2Int>();
+
 
     // Main loop
     int i = 0;
@@ -60,6 +63,7 @@ public class LevelRandomGenerator
         if (levelTiles[walker.position.x, walker.position.y] != TileType.Floor)
         {
           levelTiles[walker.position.x, walker.position.y] = TileType.Floor;
+          enemySpawnPoints.Add(new Vector2Int(walker.position.x, walker.position.y));
           nbFloors++;
           minX = Math.Min(minX, walker.position.x);
           maxX = Math.Max(maxX, walker.position.x);
@@ -77,6 +81,7 @@ public class LevelRandomGenerator
         if (floorWalkers.Count - floorWalkersToDie.Count + floorWalkersToSpawn.Count > 1 && spawnDieChance < WalkerDieChance)
         {
           floorWalkersToDie.Add(walker);
+          boxSpawnPoints.Add(new Vector2Int(walker.position.x, walker.position.y));
         }
         else
         {
@@ -88,7 +93,12 @@ public class LevelRandomGenerator
           }
 
           // Turn
-          walker.direction = weightedRandomRotation(walker.direction);
+          bool hasTurned;
+          walker.direction = weightedRandomRotation(walker.direction, out hasTurned);
+          if (hasTurned)
+          {
+            boxSpawnPoints.Add(new Vector2Int(walker.position.x, walker.position.y));
+          }
 
           // Move
           walker.position += walker.direction;
@@ -134,9 +144,13 @@ public class LevelRandomGenerator
     ); // Offset of level after re-centering
     Vector2Int coordinatesAdjustment = newLevelOffset - originaLevelOffset;
     Vector2Int spawnCoordinates = startPoint + coordinatesAdjustment;
-    Debug.Log($"originaLevelOffset: {originaLevelOffset}, newLevelOffset: {newLevelOffset}, coordinatesAdjustment: {coordinatesAdjustment}, startPoint: {startPoint}, spawnCoordinates: {spawnCoordinates}");
 
-    return new LevelData(shrunkLevelTiles, spawnCoordinates);
+    List<Vector2Int> boxSpawnPointsList = new List<Vector2Int>(boxSpawnPoints);
+    List<Vector2Int> enemySpawnPointsList = new List<Vector2Int>(enemySpawnPoints);
+    boxSpawnPointsList = boxSpawnPointsList.ConvertAll<Vector2Int>(point => point += coordinatesAdjustment);
+    enemySpawnPointsList = enemySpawnPointsList.ConvertAll<Vector2Int>(point => point += coordinatesAdjustment);
+
+    return new LevelData(shrunkLevelTiles, spawnCoordinates, boxSpawnPointsList, enemySpawnPointsList);
   }
 
   private Vector2Int randomDirection()
@@ -156,8 +170,9 @@ public class LevelRandomGenerator
     }
   }
 
-  private Vector2Int weightedRandomRotation(Vector2Int direction)
+  private Vector2Int weightedRandomRotation(Vector2Int direction, out bool spawnBox)
   {
+    spawnBox = false;
     float rotationChance = Random.Range(0f, 1f);
 
     if (rotationChance < TurnChanceLeft)
@@ -174,6 +189,7 @@ public class LevelRandomGenerator
     rotationChance -= TurnChanceRight;
     if (rotationChance < TurnChanceRight)
     {
+      spawnBox = false;
       return rotate180(direction);
     }
 

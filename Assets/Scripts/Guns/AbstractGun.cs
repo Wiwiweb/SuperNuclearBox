@@ -12,9 +12,12 @@ public abstract class AbstractGun : MonoBehaviour
 
   protected Sprite gunSprite;
   protected GameObject bulletPrefab;
-  protected float cooldown = 0f;
-  protected float spread = 0f;
   protected float cantFireUntil = 0;
+
+  [SerializeField]
+  protected float cooldown = 0f;
+  [SerializeField]
+  protected float spread = 0f;
 
   public void Start()
   {
