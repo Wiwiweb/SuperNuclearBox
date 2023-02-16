@@ -10,20 +10,34 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
+  public static GameManager instance;
 
   [SerializeField]
   private GameObject playerPrefab;
   [SerializeField]
   private GameObject boxPrefab;
 
+  public Tilemap floorTilemap;
+  public Tilemap wallTilemap;
+  public Tilemap wallDecorationTopTilemap;
+  public Tilemap wallDecorationBottomTilemap;
+  public Tilemap wallDecorationLeftTilemap;
+  public Tilemap wallDecorationRightTilemap;
+  public Tilemap wallDecorationCornerTopLeftTilemap;
+  public Tilemap wallDecorationCornerTopRightTilemap;
+  public Tilemap wallDecorationCornerBottomLeftTilemap;
+  public Tilemap wallDecorationCornerBottomRightTilemap;
+
   private GameObject player;
   private FollowPlayer cameraScript;
-  private Tilemap wallTilemap;
+
+  void Awake() {
+      instance = this;
+  }
 
   void Start()
   {
-    cameraScript = GameObject.Find("Main Camera").GetComponent<FollowPlayer>();
-    wallTilemap = GameObject.Find("Tilemap_Walls").GetComponent<Tilemap>();
+    cameraScript = Camera.main.GetComponent<FollowPlayer>();
     LevelManager.CreateLevel();
     spawnPlayer();
     spawnBox();

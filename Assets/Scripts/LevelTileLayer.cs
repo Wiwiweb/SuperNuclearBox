@@ -36,16 +36,16 @@ public class LevelTileLayer
 
   void InitializeResources()
   {
-    floorTilemap = GameObject.Find("Tilemap_Floors").GetComponent<Tilemap>();
-    wallTilemap = GameObject.Find("Tilemap_Walls").GetComponent<Tilemap>();
-    wallDecorationTopTilemap = GameObject.Find("Tilemap_WallDecorations_Top").GetComponent<Tilemap>();
-    wallDecorationBottomTilemap = GameObject.Find("Tilemap_WallDecorations_Bottom").GetComponent<Tilemap>();
-    wallDecorationLeftTilemap = GameObject.Find("Tilemap_WallDecorations_Left").GetComponent<Tilemap>();
-    wallDecorationRightTilemap = GameObject.Find("Tilemap_WallDecorations_Right").GetComponent<Tilemap>();
-    wallDecorationCornerTopLeftTilemap = GameObject.Find("Tilemap_WallDecorations_Corner_Top_Left").GetComponent<Tilemap>();
-    wallDecorationCornerTopRightTilemap = GameObject.Find("Tilemap_WallDecorations_Corner_Top_Right").GetComponent<Tilemap>();
-    wallDecorationCornerBottomLeftTilemap = GameObject.Find("Tilemap_WallDecorations_Corner_Bottom_Left").GetComponent<Tilemap>();
-    wallDecorationCornerBottomRightTilemap = GameObject.Find("Tilemap_WallDecorations_Corner_Bottom_Right").GetComponent<Tilemap>();
+    floorTilemap = GameManager.instance.floorTilemap;
+    wallTilemap = GameManager.instance.wallTilemap;
+    wallDecorationTopTilemap = GameManager.instance.wallDecorationTopTilemap;
+    wallDecorationBottomTilemap = GameManager.instance.wallDecorationBottomTilemap;
+    wallDecorationLeftTilemap = GameManager.instance.wallDecorationLeftTilemap;
+    wallDecorationRightTilemap = GameManager.instance.wallDecorationRightTilemap;
+    wallDecorationCornerTopLeftTilemap = GameManager.instance.wallDecorationCornerTopLeftTilemap;
+    wallDecorationCornerTopRightTilemap = GameManager.instance.wallDecorationCornerTopRightTilemap;
+    wallDecorationCornerBottomLeftTilemap = GameManager.instance.wallDecorationCornerBottomLeftTilemap;
+    wallDecorationCornerBottomRightTilemap = GameManager.instance.wallDecorationCornerBottomRightTilemap;
 
     floorTile = Resources.Load<TileBase>("Tiles/Floor tiles/Desert floor");
     wallTile = Resources.Load<TileBase>("Tiles/Wall tiles/Desert wall");

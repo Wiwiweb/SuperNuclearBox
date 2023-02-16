@@ -28,7 +28,7 @@ public static class LevelManager
     }
   }
 
-  public static int LevelGridSize = 301; // Odd for a center point
+  public static int LevelGridSize = 151; // Odd for a center point
 
   public static LevelData level;
 
@@ -44,15 +44,15 @@ public static class LevelManager
   public static void DestroyLevel()
   {
     level = null;
-    GameObject.Find("Tilemap_Floors").GetComponent<Tilemap>().ClearAllTiles();
-    GameObject.Find("Tilemap_Walls").GetComponent<Tilemap>().ClearAllTiles();
-    GameObject.Find("Tilemap_WallDecorations_Top").GetComponent<Tilemap>().ClearAllTiles();
-    GameObject.Find("Tilemap_WallDecorations_Bottom").GetComponent<Tilemap>().ClearAllTiles();
-    GameObject.Find("Tilemap_WallDecorations_Left").GetComponent<Tilemap>().ClearAllTiles();
-    GameObject.Find("Tilemap_WallDecorations_Right").GetComponent<Tilemap>().ClearAllTiles();
-    GameObject.Find("Tilemap_WallDecorations_Corner_Top_Left").GetComponent<Tilemap>().ClearAllTiles();
-    GameObject.Find("Tilemap_WallDecorations_Corner_Top_Right").GetComponent<Tilemap>().ClearAllTiles();
-    GameObject.Find("Tilemap_WallDecorations_Corner_Bottom_Left").GetComponent<Tilemap>().ClearAllTiles();
-    GameObject.Find("Tilemap_WallDecorations_Corner_Bottom_Right").GetComponent<Tilemap>().ClearAllTiles();
+    GameManager.instance.floorTilemap.ClearAllTiles();
+    GameManager.instance.wallTilemap.ClearAllTiles();
+    GameManager.instance.wallDecorationTopTilemap.ClearAllTiles();
+    GameManager.instance.wallDecorationBottomTilemap.ClearAllTiles();
+    GameManager.instance.wallDecorationLeftTilemap.ClearAllTiles();
+    GameManager.instance.wallDecorationRightTilemap.ClearAllTiles();
+    GameManager.instance.wallDecorationCornerTopLeftTilemap.ClearAllTiles();
+    GameManager.instance.wallDecorationCornerTopRightTilemap.ClearAllTiles();
+    GameManager.instance.wallDecorationCornerBottomLeftTilemap.ClearAllTiles();
+    GameManager.instance.wallDecorationCornerBottomRightTilemap.ClearAllTiles();
   }
 }

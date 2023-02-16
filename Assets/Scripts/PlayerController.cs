@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
   private Animator animator;
   private GameObject gunSpriteObject;
   private GameObject gunRotationObject;
-  private GameManager gameManager;
   private new Camera camera;
 
   void Start()
@@ -28,8 +27,7 @@ public class PlayerController : MonoBehaviour
     animator = gameObject.GetComponent<Animator>();
     gunRotationObject = gameObject.transform.Find("GunRotation").gameObject;
     gunSpriteObject = gunRotationObject.transform.Find("Gun").gameObject;
-    camera = GameObject.Find("Main Camera").GetComponent<Camera>();
-    gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+    camera = Camera.main.GetComponent<Camera>();
   }
 
   void Update()
@@ -96,7 +94,7 @@ public class PlayerController : MonoBehaviour
     if (other.gameObject.tag.Equals("Box"))
     {
       Destroy(other);
-      gameManager.spawnBox();
+      GameManager.instance.spawnBox();
       
     }
   }

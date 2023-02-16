@@ -21,7 +21,7 @@ public abstract class AbstractGun : MonoBehaviour
 
   public void Start()
   {
-    camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+    camera = Camera.main.GetComponent<Camera>();
     gunSpriteObject = gameObject.transform.Find("GunRotation").transform.Find("Gun").gameObject;
     SpriteRenderer spriteRenderer = gunSpriteObject.GetComponent<SpriteRenderer>();
     spriteRenderer.sprite = gunSprite;
