@@ -208,9 +208,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e9cfe6af3796ab47a5361272364415d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floatingTextPrefab: {fileID: 6149240271587897057, guid: ba21a71dfebd32f4ea2ad43b5b59351b, type: 3}
   speed: 1.5
   equippedGun: {fileID: 0}
-  movementDirection: {x: 0, y: 0}
 --- !u!58 &1617220476724661978
 CircleCollider2D:
   m_ObjectHideFlags: 0

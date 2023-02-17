@@ -1,9 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using UnityEngine;
-using UnityEngine.Tilemaps;
-using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 
 public static class GunManager
@@ -13,10 +8,9 @@ public static class GunManager
     typeof(MachineGun),
   };
 
-  public static AbstractGun getRandomGun()
+  public static Type getRandomGunType()
   {
-    int gunIndex = Random.Range(0, allGuns.GetUpperBound(0));
-    Type gunType = allGuns[gunIndex];
-    return (AbstractGun) Activator.CreateInstance(gunType);
+    int gunIndex = Random.Range(0, allGuns.Length);
+    return allGuns[gunIndex];
   }
 }

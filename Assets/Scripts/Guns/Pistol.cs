@@ -1,10 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Pistol : AbstractSemiAutoGun
 {
+  public override string gunName
+  {
+    get
+    { return "Pistol"; }
+  }
+
   new void Start()
   {
     cooldown = 0.3f;

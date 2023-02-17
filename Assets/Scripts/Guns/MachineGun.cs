@@ -2,7 +2,12 @@ using UnityEngine;
 
 public class MachineGun : AbstractAutomaticGun
 {
-  // Start is called before the first frame update
+  public override string gunName
+  {
+    get
+    { return "Machine gun"; }
+  }
+
   new void Start()
   {
     cooldown = 0.2f;

@@ -1,17 +1,19 @@
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Util;
 
 public class PlayerController : MonoBehaviour
 {
+  [SerializeField]
+  private GameObject floatingTextPrefab;
 
   [SerializeField]
   private float speed = 3;
-
   [SerializeField]
   private AbstractGun equippedGun;
 
-  [SerializeField]
   private Vector2 movementDirection = new Vector2(0, 0);
 
   private new Rigidbody2D rigidbody;
@@ -93,9 +95,18 @@ public class PlayerController : MonoBehaviour
   {
     if (other.gameObject.tag.Equals("Box"))
     {
-      Destroy(other);
-      GameManager.instance.spawnBox();
-      
+      onBoxPickup(other.gameObject);
     }
+  }
+  
+  private void onBoxPickup(GameObject box)
+  {
+      Destroy(equippedGun);
+      Type newGunType = GunManager.getRandomGunType();
+      equippedGun = gameObject.AddComponent(newGunType) as AbstractGun;
+      GameObject floatingText = Instantiate(floatingTextPrefab, box.transform.position, Quaternion.identity);
+      floatingText.transform.GetChild(0).GetComponent<TextMeshPro>().SetText(equippedGun.gunName.ToUpper() + "!");
+      Destroy(box);
+      GameManager.instance.spawnBox();
   }
 }

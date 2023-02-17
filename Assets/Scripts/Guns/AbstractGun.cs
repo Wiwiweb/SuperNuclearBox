@@ -3,6 +3,10 @@ using UnityEngine.InputSystem;
 
 public abstract class AbstractGun : MonoBehaviour
 {
+  public abstract string gunName
+  {
+    get;
+  }
   public abstract void onFirePush();
   public abstract void onFireStop();
 
@@ -18,6 +22,7 @@ public abstract class AbstractGun : MonoBehaviour
   protected float cooldown = 0f;
   [SerializeField]
   protected float spread = 0f;
+
 
   public void Start()
   {
