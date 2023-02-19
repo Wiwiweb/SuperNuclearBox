@@ -1,0 +1,12 @@
+Font: Press Start  Style: Regular
+Point Size: 8   SP/PD Ratio: 50.0%
+
+Characters included: 97/97
+Missing characters: 0
+Excluded characters: 0
+
+Characters missing from font file:
+----------------------------------------
+
+Characters excluded from packing:
+----------------------------------------
