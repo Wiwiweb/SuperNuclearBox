@@ -5,20 +5,16 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour
 {
 
-  [SerializeField]
   public GameObject player;
+
+  [SerializeField]
+  private BoxArrowController boxArrowController;
 
   private float height = 3;
 
-  // Start is called before the first frame update
-  void Start()
-  {
-
-  }
-
-  // Update is called once per frame
-  void Update()
+  void LateUpdate()
   {
     transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -height);
+    boxArrowController.UpdatePosition();
   }
 }

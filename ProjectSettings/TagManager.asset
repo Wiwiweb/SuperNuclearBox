@@ -44,3 +44,24 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Floor
+    uniqueID: 2757583919
+    locked: 0
+  - name: Wall decorations under
+    uniqueID: 669557735
+    locked: 0
+  - name: Units
+    uniqueID: 3929020455
+    locked: 0
+  - name: Wall decorations over
+    uniqueID: 1123393713
+    locked: 0
+  - name: Projectiles
+    uniqueID: 1223587489
+    locked: 0
+  - name: World UI
+    uniqueID: 249331263
+    locked: 0
+  - name: UI
+    uniqueID: 2399074669
+    locked: 0

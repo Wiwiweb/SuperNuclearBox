@@ -25,7 +25,9 @@ public class GameManager : MonoBehaviour
   public Tilemap wallDecorationCornerBottomLeftTilemap;
   public Tilemap wallDecorationCornerBottomRightTilemap;
 
-  private GameObject player;
+  public GameObject box;
+  public GameObject player;
+  
   private FollowPlayer cameraScript;
 
   void Awake() {
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
     {
       LevelManager.DestroyLevel();
       Destroy(player);
+      Destroy(box);
       LevelManager.CreateLevel();
       spawnPlayer();
       spawnBox();
@@ -71,6 +74,6 @@ public class GameManager : MonoBehaviour
     Debug.Log($"Box spawn tile: {chosenSpawnTile}");
     Vector3 boxSpawnPosition = wallTilemap.GetCellCenterWorld(new Vector3Int(chosenSpawnTile.x, chosenSpawnTile.y, 1));
     boxSpawnPosition.z = 1;
-    Instantiate(boxPrefab, boxSpawnPosition, Quaternion.identity);
+    box = Instantiate(boxPrefab, boxSpawnPosition, Quaternion.identity);
   }
 }
