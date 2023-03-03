@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
   private GameObject floatingTextPrefab;
 
   [SerializeField]
-  private float speed = 3;
+  private float speed = 1.5f;
   [SerializeField]
   private AbstractGun equippedGun;
 
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     camera = Camera.main.GetComponent<Camera>();
   }
 
-  void Update()
+  void FixedUpdate()
   {
     Vector2 newPosition = (Vector2)transform.position + movementDirection * speed * Time.deltaTime;
     newPosition = RoundToPixel(newPosition);
