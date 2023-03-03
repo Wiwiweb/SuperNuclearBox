@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
   private GameObject gunSpriteObject;
   private GameObject gunRotationObject;
   private new Camera camera;
+  private CameraController cameraController;
 
   void Start()
   {
@@ -30,14 +31,18 @@ public class PlayerController : MonoBehaviour
     gunRotationObject = gameObject.transform.Find("GunRotation").gameObject;
     gunSpriteObject = gunRotationObject.transform.Find("Gun").gameObject;
     camera = Camera.main.GetComponent<Camera>();
+    cameraController = camera.GetComponent<CameraController>();
   }
 
   void FixedUpdate()
   {
-    Vector2 newPosition = (Vector2)transform.position + movementDirection * speed * Time.deltaTime;
+    Vector2 newPosition = (Vector2)transform.position + movementDirection * speed * Time.fixedDeltaTime;
     newPosition = RoundToPixel(newPosition);
     rigidbody.MovePosition(newPosition);
+  }
 
+  void Update()
+  {
     Vector2 mousePosition = Mouse.current.position.ReadValue();
     mousePosition = camera.ScreenToWorldPoint(mousePosition);
     Vector2 shootDirection = mousePosition - (Vector2)transform.position;

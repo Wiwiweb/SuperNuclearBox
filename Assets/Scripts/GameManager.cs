@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
   public GameObject box;
   public GameObject player;
   
-  private FollowPlayer cameraScript;
+  private CameraController cameraScript;
 
   void Awake() {
       instance = this;
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
   void Start()
   {
-    cameraScript = Camera.main.GetComponent<FollowPlayer>();
+    cameraScript = Camera.main.GetComponent<CameraController>();
     LevelManager.CreateLevel();
     spawnPlayer();
     spawnBox();
