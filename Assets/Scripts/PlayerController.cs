@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     animator = gameObject.GetComponent<Animator>();
     gunRotationObject = gameObject.transform.Find("GunRotation").gameObject;
     gunSpriteObject = gunRotationObject.transform.Find("Gun").gameObject;
-    camera = Camera.main.GetComponent<Camera>();
+    camera = Camera.main;
     cameraController = camera.GetComponent<CameraController>();
   }
 
