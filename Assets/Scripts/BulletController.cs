@@ -23,7 +23,6 @@ public class BulletController : MonoBehaviour
 
   private void OnTriggerEnter2D(Collider2D other)
   {
-    Debug.Log("HIT");
     if (other.CompareTag("Wall"))
     {
       Destroy(gameObject);
