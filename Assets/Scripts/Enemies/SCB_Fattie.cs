@@ -3,7 +3,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using static Util;
 
-public class SCB_Fatty : AbstractEnemy
+public class SCB_Fattie : AbstractEnemy
 {
   [SerializeField]
   private float speed;
@@ -39,48 +39,45 @@ public class SCB_Fatty : AbstractEnemy
 
   private void OnCollisionEnter2D(Collision2D collision)
   {
-    WallBounce(collision);
+    Bounce(collision);
   }
 
   private void OnCollisionStay2D(Collision2D collision)
   {
-    WallBounce(collision);
+    Bounce(collision);
   }
 
-  private void WallBounce(Collision2D collision)
+  private void Bounce(Collision2D collision)
   {
-    if (collision.collider.CompareTag("Wall"))
-    {
-      ContactPoint2D[] contactPoints = new ContactPoint2D[collision.contactCount];
-      collision.GetContacts(contactPoints);
+    ContactPoint2D[] contactPoints = new ContactPoint2D[collision.contactCount];
+    collision.GetContacts(contactPoints);
 
-      foreach (ContactPoint2D contactPoint in contactPoints)
+    foreach (ContactPoint2D contactPoint in contactPoints)
+    {
+      Vector2 localContactPoint = transform.InverseTransformPoint(contactPoint.point);
+      localContactPoint *= transform.localScale;
+      if (Math.Abs(localContactPoint.x) <= Math.Abs(localContactPoint.y)) // Horizontal wall
       {
-        Vector2 localContactPoint = transform.InverseTransformPoint(contactPoint.point);
-        localContactPoint *= transform.localScale;
-        if (Math.Abs(localContactPoint.x) <= Math.Abs(localContactPoint.y)) // Horizontal wall
+        if (localContactPoint.y > 0) // Top hit
         {
-          if (localContactPoint.y > 0) // Top hit
-          {
-            movementDirection.y = -Math.Abs(movementDirection.y);
-          }
-          else // Bottom hit
-          {
-            movementDirection.y = Math.Abs(movementDirection.y);
-          }
+          movementDirection.y = -Math.Abs(movementDirection.y);
         }
-        if (Math.Abs(localContactPoint.x) >= Math.Abs(localContactPoint.y)) // Vertical wall (not in an else, to allow for corner hits when x == y)
+        else // Bottom hit
         {
-          if (localContactPoint.x > 0) // Right hit
-          {
-            movementDirection.x = -Math.Abs(movementDirection.x);
-            transform.localScale = new Vector3(-1, 1, 1);
-          }
-          else // Left hit
-          {
-            movementDirection.x = Math.Abs(movementDirection.x);
-            transform.localScale = new Vector3(1, 1, 1);
-          }
+          movementDirection.y = Math.Abs(movementDirection.y);
+        }
+      }
+      if (Math.Abs(localContactPoint.x) >= Math.Abs(localContactPoint.y)) // Vertical wall (not in an else, to allow for corner hits when x == y)
+      {
+        if (localContactPoint.x > 0) // Right hit
+        {
+          movementDirection.x = -Math.Abs(movementDirection.x);
+          transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else // Left hit
+        {
+          movementDirection.x = Math.Abs(movementDirection.x);
+          transform.localScale = new Vector3(1, 1, 1);
         }
       }
     }
