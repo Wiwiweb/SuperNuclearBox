@@ -15,7 +15,7 @@ public class SCB_Fattie : AbstractEnemy
   private Vector2 movementDirection;
   private new Rigidbody2D rigidbody;
 
-  void Start()
+  new void Start()
   {
     rigidbody = gameObject.GetComponent<Rigidbody2D>();
 
@@ -27,6 +27,8 @@ public class SCB_Fattie : AbstractEnemy
     {
       transform.localScale = new Vector3(-1, 1, 1);
     }
+
+    base.Start();
   }
 
   void FixedUpdate()

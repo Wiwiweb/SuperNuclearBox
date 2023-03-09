@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class Bandit : AbstractEnemy 
 {
-    // Start is called before the first frame update
-    void Start() 
+    new void Start()
 	{
         health = 3;
+        base.Start();
     }
 
-    // Update is called once per frame
-    void Update() 
+    void Update()
 	{
         
     }
