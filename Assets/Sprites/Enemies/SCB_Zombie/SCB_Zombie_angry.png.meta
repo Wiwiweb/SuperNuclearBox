@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7eb50587b56428649991802eaa7a0516
+guid: 787a891bbab0dcf4a9c99749af154936
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -105,127 +105,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fish walk_0
+      name: SCB_Zombie_angry_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 9
+        width: 10
+        height: 9
+      alignment: 9
+      pivot: {x: 0.5, y: 0.44444445}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 533a796779ce4f3448b2a58f0d296bd7
+      internalID: 86867250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SCB_Zombie_angry_1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 9
+        width: 10
+        height: 9
+      alignment: 9
+      pivot: {x: 0.5, y: 0.44444445}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55c99b27e583e99419c6d67e1ffa1831
+      internalID: 1352301787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SCB_Zombie_angry_2
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 9
+        width: 10
+        height: 9
+      alignment: 9
+      pivot: {x: 0.5, y: 0.44444445}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d89f836db61d77a4d80104da082be236
+      internalID: 1381057131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SCB_Zombie_angry_3
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 10
+        height: 9
+      alignment: 9
+      pivot: {x: 0.5, y: 0.44444445}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 114d8d52d24ca4848a6529283c84dcfd
-      internalID: 1242788603
+      spriteID: 2ea4773c12b669e4c81210f35ad24315
+      internalID: 889524562
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fish walk_1
+      name: SCB_Zombie_angry_4
       rect:
         serializedVersion: 2
-        x: 18
+        x: 10
         y: 0
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 10
+        height: 9
+      alignment: 9
+      pivot: {x: 0.5, y: 0.44444445}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5629403b3f08a4b498c8addc82627b84
-      internalID: 1674866671
+      spriteID: dc3d19896dd60994ab8d484cdbf128c7
+      internalID: 1672997960
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fish walk_2
+      name: SCB_Zombie_angry_5
       rect:
         serializedVersion: 2
-        x: 36
+        x: 20
         y: 0
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 10
+        height: 9
+      alignment: 9
+      pivot: {x: 0.5, y: 0.44444445}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9cd560d987120947b357b7cfc4e27e4
-      internalID: 770850603
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Fish walk_3
-      rect:
-        serializedVersion: 2
-        x: 54
-        y: 0
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d425ef5fcaefc6d42a2bd195e2e725b4
-      internalID: -1115321751
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Fish walk_4
-      rect:
-        serializedVersion: 2
-        x: 72
-        y: 0
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a70e109e5bb293f43aee1c75b9a46f64
-      internalID: 1141810947
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Fish walk_5
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 0
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6a1f5bed68f7cb243a64333786ab5660
-      internalID: 279598471
+      spriteID: 312b43fd47dc2774e98319fb6942a398
+      internalID: 1288420083
       vertices: []
       indices: 
       edges: []
@@ -241,12 +241,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Fish walk_3: -1115321751
-      Fish walk_2: 770850603
-      Fish walk_5: 279598471
-      Fish walk_0: 1242788603
-      Fish walk_1: 1674866671
-      Fish walk_4: 1141810947
+      SCB_Zombie_angry_1: 1352301787
+      SCB_Zombie_angry_4: 1672997960
+      SCB_Zombie_angry_2: 1381057131
+      SCB_Zombie_angry_5: 1288420083
+      SCB_Zombie_angry_0: 86867250
+      SCB_Zombie_angry_3: 889524562
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

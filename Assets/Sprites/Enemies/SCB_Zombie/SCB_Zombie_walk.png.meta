@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d11f08abe65ce464389122b440c277a2
+guid: fc8afd18fbfeb22498b45beaaa3161bb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -105,34 +105,34 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fish walk_0
+      name: SCB_Zombie_walk_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 18
-        height: 18
-      alignment: 0
+        y: 10
+        width: 8
+        height: 10
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 114d8d52d24ca4848a6529283c84dcfd
-      internalID: 1242788603
+      spriteID: 9064bcc79ca4c3743b20cf5853d99d08
+      internalID: 354147590
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fish walk_1
+      name: SCB_Zombie_walk_1
       rect:
         serializedVersion: 2
-        x: 18
-        y: 0
-        width: 18
-        height: 18
+        x: 8
+        y: 10
+        width: 8
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +140,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5629403b3f08a4b498c8addc82627b84
-      internalID: 1674866671
+      spriteID: e8abb5511b8b4df4b9d550f2a4ecd1b9
+      internalID: -1712988790
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fish walk_2
+      name: SCB_Zombie_walk_2
       rect:
         serializedVersion: 2
-        x: 36
-        y: 0
-        width: 18
-        height: 18
+        x: 16
+        y: 10
+        width: 8
+        height: 10
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60976c4e0ae66d548ab701244dc25f75
+      internalID: -348339086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SCB_Zombie_walk_3
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 10
+        width: 8
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,20 +182,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9cd560d987120947b357b7cfc4e27e4
-      internalID: 770850603
+      spriteID: ad7e23866630cd84ea7d2bbba1f6ea3d
+      internalID: -1129973800
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fish walk_3
+      name: SCB_Zombie_walk_4
       rect:
         serializedVersion: 2
-        x: 54
-        y: 0
-        width: 18
-        height: 18
+        x: 32
+        y: 10
+        width: 8
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,20 +203,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d425ef5fcaefc6d42a2bd195e2e725b4
-      internalID: -1115321751
+      spriteID: 0d7b53f5ed51c304d8752b68182ab72f
+      internalID: 2078563134
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fish walk_4
+      name: SCB_Zombie_walk_5
       rect:
         serializedVersion: 2
-        x: 72
-        y: 0
-        width: 18
-        height: 18
+        x: 40
+        y: 10
+        width: 8
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,20 +224,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a70e109e5bb293f43aee1c75b9a46f64
-      internalID: 1141810947
+      spriteID: e90e2f867cb4c934cb87e86ffa8dcd4e
+      internalID: 2134962706
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fish walk_5
+      name: SCB_Zombie_walk_6
       rect:
         serializedVersion: 2
-        x: 90
+        x: 0
         y: 0
-        width: 18
-        height: 18
+        width: 8
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,8 +245,113 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a1f5bed68f7cb243a64333786ab5660
-      internalID: 279598471
+      spriteID: c928711a8ed0f1e4d9352eee8e191ae8
+      internalID: -1465323267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SCB_Zombie_walk_7
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 0
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23e76c9d877941a4490c99f57de2cefa
+      internalID: -1527527023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SCB_Zombie_walk_8
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c78f6d303c16854f8847bf0764e710b
+      internalID: -1251682220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SCB_Zombie_walk_9
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 8
+        height: 10
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8673a736ce9ba3843ae8568809c4e18f
+      internalID: 1306525851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SCB_Zombie_walk_10
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78cbf522d7c9d2243b1549958bd588df
+      internalID: -2140589183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SCB_Zombie_walk_11
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 0
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 665829e7a0d668a4495e9b6ed8fd571d
+      internalID: -590321459
       vertices: []
       indices: 
       edges: []
@@ -241,12 +367,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Fish walk_3: -1115321751
-      Fish walk_2: 770850603
-      Fish walk_5: 279598471
-      Fish walk_0: 1242788603
-      Fish walk_1: 1674866671
-      Fish walk_4: 1141810947
+      SCB_Zombie_walk_2: -348339086
+      SCB_Zombie_walk_5: 2134962706
+      SCB_Zombie_walk_0: 354147590
+      SCB_Zombie_walk_6: -1465323267
+      SCB_Zombie_walk_1: -1712988790
+      SCB_Zombie_walk_3: -1129973800
+      SCB_Zombie_walk_11: -590321459
+      SCB_Zombie_walk_7: -1527527023
+      SCB_Zombie_walk_8: -1251682220
+      SCB_Zombie_walk_10: -2140589183
+      SCB_Zombie_walk_4: 2078563134
+      SCB_Zombie_walk_9: 1306525851
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

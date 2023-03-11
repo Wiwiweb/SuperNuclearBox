@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4324721581851887910}
   - component: {fileID: 4324721581851887911}
   - component: {fileID: 4324721581851887904}
-  - component: {fileID: -7452254207364112423}
   - component: {fileID: 1280031153068292637}
+  - component: {fileID: 3030059132830668204}
   - component: {fileID: 9086441295236776084}
   m_Layer: 0
   m_Name: SCB_Fattie
@@ -77,12 +77,12 @@ SpriteRenderer:
   m_SortingLayerID: -365946841
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9c786f058b62533469f5aee579225810, type: 3}
+  m_Sprite: {fileID: 1428387364, guid: 6f9bbb26339d2774b83c29c621fac5f5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.19, y: 0.18}
+  m_Size: {x: 0.2, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -108,22 +108,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!58 &-7452254207364112423
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4324721581851887905}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.095
 --- !u!50 &1280031153068292637
 Rigidbody2D:
   serializedVersion: 4
@@ -145,6 +129,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &3030059132830668204
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4324721581851887905}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.005}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.47368422}
+    oldSize: {x: 0.2, y: 0.19}
+    newSize: {x: 0.2, y: 0.2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.21, y: 0.205}
+  m_EdgeRadius: 0
 --- !u!114 &9086441295236776084
 MonoBehaviour:
   m_ObjectHideFlags: 0
