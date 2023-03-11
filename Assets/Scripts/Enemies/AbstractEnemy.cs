@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using static GameManager;
 
 public abstract class AbstractEnemy : MonoBehaviour
 {
@@ -8,8 +10,11 @@ public abstract class AbstractEnemy : MonoBehaviour
   private SpriteRenderer spriteRenderer;
   private Material originalMaterial;
   private Material flashMaterial;
-  private float flashDuration = 0.1f;
   private Coroutine flashRoutine;
+
+  private const float FlashDuration = 0.1f;
+  private const float HitStopOnHitDuration = 20/1000;
+  private const float HitStopOnDeathDuration = 80/1000;
 
   public void Start()
   {
@@ -23,11 +28,14 @@ public abstract class AbstractEnemy : MonoBehaviour
     health -= bullet.GetComponent<BulletController>().damage;
     if (health <= 0)
     {
-      Destroy(gameObject);
+      FlashSprite();
+      Action callback = () => { Destroy(gameObject); };
+      GameManager.instance.HitStop(HitStopOnDeathDuration, callback);
     }
     else
     {
       FlashSprite();
+      GameManager.instance.HitStop(HitStopOnHitDuration);
     }
   }
 
@@ -44,7 +52,7 @@ public abstract class AbstractEnemy : MonoBehaviour
   private IEnumerator FlashRoutine()
   {
     spriteRenderer.material = flashMaterial;
-    yield return new WaitForSeconds(flashDuration);
+    yield return new WaitForSeconds(FlashDuration);
     spriteRenderer.material = originalMaterial;
     flashRoutine = null;
   }

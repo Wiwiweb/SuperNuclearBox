@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -27,8 +29,9 @@ public class GameManager : MonoBehaviour
 
   public GameObject box;
   public GameObject player;
-  
+
   private CameraController cameraScript;
+  private Coroutine hitStopRoutine;
 
   void Awake() {
       instance = this;
@@ -75,5 +78,25 @@ public class GameManager : MonoBehaviour
     Vector3 boxSpawnPosition = wallTilemap.GetCellCenterWorld(new Vector3Int(chosenSpawnTile.x, chosenSpawnTile.y, 1));
     boxSpawnPosition.z = 1;
     box = Instantiate(boxPrefab, boxSpawnPosition, Quaternion.identity);
+  }
+
+  public void HitStop(float duration, Action callback = null)
+  {
+    if (hitStopRoutine != null)
+    {
+      StopCoroutine(hitStopRoutine);
+    }
+    hitStopRoutine = StartCoroutine(HitStopRoutine(duration, callback));
+  }
+
+  private IEnumerator HitStopRoutine(float duration, Action callback)
+  {
+    Time.timeScale = 0;
+    yield return new WaitForSecondsRealtime(duration);
+    Time.timeScale = 1;
+    if (callback is not null) { 
+      callback();
+    }
+    hitStopRoutine = null;
   }
 }
