@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6086605418394018534}
   - component: {fileID: -1110040051503383363}
   - component: {fileID: -883316606899245973}
+  - component: {fileID: 525763871618917578}
   m_Layer: 0
   m_Name: SCB_Zombie
   m_TagString: Enemy
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: -365946841
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fd8427ad7796fdb46a44a3caf21807a8, type: 3}
+  m_Sprite: {fileID: 354147590, guid: fc8afd18fbfeb22498b45beaaa3161bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -144,3 +145,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &525763871618917578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6086605418394018529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e200255368d667a4f93255ec86404b2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 2
+  speed: 1.5
+  positionMarkerPrefab: {fileID: 0}
+  movementDirection: {x: 0, y: 0}

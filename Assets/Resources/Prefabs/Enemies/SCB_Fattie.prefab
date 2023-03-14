@@ -155,12 +155,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4324721581851887905}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32ac00694ef4ba44ea1ded816abb7ff9, type: 3}
+  m_Script: {fileID: 11500000, guid: e200255368d667a4f93255ec86404b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
   speed: 0.5
-  positionMarkerPrefab: {fileID: 4035356263368579181, guid: ec51dd2824424e94987a852528f791eb, type: 3}
+  positionMarkerPrefab: {fileID: 0}
   movementDirection: {x: 0, y: 0}
 --- !u!61 &157029049850239648
 BoxCollider2D:
