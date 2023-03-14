@@ -70,6 +70,11 @@ public class PlayerController : MonoBehaviour
     }
   }
 
+  public void Die()
+  {
+    Destroy(gameObject);
+  }
+
   public void Move(InputAction.CallbackContext context)
   {
     movementDirection = context.ReadValue<Vector2>();
