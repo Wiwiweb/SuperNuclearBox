@@ -94,7 +94,7 @@ public class LevelRandomGenerator
 
           // Turn
           bool hasTurned;
-          walker.direction = weightedRandomRotation(walker.direction, out hasTurned);
+          (walker.direction, hasTurned) = weightedRandomRotation(walker.direction);
           if (hasTurned)
           {
             boxSpawnPoints.Add(new Vector2Int(walker.position.x, walker.position.y));
@@ -170,30 +170,28 @@ public class LevelRandomGenerator
     }
   }
 
-  private Vector2Int weightedRandomRotation(Vector2Int direction, out bool spawnBox)
+  private (Vector2Int, bool turnedAround) weightedRandomRotation(Vector2Int direction)
   {
-    spawnBox = false;
     float rotationChance = Random.Range(0f, 1f);
 
     if (rotationChance < TurnChanceLeft)
     {
-      return rotateLeft(direction);
+      return (rotateLeft(direction), false);
     }
 
     rotationChance -= TurnChanceLeft;
     if (rotationChance < TurnChanceRight)
     {
-      return rotateRight(direction);
+      return (rotateRight(direction), false);
     }
 
     rotationChance -= TurnChanceRight;
     if (rotationChance < TurnChanceRight)
     {
-      spawnBox = false;
-      return rotate180(direction);
+      return (rotate180(direction), true);
     }
 
-    return direction;
+    return (direction, false);
   }
 
   private Vector2Int rotateLeft(Vector2Int v)

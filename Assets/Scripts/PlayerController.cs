@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
   void FixedUpdate()
   {
     Vector2 newPosition = (Vector2)transform.position + movementDirection * speed * Time.fixedDeltaTime;
-    newPosition = RoundToPixel(newPosition);
+    (newPosition, _) = RoundToPixel(newPosition);
     rigidbody.MovePosition(newPosition);
   }
 
