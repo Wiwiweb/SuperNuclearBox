@@ -113,8 +113,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0}
-  speed: 15
-  damage: 3
+  speed: 5
+  damage: 1
 --- !u!70 &6703918226437812395
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
