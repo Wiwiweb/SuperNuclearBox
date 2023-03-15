@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/UI%20style.uss?fileID=7433441132597879392&amp;guid=ea4ec7d132018c64ab82a82613707c11&amp;type=3#UI style" />
+    <ui:Label text="0" display-tooltip-when-elided="true" name="BoxScore" class="pixel-text" style="height: 37px; width: 67px; justify-content: flex-start; -unity-text-align: middle-center;" />
+    <ui:VisualElement style="flex-direction: row;">
+        <ui:Label text="Best:" display-tooltip-when-elided="true" class="pixel-text" style="-unity-font: url(&apos;project://database/Assets/Fonts/PrStart.ttf?fileID=12800000&amp;guid=8314a1f195dcfcd4db77fa0e028832e8&amp;type=3#PrStart&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/PrStart%20SDF.asset?fileID=11400000&amp;guid=c852a9031395f1f43a453f794df661a2&amp;type=2#PrStart SDF&apos;); font-size: 10px; height: 14px; width: 51px; -unity-text-align: middle-center;" />
+        <ui:Label text="0" display-tooltip-when-elided="true" name="BestBoxScore" class="pixel-text" style="width: 36px; font-size: 10px; height: 14px; -unity-text-align: middle-left; align-items: flex-start;" />
+    </ui:VisualElement>
+</ui:UXML>

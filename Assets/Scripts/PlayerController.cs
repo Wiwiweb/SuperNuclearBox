@@ -117,6 +117,7 @@ public class PlayerController : MonoBehaviour
       GameObject floatingText = Instantiate(floatingTextPrefab, box.transform.position, Quaternion.identity);
       floatingText.transform.GetChild(0).GetComponent<TextMeshPro>().SetText(equippedGun.gunName.ToUpper() + "!");
       Destroy(box);
+      GameManager.instance.IncrementBoxScore();
       GameManager.instance.spawnBox();
   }
 }

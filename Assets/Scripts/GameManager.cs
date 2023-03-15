@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 using UnityEngine.Tilemaps;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
@@ -10,11 +11,6 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
   public static GameManager instance;
-
-  [SerializeField]
-  private GameObject playerPrefab;
-  [SerializeField]
-  private GameObject boxPrefab;
 
   public Tilemap floorTilemap;
   public Tilemap wallTilemap;
@@ -27,11 +23,21 @@ public class GameManager : MonoBehaviour
   public Tilemap wallDecorationCornerBottomLeftTilemap;
   public Tilemap wallDecorationCornerBottomRightTilemap;
 
+  [SerializeField]
+  private GameObject playerPrefab;
+  [SerializeField]
+  private GameObject boxPrefab;
+  [SerializeField]
+  public VisualElement uiDocument;
+  
   public GameObject box;
   public GameObject player;
 
   private CameraController cameraScript;
   private Coroutine hitStopRoutine;
+  private int boxScore = 0;
+  private int bestBoxScore = 0;
+
 
   void Awake() {
       instance = this;
@@ -40,6 +46,7 @@ public class GameManager : MonoBehaviour
   void Start()
   {
     cameraScript = Camera.main.GetComponent<CameraController>();
+
     LevelManager.CreateLevel();
     spawnPlayer();
     spawnBox();
@@ -98,5 +105,15 @@ public class GameManager : MonoBehaviour
       callback();
     }
     hitStopRoutine = null;
+  }
+
+  public void IncrementBoxScore()
+  {
+    boxScore++;
+    if (boxScore > bestBoxScore)
+    {
+      bestBoxScore = boxScore;
+    }
+    UIController.instance.UpdateLabels(boxScore, bestBoxScore);
   }
 }

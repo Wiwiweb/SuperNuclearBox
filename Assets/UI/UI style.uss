@@ -1,0 +1,14 @@
+.pixel-text {
+    white-space: nowrap;
+    height: 53px;
+    width: 78px;
+    justify-content: flex-start;
+    -unity-font-style: normal;
+    -unity-text-align: middle-center;
+    -unity-font: url('project://database/Assets/Fonts/PrStart.ttf?fileID=12800000&guid=8314a1f195dcfcd4db77fa0e028832e8&type=3#PrStart');
+    font-size: 30px;
+    -unity-font-definition: url('project://database/Assets/Fonts/PrStart%20SDF.asset?fileID=11400000&guid=c852a9031395f1f43a453f794df661a2&type=2#PrStart SDF');
+    -unity-text-outline-width: 0;
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 0 rgb(0, 0, 0);
+}
