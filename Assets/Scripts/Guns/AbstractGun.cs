@@ -16,6 +16,7 @@ public abstract class AbstractGun : MonoBehaviour
 
   protected Sprite gunSprite;
   protected GameObject bulletPrefab;
+  protected GameObject muzzleFlashPrefab;
   protected float cantFireUntil = 0;
 
   [SerializeField]
@@ -44,7 +45,9 @@ public abstract class AbstractGun : MonoBehaviour
       shootDirection = Quaternion.AngleAxis(inaccuracy, Vector3.forward) * shootDirection;
 
       Vector2 edgeOfGun = gunSpriteObject.transform.position + gunSpriteObject.transform.right * gunWidth/2 * transform.localScale.x;
-      GameObject bullet = Instantiate(bulletPrefab, edgeOfGun, Quaternion.LookRotation(Vector3.forward, shootDirection));
+      Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, shootDirection);
+      Instantiate(muzzleFlashPrefab, edgeOfGun, lookRotation);
+      GameObject bullet = Instantiate(bulletPrefab, edgeOfGun, lookRotation);
       BulletController bulletScript = bullet.GetComponent<BulletController>();
       bulletScript.direction = shootDirection;
   }

@@ -13,6 +13,7 @@ public class MachineGun : AbstractAutomaticGun
     cooldown = 0.2f;
     spread = 30;
     bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
+    muzzleFlashPrefab = Resources.Load<GameObject>("Prefabs/Bullet Muzzle Flash");
     gunSprite = Resources.Load<Sprite>("Weapon sprites/Machine gun");
     base.Start();
   }
