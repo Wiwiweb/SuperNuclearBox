@@ -10,7 +10,7 @@ public class Pistol : AbstractSemiAutoGun
 
   new void Start()
   {
-    cooldown = 0.3f;
+    cooldown = 0.2f;
     spread = 15;
     bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
     muzzleFlashPrefab = Resources.Load<GameObject>("Prefabs/Bullet Muzzle Flash");
