@@ -69,11 +69,23 @@ internal static class Util
     return movementDirection;
   }
 
-  public static void printStopwatch(Stopwatch stopwatch)
+  public static void PrintStopwatch(Stopwatch stopwatch)
   {
     stopwatch.Stop();
     Debug.Log($"Stopwatch: {stopwatch.ElapsedMilliseconds}");
     stopwatch.Reset();
     stopwatch.Start();
+  }
+
+  public static String CharArrayToString(Char[,] charArray)
+  {
+    var s = "";
+    for (int y = charArray.GetUpperBound(1); y >= 0; y--) {
+      for (int x = 0; x <= charArray.GetUpperBound(0); x++) {
+            s += charArray[x,y];
+      }
+      s += '\n';
+    }
+    return s;
   }
 }

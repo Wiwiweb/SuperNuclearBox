@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class LevelRandomGenerator
 {
-  private class FloorWalker
+  public class FloorWalker
   {
     public FloorWalker(Vector2Int position, Vector2Int direction)
     {
@@ -18,13 +18,28 @@ public class LevelRandomGenerator
     public Vector2Int direction;
   }
 
+  private class PremadeSquareRoom
+  {
+    public PremadeSquareRoom(float spawnProbability, int size)
+    {
+      this.probability = spawnProbability;
+      this.size = size;
+    }
+
+    public float probability;
+    public int size;
+  }
+
   public int FloorsMax = 300;
   public float TurnChanceLeft = 2 / 14f;
   public float TurnChanceRight = 2 / 14f;
   public float TurnChance180 = 1 / 14f;
   public int WalkersMax = 5;
-  public float WalkerSpawnChance = 1 / 8f;
+  public float WalkerSpawnChance = 1 / 16f;
   public float WalkerDieChance = 1 / 19f;
+  private PremadeSquareRoom[] premadeSquareRooms = new PremadeSquareRoom[] {
+    new PremadeSquareRoom(0.3f, 2)
+  };
 
   public LevelData GenerateRandomLevel()
   {
@@ -41,7 +56,7 @@ public class LevelRandomGenerator
     Vector2Int startPoint = new Vector2Int(center, center);
 
     List<FloorWalker> floorWalkers = new List<FloorWalker>();
-    floorWalkers.Add(new FloorWalker(startPoint, randomDirection()));
+    floorWalkers.Add(new FloorWalker(startPoint, RandomDirection()));
     List<FloorWalker> floorWalkersToDie = new List<FloorWalker>();
     List<FloorWalker> floorWalkersToSpawn = new List<FloorWalker>();
 
@@ -56,32 +71,59 @@ public class LevelRandomGenerator
     int maxX = center;
     int minY = center;
     int maxY = center;
+
+    void markAsFloor(Vector2Int position) {
+      if (levelTiles[position.x, position.y] != TileType.Floor)
+      {
+        levelTiles[position.x, position.y] = TileType.Floor;
+        enemySpawnPoints.Add(position);
+        nbFloors++;
+        minX = Math.Min(minX, position.x);
+        maxX = Math.Max(maxX, position.x);
+        minY = Math.Min(minY, position.y);
+        maxY = Math.Max(maxY, position.y);
+      }
+    }
+
     while (nbFloors < FloorsMax && i < 10000)
     {
       foreach (FloorWalker walker in floorWalkers)
       {
-        if (levelTiles[walker.position.x, walker.position.y] != TileType.Floor)
+        // Mark as floor
+        markAsFloor(walker.position);
+
+        // Spawn premade square room
+        int roomSize = GetRandomPremadeSquareRoomSize();
+        if (roomSize > 0)
         {
-          levelTiles[walker.position.x, walker.position.y] = TileType.Floor;
-          enemySpawnPoints.Add(new Vector2Int(walker.position.x, walker.position.y));
-          nbFloors++;
-          minX = Math.Min(minX, walker.position.x);
-          maxX = Math.Max(maxX, walker.position.x);
-          minY = Math.Min(minY, walker.position.y);
-          maxY = Math.Max(maxY, walker.position.y);
-          if (nbFloors >= FloorsMax)
+          int randomXOffset = Random.Range(0, roomSize);
+          int randomYOffset = Random.Range(0, roomSize);
+          for (int x = walker.position.x - randomXOffset; x < walker.position.x - randomXOffset + roomSize; x++)
           {
-            floorWalkersToDie.Clear();
-            floorWalkersToSpawn.Clear();
-            break;
+            for (int y = walker.position.y - randomYOffset; y < walker.position.y - randomYOffset + roomSize; y++)
+            {
+              markAsFloor(new Vector2Int(x, y));
+            }
           }
         }
+
+        // Stop level generation if it's big enough
+        if (nbFloors >= FloorsMax)
+        {
+          floorWalkersToDie.Clear();
+          floorWalkersToSpawn.Clear();
+          break;
+        }
+
         // Die
         float spawnDieChance = Random.Range(0f, 1f);
-        if (floorWalkers.Count - floorWalkersToDie.Count + floorWalkersToSpawn.Count > 1 && spawnDieChance < WalkerDieChance)
+        if (spawnDieChance < WalkerDieChance)
         {
-          floorWalkersToDie.Add(walker);
-          boxSpawnPoints.Add(new Vector2Int(walker.position.x, walker.position.y));
+          if (floorWalkers.Count - floorWalkersToDie.Count + floorWalkersToSpawn.Count > 1)
+          {
+            floorWalkersToDie.Add(walker);
+            boxSpawnPoints.Add(new Vector2Int(walker.position.x, walker.position.y));
+          }
         }
         else
         {
@@ -89,12 +131,12 @@ public class LevelRandomGenerator
           // Spawn
           if (floorWalkers.Count - floorWalkersToDie.Count + floorWalkersToSpawn.Count < WalkersMax && spawnDieChance < WalkerSpawnChance)
           {
-            floorWalkersToSpawn.Add(new FloorWalker(walker.position, randomDirection()));
+            floorWalkersToSpawn.Add(new FloorWalker(walker.position, RandomDirection()));
           }
 
           // Turn
           bool hasTurned;
-          (walker.direction, hasTurned) = weightedRandomRotation(walker.direction);
+          (walker.direction, hasTurned) = WeightedRandomRotation(walker.direction);
           if (hasTurned)
           {
             boxSpawnPoints.Add(new Vector2Int(walker.position.x, walker.position.y));
@@ -117,6 +159,7 @@ public class LevelRandomGenerator
       floorWalkersToSpawn.Clear();
 
       i++;
+      // DebugLogVisualisation(levelTiles, floorWalkers, minX, maxX, minY, maxY);
     }
 
     // Include boundary walls
@@ -153,7 +196,7 @@ public class LevelRandomGenerator
     return new LevelData(shrunkLevelTiles, spawnCoordinates, boxSpawnPointsList, enemySpawnPointsList);
   }
 
-  private Vector2Int randomDirection()
+  private Vector2Int RandomDirection()
   {
     switch (Random.Range(0, 4))
     {
@@ -170,42 +213,99 @@ public class LevelRandomGenerator
     }
   }
 
-  private (Vector2Int, bool turnedAround) weightedRandomRotation(Vector2Int direction)
+  private (Vector2Int, bool turnedAround) WeightedRandomRotation(Vector2Int direction)
   {
     float rotationChance = Random.Range(0f, 1f);
 
     if (rotationChance < TurnChanceLeft)
     {
-      return (rotateLeft(direction), false);
+      return (RotateLeft(direction), false);
     }
 
     rotationChance -= TurnChanceLeft;
     if (rotationChance < TurnChanceRight)
     {
-      return (rotateRight(direction), false);
+      return (RotateRight(direction), false);
     }
 
     rotationChance -= TurnChanceRight;
     if (rotationChance < TurnChanceRight)
     {
-      return (rotate180(direction), true);
+      return (Rotate180(direction), true);
     }
 
     return (direction, false);
   }
 
-  private Vector2Int rotateLeft(Vector2Int v)
+  private Vector2Int RotateLeft(Vector2Int v)
   {
     return new Vector2Int(v.y * -1, v.x);
   }
 
-  private Vector2Int rotateRight(Vector2Int v)
+  private Vector2Int RotateRight(Vector2Int v)
   {
     return new Vector2Int(v.y, v.x * -1);
   }
 
-  private Vector2Int rotate180(Vector2Int v)
+  private Vector2Int Rotate180(Vector2Int v)
   {
     return v * -1;
+  }
+
+  private int GetRandomPremadeSquareRoomSize()
+  {
+    float roomChance = Random.Range(0f, 1f);
+    foreach(PremadeSquareRoom room in premadeSquareRooms)
+    {
+      if (roomChance <= room.probability)
+      {
+        return room.size;
+      }
+      roomChance -= room.probability;
+    }
+    return 0;
+  }
+
+  private void DebugLogVisualisation(TileType[,] levelTiles, List<FloorWalker> floorWalkers, int minX, int maxX, int minY, int maxY)
+  {
+    String s = DebugLogString(levelTiles, floorWalkers, minX, maxX, minY, maxY);
+    // Debug.ClearDeveloperConsole();
+    // Console.WriteLine(s);
+    Debug.Log(s);
+    Debug.Break();
+  }
+
+  private String DebugLogString(TileType[,] levelTiles, List<FloorWalker> floorWalkers, int minX, int maxX, int minY, int maxY)
+  {
+    foreach (FloorWalker walker in floorWalkers)
+    {
+      minX = Math.Min(minX, walker.position.x);
+      minY = Math.Min(minY, walker.position.y);
+      maxX = Math.Max(maxX, walker.position.x);
+      maxY = Math.Max(maxY, walker.position.y);
+    }
+
+    Char[,] charArray = new Char[maxX-minX+1, maxY-minY+1];
+    for (int x = minX; x <= maxX; x++)
+    {
+      for (int y = minY; y <= maxY; y++)
+      {
+        if (levelTiles[x,y] == TileType.Floor)
+        {
+          charArray[x-minX, y-minY] = '#';
+        } 
+        else
+        {
+          charArray[x-minX, y-minY] = '.';
+        }
+      }
+    }
+
+    foreach (FloorWalker walker in floorWalkers)
+    {
+      charArray[walker.position.x-minX, walker.position.y-minY] = 'F';
+    }
+
+    return Util.CharArrayToString(charArray);
   }
 }
