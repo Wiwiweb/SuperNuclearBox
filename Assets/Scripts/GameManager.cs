@@ -48,8 +48,10 @@ public class GameManager : MonoBehaviour
     cameraScript = Camera.main.GetComponent<CameraController>();
 
     LevelManager.CreateLevel();
-    spawnPlayer();
-    spawnBox();
+    SpawnPlayer();
+    SpawnBox();
+    EnemySpawnManager.Init();
+    EnemySpawnManager.UpdateEnemySpawns();
   }
 
   void Update()
@@ -60,13 +62,23 @@ public class GameManager : MonoBehaviour
       Destroy(player);
       Destroy(box);
       LevelManager.CreateLevel();
-      spawnPlayer();
-      spawnBox();
+      SpawnPlayer();
+      SpawnBox();
+      EnemySpawnManager.ResetEnemyPoints();
     }
-
+    EnemySpawnManager.UpdateEnemySpawns();
   }
 
-  private void spawnPlayer()
+  private void NewLevel()
+  {
+    LevelManager.CreateLevel();
+    SpawnPlayer();
+    SpawnBox();
+    EnemySpawnManager.ResetEnemyPoints();
+    EnemySpawnManager.UpdateEnemySpawns();
+  }
+
+  private void SpawnPlayer()
   {
     Vector2Int spawnPointTile = LevelManager.level.spawnPointTile;
     Debug.Log($"Player spawn tile: {spawnPointTile}");
@@ -76,7 +88,7 @@ public class GameManager : MonoBehaviour
     cameraScript.player = player;
   }
 
-  public void spawnBox()
+  public void SpawnBox()
   {
     List<Vector2Int> possibleSpawnTiles = LevelManager.level.boxSpawnPoints;
     int chosenSpawnTileIndex = Random.Range(0, possibleSpawnTiles.Count);
