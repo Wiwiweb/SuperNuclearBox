@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour
   public void Die()
   {
     Destroy(gameObject);
+    GameManager.instance.dead = true;
   }
 
   public void Move(InputAction.CallbackContext context)

@@ -29,7 +29,6 @@ public class BulletController : MonoBehaviour
     }
     else if (other.CompareTag("Enemy"))
     {
-      Debug.Log("ENEMY HIT");
       AbstractEnemy otherScript = other.GetComponent<AbstractEnemy>();
       otherScript.onBulletHit(gameObject);
       Destroy(gameObject);

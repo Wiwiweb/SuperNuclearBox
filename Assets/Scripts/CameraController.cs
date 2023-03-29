@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
 
   void Update()
   {
-    if (player is not null)
+    if (!GameManager.instance.dead)
     {
       Vector2 mousePosition = Mouse.current.position.ReadValue();
       mousePosition.x = Mathf.Clamp(mousePosition.x, 0, Camera.main.pixelWidth);
