@@ -19,8 +19,8 @@ public static class EnemySpawnManager
 
   public static List<EnemySpawnEntry> enemySpawnTable = new List<EnemySpawnEntry>();
 
-  public static float minSpawnDistanceToPlayer = 20;
-  public static float enemyPointsAtStart = 10;
+  public static float minSpawnDistanceToPlayer = 2;
+  public static float enemyPointsAtStart = 3;
   public static float enemyPointGainPerSec = 1;
 
   public static float enemyPoints;
@@ -35,6 +35,7 @@ public static class EnemySpawnManager
     List<EnemySpawnEntry> allEnemies = new List<EnemySpawnEntry>();
     allEnemies.Add(new EnemySpawnEntry(3, 3, GetEnemyPrefab("SCB_Zombie")));
     allEnemies.Add(new EnemySpawnEntry(1, 1, GetEnemyPrefab("SCB_Fattie")));
+    allEnemies.Add(new EnemySpawnEntry(2, 1, GetEnemyPrefab("SCB_FlameSkull")));
 
     foreach(EnemySpawnEntry entry in allEnemies)
     {
@@ -64,7 +65,7 @@ public static class EnemySpawnManager
         Vector2Int spawnPointTile = getRandomSpawnPosition();
         spawnPosition = GameManager.instance.wallTilemap.GetCellCenterWorld(new Vector3Int(spawnPointTile.x, spawnPointTile.y, 1));
         spawnPosition.z = 1;
-      } while (Vector3.Distance(spawnPosition, GameManager.instance.player.transform.position) > minSpawnDistanceToPlayer);
+      } while (Vector3.Distance(spawnPosition, GameManager.instance.player.transform.position) < minSpawnDistanceToPlayer);
       Object.Instantiate(enemy.prefab, spawnPosition, Quaternion.identity);
       enemyPoints -= enemy.points;
     }

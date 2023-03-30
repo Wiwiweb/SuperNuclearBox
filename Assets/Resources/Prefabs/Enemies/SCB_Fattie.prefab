@@ -12,10 +12,9 @@ GameObject:
   - component: {fileID: 4324721581851887911}
   - component: {fileID: 4324721581851887904}
   - component: {fileID: 1280031153068292637}
-  - component: {fileID: 7181166871557010244}
-  - component: {fileID: 9086441295236776084}
   - component: {fileID: 157029049850239648}
-  m_Layer: 0
+  - component: {fileID: 9086441295236776084}
+  m_Layer: 6
   m_Name: SCB_Fattie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -130,38 +129,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &7181166871557010244
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4324721581851887905}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.0050000027}
-  serializedVersion: 2
-  m_Radius: 0.1
---- !u!114 &9086441295236776084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4324721581851887905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e200255368d667a4f93255ec86404b2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 5
-  speed: 0.5
-  positionMarkerPrefab: {fileID: 0}
-  movementDirection: {x: 0, y: 0}
 --- !u!61 &157029049850239648
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -188,3 +155,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.19}
   m_EdgeRadius: 0
+--- !u!114 &9086441295236776084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4324721581851887905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e200255368d667a4f93255ec86404b2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+  speed: 0.5
+  movementDirection: {x: 0, y: 0}

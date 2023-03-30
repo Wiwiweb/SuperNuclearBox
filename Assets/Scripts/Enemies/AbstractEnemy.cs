@@ -56,4 +56,12 @@ public abstract class AbstractEnemy : MonoBehaviour
     spriteRenderer.material = originalMaterial;
     flashRoutine = null;
   }
+
+  private void OnCollisionEnter2D(Collision2D collision)
+  {
+    if (collision.collider.gameObject.tag.Equals("Player"))
+    {
+      collision.collider.gameObject.GetComponent<PlayerController>().Die();
+    }
+  }
 }

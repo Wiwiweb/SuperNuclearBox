@@ -14,10 +14,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Unit
+  - Flying unit
+  - Bullet
+  - Wall
   - 
   - 
   - 
@@ -55,6 +55,9 @@ TagManager:
     locked: 0
   - name: Wall decorations over
     uniqueID: 1123393713
+    locked: 0
+  - name: Flying units
+    uniqueID: 4139478485
     locked: 0
   - name: Projectiles
     uniqueID: 1223587489

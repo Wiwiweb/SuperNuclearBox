@@ -9,9 +9,6 @@ public class SCB_BouncingEnemy : AbstractEnemy
   private float speed;
 
   [SerializeField]
-  private GameObject positionMarkerPrefab;
-
-  [SerializeField]
   private Vector2 movementDirection;
   private new Rigidbody2D rigidbody;
   private Vector2 subPixelPosition = Vector2.zero; // Necessary for moving at every angle
