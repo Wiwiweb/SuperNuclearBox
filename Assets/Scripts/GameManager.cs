@@ -24,16 +24,17 @@ public class GameManager : MonoBehaviour
   public Tilemap wallDecorationCornerBottomLeftTilemap;
   public Tilemap wallDecorationCornerBottomRightTilemap;
 
+  public GameObject box;
+  public GameObject player;
+  public bool dead = false;
+
   [SerializeField]
   private GameObject playerPrefab;
   [SerializeField]
   private GameObject boxPrefab;
   [SerializeField]
-  public VisualElement uiDocument;
-  
-  public GameObject box;
-  public GameObject player;
-  public bool dead = false;
+  private float minBoxSpawnDistanceToPlayer = 2;
+
 
   private CameraController cameraScript;
   private Coroutine hitStopRoutine;
@@ -89,10 +90,15 @@ public class GameManager : MonoBehaviour
   public void SpawnBox()
   {
     List<Vector2Int> possibleSpawnTiles = LevelManager.level.boxSpawnPoints;
-    int chosenSpawnTileIndex = Random.Range(0, possibleSpawnTiles.Count);
-    Vector2Int chosenSpawnTile = possibleSpawnTiles[chosenSpawnTileIndex];
-    Vector3 boxSpawnPosition = wallTilemap.GetCellCenterWorld(new Vector3Int(chosenSpawnTile.x, chosenSpawnTile.y, 1));
-    boxSpawnPosition.z = 1;
+    Vector3 boxSpawnPosition;
+    do
+    {
+      int chosenSpawnTileIndex = Random.Range(0, possibleSpawnTiles.Count);
+      Vector2Int chosenSpawnTile = possibleSpawnTiles[chosenSpawnTileIndex];
+      boxSpawnPosition = wallTilemap.GetCellCenterWorld(new Vector3Int(chosenSpawnTile.x, chosenSpawnTile.y, 1));
+      boxSpawnPosition.z = 1;
+    } while (Vector3.Distance(boxSpawnPosition, player.transform.position) < minBoxSpawnDistanceToPlayer);
+
     box = Instantiate(boxPrefab, boxSpawnPosition, Quaternion.identity);
   }
 

@@ -19,11 +19,11 @@ public static class EnemySpawnManager
 
   public static List<EnemySpawnEntry> enemySpawnTable = new List<EnemySpawnEntry>();
 
-  public static float minSpawnDistanceToPlayer = 2;
-  public static float enemyPointsAtStart = 3;
-  public static float enemyPointGainPerSec = 1;
+  private static float minSpawnDistanceToPlayer = 2;
+  private static float enemyPointsAtStart = 3;
+  private static float enemyPointGainPerSec = 1;
 
-  public static float enemyPoints;
+  private static float enemyPoints;
 
   private static GameObject GetEnemyPrefab(string name)
   {
