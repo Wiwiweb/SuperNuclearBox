@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     SpawnBox();
     EnemySpawnManager.Init();
     EnemySpawnManager.UpdateEnemySpawns();
-    UIController.instance.UpdateLabels(boxScore, PersistentData.BestBoxScore);
+    UIController.instance.UpdateScoreLabels(boxScore, PersistentData.BestBoxScore);
   }
 
   void Update()
@@ -123,6 +123,6 @@ public class GameManager : MonoBehaviour
     {
       PersistentData.BestBoxScore = boxScore;
     }
-    UIController.instance.UpdateLabels(boxScore, PersistentData.BestBoxScore);
+    UIController.instance.UpdateScoreLabels(boxScore, PersistentData.BestBoxScore);
   }
 }

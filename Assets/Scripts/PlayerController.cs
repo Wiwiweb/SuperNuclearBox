@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
   {
     Destroy(gameObject);
     GameManager.instance.dead = true;
+    UIController.instance.ToggleDeadTextVisible(true);
   }
 
   public void Move(InputAction.CallbackContext context)
