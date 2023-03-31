@@ -1,10 +1,8 @@
 using UnityEngine;
 
-public class BulletController : MonoBehaviour
+public class LimitedRangeBulletController : BulletController
 {
-  public Vector2 direction;
-  public float speed = 20;
-  public float damage = 1;
+  public float speedDecrease = 1;
 
   private new Rigidbody2D rigidbody;
 
@@ -15,8 +13,16 @@ public class BulletController : MonoBehaviour
 
   void Update()
   {
-    Vector2 newPosition = (Vector2) transform.position + direction * speed * Time.deltaTime;
-    rigidbody.MovePosition(newPosition);
+    speed -= speedDecrease;
+    if (speed < 0)
+    {
+      Destroy(gameObject);
+    }
+    else
+    {
+      Vector2 newPosition = (Vector2)transform.position + direction * speed * Time.deltaTime;
+      rigidbody.MovePosition(newPosition);
+    }
   }
 
   private void OnTriggerEnter2D(Collider2D other)

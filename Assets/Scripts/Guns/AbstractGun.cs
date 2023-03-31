@@ -49,6 +49,14 @@ public abstract class AbstractGun : MonoBehaviour
       Instantiate(muzzleFlashPrefab, edgeOfGun, lookRotation);
       GameObject bullet = Instantiate(bulletPrefab, edgeOfGun, lookRotation);
       BulletController bulletScript = bullet.GetComponent<BulletController>();
-      bulletScript.direction = shootDirection;
+      if (bulletScript is null)
+      {
+        LimitedRangeBulletController s = bullet.GetComponent<LimitedRangeBulletController>();
+        s.direction = shootDirection;
+      } 
+      else
+      {
+        bulletScript.direction = shootDirection;
+      }
   }
 }

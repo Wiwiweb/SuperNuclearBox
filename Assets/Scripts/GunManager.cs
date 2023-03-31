@@ -5,7 +5,8 @@ public static class GunManager
 {
   private static Type[] allGuns = {
     typeof(Pistol),
-    typeof(MachineGun),
+    // typeof(MachineGun),
+    typeof(Shotgun),
   };
 
   public static Type getRandomGunType()
