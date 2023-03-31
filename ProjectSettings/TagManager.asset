@@ -14,11 +14,11 @@ TagManager:
   - 
   - Water
   - UI
-  - Unit
-  - Flying unit
-  - Bullet
+  - Enemy unit
+  - Flying enemy unit
+  - Player
+  - Player bullet
   - Wall
-  - 
   - 
   - 
   - 
