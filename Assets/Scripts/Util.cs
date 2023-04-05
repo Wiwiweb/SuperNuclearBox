@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
+using Random = UnityEngine.Random;
 
 internal static class Util
 {
@@ -87,5 +89,18 @@ internal static class Util
       s += '\n';
     }
     return s;
+  }
+
+  public static Vector3 WorldPositionFromTile(Vector2Int tile)
+  {
+    Vector3 worldPosition = GameManager.instance.wallTilemap.GetCellCenterWorld(new Vector3Int(tile.x, tile.y, 1));
+    worldPosition.z = 1;
+    return worldPosition;
+  }
+
+  public static T RandomFromList<T>(List<T> list)
+  {
+      int chosenIndex = Random.Range(0, list.Count);
+      return list[chosenIndex];
   }
 }

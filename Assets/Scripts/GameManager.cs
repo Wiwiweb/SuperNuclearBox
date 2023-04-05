@@ -81,8 +81,7 @@ public class GameManager : MonoBehaviour
   private void SpawnPlayer()
   {
     Vector2Int spawnPointTile = LevelManager.level.spawnPointTile;
-    Vector3 playerSpawnPosition = wallTilemap.GetCellCenterWorld(new Vector3Int(spawnPointTile.x, spawnPointTile.y, 1));
-    playerSpawnPosition.z = 1;
+    Vector3 playerSpawnPosition = Util.WorldPositionFromTile(spawnPointTile);
     player = Instantiate(playerPrefab, playerSpawnPosition, Quaternion.identity);
     cameraScript.player = player;
   }
@@ -93,10 +92,8 @@ public class GameManager : MonoBehaviour
     Vector3 boxSpawnPosition;
     do
     {
-      int chosenSpawnTileIndex = Random.Range(0, possibleSpawnTiles.Count);
-      Vector2Int chosenSpawnTile = possibleSpawnTiles[chosenSpawnTileIndex];
-      boxSpawnPosition = wallTilemap.GetCellCenterWorld(new Vector3Int(chosenSpawnTile.x, chosenSpawnTile.y, 1));
-      boxSpawnPosition.z = 1;
+      Vector2Int chosenSpawnTile = Util.RandomFromList(possibleSpawnTiles);
+      boxSpawnPosition = Util.WorldPositionFromTile(chosenSpawnTile);
     } while (Vector3.Distance(boxSpawnPosition, player.transform.position) < minBoxSpawnDistanceToPlayer);
 
     box = Instantiate(boxPrefab, boxSpawnPosition, Quaternion.identity);

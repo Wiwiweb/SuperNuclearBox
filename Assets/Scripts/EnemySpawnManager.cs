@@ -63,8 +63,7 @@ public static class EnemySpawnManager
       do
       {
         Vector2Int spawnPointTile = getRandomSpawnPosition();
-        spawnPosition = GameManager.instance.wallTilemap.GetCellCenterWorld(new Vector3Int(spawnPointTile.x, spawnPointTile.y, 1));
-        spawnPosition.z = 1;
+        spawnPosition = Util.WorldPositionFromTile(spawnPointTile);
       } while (Vector3.Distance(spawnPosition, GameManager.instance.player.transform.position) < minSpawnDistanceToPlayer);
       Object.Instantiate(enemy.prefab, spawnPosition, Quaternion.identity);
       enemyPoints -= enemy.points;
@@ -73,13 +72,11 @@ public static class EnemySpawnManager
 
   public static EnemySpawnEntry getRandomEnemy()
   {
-    int index = Random.Range(0, enemySpawnTable.Count);
-    return enemySpawnTable[index];
+    return Util.RandomFromList(enemySpawnTable);
   }
 
   public static Vector2Int getRandomSpawnPosition()
   {
-    int index = Random.Range(0, LevelManager.level.enemySpawnPoints.Count);
-    return LevelManager.level.enemySpawnPoints[index];
+    return Util.RandomFromList(LevelManager.level.enemySpawnPoints);
   }
 }

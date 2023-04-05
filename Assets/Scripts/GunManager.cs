@@ -41,8 +41,7 @@ public static class GunManager
     String currentGun = GameManager.instance.player.GetComponent<PlayerController>().equippedGun.gunName;
     do
     {
-      int gunIndex = Random.Range(0, gunSpawnTable.Count);
-      chosenGun = gunSpawnTable[gunIndex].type;
+      chosenGun = Util.RandomFromList(gunSpawnTable).type;
     } while (chosenGun.Name == currentGun);
     return chosenGun;
   }
