@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
   [SerializeField]
   private float speed = 1.5f;
   [SerializeField]
-  private AbstractGun equippedGun;
+  public AbstractGun equippedGun;
 
   private Vector2 movementDirection = new Vector2(0, 0);
 
