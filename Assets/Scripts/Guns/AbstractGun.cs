@@ -36,27 +36,27 @@ public abstract class AbstractGun : MonoBehaviour
 
   protected void createBulletTowardsCursor(GameObject bulletPrefab)
   {
-      Vector2 mousePosition = Mouse.current.position.ReadValue();
-      mousePosition = camera.ScreenToWorldPoint(mousePosition);
+    Vector2 mousePosition = Mouse.current.position.ReadValue();
+    mousePosition = camera.ScreenToWorldPoint(mousePosition);
 
-      Vector2 shootDirection = mousePosition - (Vector2)transform.position;
-      shootDirection = shootDirection.normalized;
-      float inaccuracy = Random.Range(-spread/2, spread/2);
-      shootDirection = Quaternion.AngleAxis(inaccuracy, Vector3.forward) * shootDirection;
+    Vector2 shootDirection = mousePosition - (Vector2)transform.position;
+    shootDirection = shootDirection.normalized;
+    float inaccuracy = Random.Range(-spread / 2, spread / 2);
+    shootDirection = Quaternion.AngleAxis(inaccuracy, Vector3.forward) * shootDirection;
 
-      Vector2 edgeOfGun = gunSpriteObject.transform.position + gunSpriteObject.transform.right * gunWidth/2 * transform.localScale.x;
-      Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, shootDirection);
-      Instantiate(muzzleFlashPrefab, edgeOfGun, lookRotation);
-      GameObject bullet = Instantiate(bulletPrefab, edgeOfGun, lookRotation);
-      BulletController bulletScript = bullet.GetComponent<BulletController>();
-      if (bulletScript is null)
-      {
-        LimitedRangeBulletController s = bullet.GetComponent<LimitedRangeBulletController>();
-        s.direction = shootDirection;
-      } 
-      else
-      {
-        bulletScript.direction = shootDirection;
-      }
+    Vector2 edgeOfGun = gunSpriteObject.transform.position + gunSpriteObject.transform.right * gunWidth / 2 * transform.localScale.x;
+    Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, shootDirection);
+    Instantiate(muzzleFlashPrefab, edgeOfGun, lookRotation);
+    GameObject bullet = Instantiate(bulletPrefab, edgeOfGun, lookRotation);
+    BulletController bulletScript = bullet.GetComponent<BulletController>();
+    if (bulletScript is null)
+    {
+      LimitedRangeBulletController s = bullet.GetComponent<LimitedRangeBulletController>();
+      s.direction = shootDirection;
+    }
+    else
+    {
+      bulletScript.direction = shootDirection;
+    }
   }
 }

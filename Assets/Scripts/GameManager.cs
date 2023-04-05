@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
     SpawnBox();
     EnemySpawnManager.Init();
     EnemySpawnManager.UpdateEnemySpawns();
+    GunManager.Init();
     UIController.instance.UpdateScoreLabels(boxScore, PersistentData.BestBoxScore);
   }
 

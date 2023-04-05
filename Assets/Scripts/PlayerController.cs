@@ -110,16 +110,16 @@ public class PlayerController : MonoBehaviour
       onBoxPickup(other.gameObject);
     }
   }
-  
+
   private void onBoxPickup(GameObject box)
   {
-      Destroy(equippedGun);
-      Type newGunType = GunManager.getRandomGunType();
-      equippedGun = gameObject.AddComponent(newGunType) as AbstractGun;
-      GameObject floatingText = Instantiate(floatingTextPrefab, box.transform.position, Quaternion.identity);
-      floatingText.transform.GetChild(0).GetComponent<TextMeshPro>().SetText(equippedGun.gunName.ToUpper() + "!");
-      Destroy(box);
-      GameManager.instance.IncrementBoxScore();
-      GameManager.instance.SpawnBox();
+    Destroy(equippedGun);
+    Type newGunType = GunManager.getRandomGunType();
+    equippedGun = gameObject.AddComponent(newGunType) as AbstractGun;
+    GameObject floatingText = Instantiate(floatingTextPrefab, box.transform.position, Quaternion.identity);
+    floatingText.transform.GetChild(0).GetComponent<TextMeshPro>().SetText(equippedGun.gunName.ToUpper() + "!");
+    Destroy(box);
+    GameManager.instance.IncrementBoxScore();
+    GameManager.instance.SpawnBox();
   }
 }

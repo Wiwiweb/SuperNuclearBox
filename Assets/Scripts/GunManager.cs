@@ -17,7 +17,7 @@ public static class GunManager
     public Type type;
   }
 
-  public static List<GunEntry> gunSpawnTable = new List<GunEntry>();
+  public static List<Type> gunSpawnTable = new List<Type>();
 
   public static void Init()
   {
@@ -30,7 +30,7 @@ public static class GunManager
     {
       for (int i = 0; i < entry.probabilityWeight; i++)
       {
-        gunSpawnTable.Add(entry);
+        gunSpawnTable.Add(entry.type);
       }
     }
   }
@@ -38,11 +38,11 @@ public static class GunManager
   public static Type getRandomGunType()
   {
     Type chosenGun;
-    String currentGun = GameManager.instance.player.GetComponent<PlayerController>().equippedGun.gunName;
+    Type currentGun = GameManager.instance.player.GetComponent<PlayerController>().equippedGun.GetType();
     do
     {
-      chosenGun = Util.RandomFromList(gunSpawnTable).type;
-    } while (chosenGun.Name == currentGun);
+      chosenGun = Util.RandomFromList(gunSpawnTable);
+    } while (chosenGun == currentGun);
     return chosenGun;
   }
 }
