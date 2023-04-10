@@ -11,6 +11,8 @@ public abstract class AbstractGun : MonoBehaviour
   protected virtual float Cooldown { get; } = 0f;
   [field: SerializeField]
   protected virtual float Spread { get; } = 0f;
+  [field: SerializeField]
+  protected virtual int NbProjectiles { get; } = 1;
 
   public virtual void OnFirePush() { }
   public virtual void OnFireStop() { }
@@ -39,7 +41,15 @@ public abstract class AbstractGun : MonoBehaviour
     gunWidth = spriteRenderer.bounds.size.x;
   }
 
-  protected void createBulletTowardsCursor(GameObject bulletPrefab)
+  protected void createNBulletsTowardsCursor()
+  {
+    for (int i = 0; i < NbProjectiles; i++)
+    {
+      createBulletTowardsCursor();
+    }
+  }
+
+  protected void createBulletTowardsCursor()
   {
     Vector2 mousePosition = Mouse.current.position.ReadValue();
     mousePosition = camera.ScreenToWorldPoint(mousePosition);

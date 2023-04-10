@@ -6,7 +6,7 @@ public abstract class AbstractSemiAutoGun : AbstractGun
   {
     if (cantFireUntil < Time.time)
     {
-      createBulletTowardsCursor(bulletPrefab);
+      createNBulletsTowardsCursor();
       cantFireUntil = Time.time + Cooldown;
     }
   }
