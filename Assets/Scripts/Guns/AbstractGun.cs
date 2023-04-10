@@ -3,30 +3,35 @@ using UnityEngine.InputSystem;
 
 public abstract class AbstractGun : MonoBehaviour
 {
-  public abstract string gunName
-  {
-    get;
-  }
-  public abstract void onFirePush();
-  public abstract void onFireStop();
+  public abstract string GunName { get; }
+  protected abstract string GunSpritePath { get; }
+  protected abstract string BulletPrefabPath { get; }
+  protected abstract string MuzzleFlashPrefabPath { get; }
+  [field: SerializeField]
+  protected virtual float Cooldown { get; } = 0f;
+  [field: SerializeField]
+  protected virtual float Spread { get; } = 0f;
+
+  public virtual void OnFirePush() { }
+  public virtual void OnFireStop() { }
 
   private new Camera camera;
   private GameObject gunSpriteObject;
   private float gunWidth;
 
+  protected float cantFireUntil = 0;
+
   protected Sprite gunSprite;
   protected GameObject bulletPrefab;
   protected GameObject muzzleFlashPrefab;
-  protected float cantFireUntil = 0;
-
-  [SerializeField]
-  protected float cooldown = 0f;
-  [SerializeField]
-  protected float spread = 0f;
 
 
-  public void Start()
+  public void Awake()
   {
+    gunSprite = Resources.Load<Sprite>(GunSpritePath);
+    bulletPrefab = Resources.Load<GameObject>(BulletPrefabPath);
+    muzzleFlashPrefab = Resources.Load<GameObject>(MuzzleFlashPrefabPath);
+
     camera = Camera.main.GetComponent<Camera>();
     gunSpriteObject = gameObject.transform.Find("GunRotation").transform.Find("Gun").gameObject;
     SpriteRenderer spriteRenderer = gunSpriteObject.GetComponent<SpriteRenderer>();
@@ -41,7 +46,7 @@ public abstract class AbstractGun : MonoBehaviour
 
     Vector2 shootDirection = mousePosition - (Vector2)transform.position;
     shootDirection = shootDirection.normalized;
-    float inaccuracy = Random.Range(-spread / 2, spread / 2);
+    float inaccuracy = Random.Range(-Spread / 2, Spread / 2);
     shootDirection = Quaternion.AngleAxis(inaccuracy, Vector3.forward) * shootDirection;
 
     Vector2 edgeOfGun = gunSpriteObject.transform.position + gunSpriteObject.transform.right * gunWidth / 2 * transform.localScale.x;

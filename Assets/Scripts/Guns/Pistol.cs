@@ -1,20 +1,9 @@
-using UnityEngine;
-
 public class Pistol : AbstractSemiAutoGun
 {
-  public override string gunName
-  {
-    get
-    { return "Pistol"; }
-  }
-
-  new void Start()
-  {
-    cooldown = 0.18f;
-    spread = 15;
-    bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullets/Bullet");
-    muzzleFlashPrefab = Resources.Load<GameObject>("Prefabs/Bullet Muzzle Flash");
-    gunSprite = Resources.Load<Sprite>("Weapon sprites/Pistol");
-    base.Start();
-  }
+  public override string GunName { get => "Pistol"; }
+  protected override string GunSpritePath { get => "Weapon sprites/Pistol"; }
+  protected override string BulletPrefabPath { get => "Prefabs/Bullets/Bullet"; }
+  protected override string MuzzleFlashPrefabPath { get => "Prefabs/Bullet Muzzle Flash"; }
+  protected override float Cooldown { get => 0.18f; }
+  protected override float Spread { get => 15f; }
 }

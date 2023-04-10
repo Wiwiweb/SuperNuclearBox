@@ -2,17 +2,12 @@ using UnityEngine;
 
 public abstract class AbstractSemiAutoGun : AbstractGun
 {
-  public override void onFirePush()
+  public override void OnFirePush()
   {
     if (cantFireUntil < Time.time)
     {
       createBulletTowardsCursor(bulletPrefab);
-      cantFireUntil = Time.time + cooldown;
+      cantFireUntil = Time.time + Cooldown;
     }
-  }
-
-  public override void onFireStop()
-  {
-
   }
 }

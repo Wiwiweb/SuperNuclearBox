@@ -95,11 +95,11 @@ public class PlayerController : MonoBehaviour
   {
     if (context.started)
     {
-      equippedGun.onFirePush();
+      equippedGun.OnFirePush();
     }
     else if (context.canceled)
     {
-      equippedGun.onFireStop();
+      equippedGun.OnFireStop();
     }
   }
 
@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
     Type newGunType = GunManager.getRandomGunType();
     equippedGun = gameObject.AddComponent(newGunType) as AbstractGun;
     GameObject floatingText = Instantiate(floatingTextPrefab, box.transform.position, Quaternion.identity);
-    floatingText.transform.GetChild(0).GetComponent<TextMeshPro>().SetText(equippedGun.gunName.ToUpper() + "!");
+    floatingText.transform.GetChild(0).GetComponent<TextMeshPro>().SetText(equippedGun.GunName.ToUpper() + "!");
     Destroy(box);
     GameManager.instance.IncrementBoxScore();
     GameManager.instance.SpawnBox();

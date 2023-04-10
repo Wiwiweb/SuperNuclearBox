@@ -9,16 +9,16 @@ public abstract class AbstractAutomaticGun : AbstractGun
     if (isFiring && cantFireUntil < Time.time)
     {
       createBulletTowardsCursor(bulletPrefab);
-      cantFireUntil = Time.time + cooldown;
+      cantFireUntil = Time.time + Cooldown;
     }
   }
 
-  public override void onFirePush()
+  public override void OnFirePush()
   {
     isFiring = true;
   }
 
-  public override void onFireStop()
+  public override void OnFireStop()
   {
     isFiring = false;
   }

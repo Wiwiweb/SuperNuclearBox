@@ -1,20 +1,9 @@
-using UnityEngine;
-
 public class MachineGun : AbstractAutomaticGun
 {
-  public override string gunName
-  {
-    get
-    { return "Machine gun"; }
-  }
-
-  new void Start()
-  {
-    cooldown = 0.18f;
-    spread = 30;
-    bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullets/Bullet");
-    muzzleFlashPrefab = Resources.Load<GameObject>("Prefabs/Bullet Muzzle Flash");
-    gunSprite = Resources.Load<Sprite>("Weapon sprites/Machine gun");
-    base.Start();
-  }
+  public override string GunName { get => "Machine gun"; }
+  protected override string GunSpritePath { get => "Weapon sprites/Machine gun"; }
+  protected override string BulletPrefabPath { get => "Prefabs/Bullets/Bullet"; }
+  protected override string MuzzleFlashPrefabPath { get => "Prefabs/Bullet Muzzle Flash"; }
+  protected override float Cooldown { get => 0.18f; }
+  protected override float Spread { get => 30f; }
 }
