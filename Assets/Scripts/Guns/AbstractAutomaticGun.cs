@@ -8,7 +8,7 @@ public abstract class AbstractAutomaticGun : AbstractGun
   {
     if (isFiring && cantFireUntil < Time.time)
     {
-      createNBulletsTowardsCursor();
+      createBulletsTowardsCursor();
       cantFireUntil = Time.time + Cooldown;
     }
   }

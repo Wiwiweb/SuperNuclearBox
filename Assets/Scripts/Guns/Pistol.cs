@@ -5,5 +5,5 @@ public class Pistol : AbstractSemiAutoGun
   protected override string BulletPrefabPath { get => "Prefabs/Bullets/Bullet"; }
   protected override string MuzzleFlashPrefabPath { get => "Prefabs/Bullet Muzzle Flash"; }
   protected override float Cooldown { get => 0.18f; }
-  protected override float Spread { get => 15f; }
+  protected override float RandomSpread { get => 15f; }
 }

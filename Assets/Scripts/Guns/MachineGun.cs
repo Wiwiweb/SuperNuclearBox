@@ -5,5 +5,5 @@ public class MachineGun : AbstractAutomaticGun
   protected override string BulletPrefabPath { get => "Prefabs/Bullets/Bullet"; }
   protected override string MuzzleFlashPrefabPath { get => "Prefabs/Bullet Muzzle Flash"; }
   protected override float Cooldown { get => 0.18f; }
-  protected override float Spread { get => 30f; }
+  protected override float RandomSpread { get => 30f; }
 }

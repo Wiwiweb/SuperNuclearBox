@@ -10,7 +10,9 @@ public abstract class AbstractGun : MonoBehaviour
   [field: SerializeField]
   protected virtual float Cooldown { get; } = 0f;
   [field: SerializeField]
-  protected virtual float Spread { get; } = 0f;
+  protected virtual float RandomSpread { get; } = 0f;
+  [field: SerializeField]
+  protected virtual float FixedSpread { get; } = 0f;
   [field: SerializeField]
   protected virtual int NbProjectiles { get; } = 1;
 
@@ -41,28 +43,36 @@ public abstract class AbstractGun : MonoBehaviour
     gunWidth = spriteRenderer.bounds.size.x;
   }
 
-  protected void createNBulletsTowardsCursor()
-  {
-    for (int i = 0; i < NbProjectiles; i++)
-    {
-      createBulletTowardsCursor();
-    }
-  }
-
-  protected void createBulletTowardsCursor()
+  protected void createBulletsTowardsCursor()
   {
     Vector2 mousePosition = Mouse.current.position.ReadValue();
     mousePosition = camera.ScreenToWorldPoint(mousePosition);
 
-    Vector2 shootDirection = mousePosition - (Vector2)transform.position;
-    shootDirection = shootDirection.normalized;
-    float inaccuracy = Random.Range(-Spread / 2, Spread / 2);
-    shootDirection = Quaternion.AngleAxis(inaccuracy, Vector3.forward) * shootDirection;
-
+    Vector2 lookDirection = mousePosition - (Vector2)transform.position;
+    lookDirection = lookDirection.normalized;
     Vector2 edgeOfGun = gunSpriteObject.transform.position + gunSpriteObject.transform.right * gunWidth / 2 * transform.localScale.x;
-    Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, shootDirection);
+    Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, lookDirection);
     Instantiate(muzzleFlashPrefab, edgeOfGun, lookRotation);
-    GameObject bullet = Instantiate(bulletPrefab, edgeOfGun, lookRotation);
+
+    float fixedSpreadLimit = FixedSpread / 2;
+    for (int i = 0; i < NbProjectiles; i++)
+    {
+      float thisFixedSpread = 0;
+      if (NbProjectiles > 1)
+      {
+        thisFixedSpread = Mathf.LerpAngle(-fixedSpreadLimit, fixedSpreadLimit, (float) i / (NbProjectiles-1));
+      }
+      createOneBullet(lookDirection, edgeOfGun, thisFixedSpread);
+    }
+  }
+
+  private void createOneBullet(Vector2 lookDirection, Vector2 edgeOfGun, float fixedSpread = 0)
+  {
+    float spread = fixedSpread + Random.Range(-RandomSpread / 2, RandomSpread / 2);
+    Vector2 shootDirection = Quaternion.AngleAxis(spread, Vector3.forward) * lookDirection;
+    Quaternion shootRotation = Quaternion.LookRotation(Vector3.forward, shootDirection);
+
+    GameObject bullet = Instantiate(bulletPrefab, edgeOfGun, shootRotation);
     BulletController bulletScript = bullet.GetComponent<BulletController>();
     if (bulletScript is null)
     {
