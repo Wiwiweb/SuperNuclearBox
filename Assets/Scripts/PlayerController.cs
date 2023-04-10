@@ -57,17 +57,6 @@ public class PlayerController : MonoBehaviour
     Quaternion gunRotation = Quaternion.LookRotation(Vector3.forward, shootDirection);
     gunRotation = RoundRotation(gunRotation, 5);
     gunRotationObject.transform.rotation = gunRotation;
-
-    if (Keyboard.current.oKey.wasPressedThisFrame)
-    {
-      Destroy(equippedGun);
-      equippedGun = gameObject.AddComponent<Pistol>();
-    }
-    else if (Keyboard.current.pKey.wasPressedThisFrame)
-    {
-      Destroy(equippedGun);
-      equippedGun = gameObject.AddComponent<MachineGun>();
-    }
   }
 
   public void Die()
@@ -80,7 +69,7 @@ public class PlayerController : MonoBehaviour
   public void Move(InputAction.CallbackContext context)
   {
     movementDirection = context.ReadValue<Vector2>();
-    animator.SetBool("walking", movementDirection != new Vector2(0, 0));
+    animator.SetBool("walking", movementDirection != Vector2.zero);
     if (movementDirection.x < 0)
     {
       transform.localScale = new Vector3(-1, 1, 1);
@@ -103,23 +92,46 @@ public class PlayerController : MonoBehaviour
     }
   }
 
+  public void DebugPreviousGun(InputAction.CallbackContext context)
+  {
+    if (context.started)
+    {
+      Type gunType = GunManager.DebugGetPreviousGun();
+      switchToGun(gunType, transform.position);
+    }
+  }
+
+  public void DebugNextGun(InputAction.CallbackContext context)
+  {
+    if (context.started)
+    {
+      Type gunType = GunManager.DebugGetNextGun();
+      switchToGun(gunType, transform.position);
+    }
+  }
+
   private void OnTriggerEnter2D(Collider2D other)
   {
     if (other.gameObject.tag.Equals("Box"))
     {
-      onBoxPickup(other.gameObject);
+      OnBoxPickup(other.gameObject);
     }
   }
 
-  private void onBoxPickup(GameObject box)
+  private void OnBoxPickup(GameObject box)
   {
-    Destroy(equippedGun);
-    Type newGunType = GunManager.getRandomGunType();
-    equippedGun = gameObject.AddComponent(newGunType) as AbstractGun;
-    GameObject floatingText = Instantiate(floatingTextPrefab, box.transform.position, Quaternion.identity);
-    floatingText.transform.GetChild(0).GetComponent<TextMeshPro>().SetText(equippedGun.GunName.ToUpper() + "!");
+    Type newGunType = GunManager.GetRandomGunType();
+    switchToGun(newGunType, box.transform.position);
     Destroy(box);
     GameManager.instance.IncrementBoxScore();
     GameManager.instance.SpawnBox();
+  }
+
+  private void switchToGun(Type gunType, Vector3 floatingTextPosition)
+  {
+    Destroy(equippedGun);
+    equippedGun = gameObject.AddComponent(gunType) as AbstractGun;
+    GameObject floatingText = Instantiate(floatingTextPrefab, floatingTextPosition, Quaternion.identity);
+    floatingText.transform.GetChild(0).GetComponent<TextMeshPro>().SetText(equippedGun.GunName.ToUpper() + "!");
   }
 }

@@ -17,15 +17,16 @@ public static class GunManager
     public Type type;
   }
 
+  private static List<GunEntry> allGuns = new List<GunEntry>()
+  {
+    new GunEntry(10, typeof(Pistol)),
+    new GunEntry(10, typeof(MachineGun)),
+    new GunEntry(10, typeof(Shotgun)),
+  };
   public static List<Type> gunSpawnTable = new List<Type>();
 
   public static void Init()
   {
-    List<GunEntry> allGuns = new List<GunEntry>();
-    allGuns.Add(new GunEntry(10, typeof(Pistol)));
-    allGuns.Add(new GunEntry(10, typeof(MachineGun)));
-    allGuns.Add(new GunEntry(10, typeof(Shotgun)));
-
     foreach (GunEntry entry in allGuns)
     {
       for (int i = 0; i < entry.probabilityWeight; i++)
@@ -35,7 +36,7 @@ public static class GunManager
     }
   }
 
-  public static Type getRandomGunType()
+  public static Type GetRandomGunType()
   {
     Type chosenGun;
     Type currentGun = GameManager.instance.player.GetComponent<PlayerController>().equippedGun.GetType();
@@ -44,5 +45,31 @@ public static class GunManager
       chosenGun = Util.RandomFromList(gunSpawnTable);
     } while (chosenGun == currentGun);
     return chosenGun;
+  }
+
+  public static Type DebugGetPreviousGun()
+  {
+    int gunIndex = DebugGetGunIndex() - 1;
+    if (gunIndex < 0) { gunIndex = allGuns.Count - 1; }
+    return allGuns[gunIndex].type;
+  }
+
+  public static Type DebugGetNextGun()
+  {
+    int gunIndex = DebugGetGunIndex() + 1;
+    if (gunIndex >= allGuns.Count) { gunIndex = 0; }
+    return allGuns[gunIndex].type;
+  }
+
+  private static int DebugGetGunIndex()
+  {
+    Type currentGun = GameManager.instance.player.GetComponent<PlayerController>().equippedGun.GetType();
+    for (int i = 0; i< allGuns.Count; i++)
+    {
+      if (allGuns[i].type == currentGun){
+        return i;
+      }
+    }
+    return 0;
   }
 }
