@@ -18,13 +18,15 @@ public static class LevelManager
     public Vector2Int spawnPointTile;
     public List<Vector2Int> boxSpawnPoints;
     public List<Vector2Int> enemySpawnPoints;
+    public List<Vector2Int> bigEnemySpawnPoints;
 
-    public LevelData(TileType[,] tiles, Vector2Int spawnPointTile, List<Vector2Int> boxSpawnPoints, List<Vector2Int> enemySpawnPoints)
+    public LevelData(TileType[,] tiles, Vector2Int spawnPointTile, List<Vector2Int> boxSpawnPoints, List<Vector2Int> enemySpawnPoints, List<Vector2Int> bigEnemySpawnPoints)
     {
       this.tiles = tiles;
       this.spawnPointTile = spawnPointTile;
       this.boxSpawnPoints = boxSpawnPoints;
       this.enemySpawnPoints = enemySpawnPoints;
+      this.bigEnemySpawnPoints = bigEnemySpawnPoints;
     }
   }
 

@@ -3,25 +3,34 @@ using UnityEngine;
 
 public static class EnemySpawnManager
 {
+  public enum SpawnType
+  {
+    Default,
+    Big,
+  }
+
   public class EnemySpawnEntry
   {
-    public EnemySpawnEntry(int probabilityWeight, int points, GameObject prefab)
+    public EnemySpawnEntry(int probabilityWeight, int points, GameObject prefab, SpawnType spawnType = SpawnType.Default)
     {
       this.probabilityWeight = probabilityWeight;
       this.points = points;
       this.prefab = prefab;
+      this.spawnType = spawnType;
     }
 
     public int probabilityWeight;
     public int points;
     public GameObject prefab;
+    public SpawnType spawnType;
   }
 
   public static List<EnemySpawnEntry> enemySpawnTable = new List<EnemySpawnEntry>();
 
-  private static float minSpawnDistanceToPlayer = 2;
-  private static float enemyPointsAtStart = 3;
-  private static float enemyPointGainPerSec = 1;
+  private const float MinSpawnDistanceToPlayer = 2;
+  private const float EnemyPointsAtStart = 3;
+  private const float EnemyPointGainPerSec = 1;
+  private const int MaxSpawnTries = 10;
 
   private static float enemyPoints;
 
@@ -34,7 +43,7 @@ public static class EnemySpawnManager
   {
     List<EnemySpawnEntry> allEnemies = new List<EnemySpawnEntry>();
     allEnemies.Add(new EnemySpawnEntry(3, 3, GetEnemyPrefab("SCB_Zombie")));
-    allEnemies.Add(new EnemySpawnEntry(1, 1, GetEnemyPrefab("SCB_Fattie")));
+    allEnemies.Add(new EnemySpawnEntry(1, 1, GetEnemyPrefab("SCB_Fattie"), SpawnType.Big));
     allEnemies.Add(new EnemySpawnEntry(2, 1, GetEnemyPrefab("SCB_FlameSkull")));
 
     foreach(EnemySpawnEntry entry in allEnemies)
@@ -50,21 +59,27 @@ public static class EnemySpawnManager
 
   public static void ResetEnemyPoints()
   {
-    enemyPoints = enemyPointsAtStart;
+    enemyPoints = EnemyPointsAtStart;
   }
 
   public static void UpdateEnemySpawns()
   {
-    enemyPoints += enemyPointGainPerSec * Time.deltaTime;
+    enemyPoints += EnemyPointGainPerSec * Time.deltaTime;
     if (enemyPoints >= 0)
     {
       EnemySpawnEntry enemy = getRandomEnemy();
       Vector3 spawnPosition;
+      int spawnTries = 0;
       do
       {
-        Vector2Int spawnPointTile = getRandomSpawnPosition();
+        Vector2Int spawnPointTile = getRandomSpawnPosition(enemy.spawnType);
         spawnPosition = Util.WorldPositionFromTile(spawnPointTile);
-      } while (Vector3.Distance(spawnPosition, GameManager.instance.player.transform.position) < minSpawnDistanceToPlayer);
+        spawnTries++;
+        if (spawnTries > MaxSpawnTries)
+        {
+          return; // Give up this time, don't use up points
+        }
+      } while (Vector3.Distance(spawnPosition, GameManager.instance.player.transform.position) < MinSpawnDistanceToPlayer);
       Object.Instantiate(enemy.prefab, spawnPosition, Quaternion.identity);
       enemyPoints -= enemy.points;
     }
@@ -75,8 +90,14 @@ public static class EnemySpawnManager
     return Util.RandomFromList(enemySpawnTable);
   }
 
-  public static Vector2Int getRandomSpawnPosition()
+  public static Vector2Int getRandomSpawnPosition(SpawnType spawnType)
   {
-    return Util.RandomFromList(LevelManager.level.enemySpawnPoints);
+    switch(spawnType) 
+    {
+      case SpawnType.Big:
+        return Util.RandomFromList(LevelManager.level.bigEnemySpawnPoints);
+      default:
+        return Util.RandomFromList(LevelManager.level.enemySpawnPoints);
+    }
   }
 }

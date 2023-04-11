@@ -72,7 +72,8 @@ public class LevelRandomGenerator
     int minY = center;
     int maxY = center;
 
-    void markAsFloor(Vector2Int position) {
+    void markAsFloor(Vector2Int position)
+    {
       if (levelTiles[position.x, position.y] != TileType.Floor)
       {
         levelTiles[position.x, position.y] = TileType.Floor;
@@ -162,6 +163,16 @@ public class LevelRandomGenerator
       // DebugLogVisualisation(levelTiles, floorWalkers, minX, maxX, minY, maxY);
     }
 
+    // Find all floor tiles completely surrounded by other floor tiles, for big enemy spawns
+    List<Vector2Int> bigEnemySpawnPointsList = new List<Vector2Int>();
+    foreach (Vector2Int enemySpawnPoint in enemySpawnPoints)
+    {
+      if (areAllSurroundingTilesFloor(levelTiles, enemySpawnPoint))
+      {
+        bigEnemySpawnPointsList.Add(enemySpawnPoint);
+      }
+    }
+
     // Include boundary walls
     minX -= 1;
     minY -= 1;
@@ -192,8 +203,9 @@ public class LevelRandomGenerator
     List<Vector2Int> enemySpawnPointsList = new List<Vector2Int>(enemySpawnPoints);
     boxSpawnPointsList = boxSpawnPointsList.ConvertAll<Vector2Int>(point => point += coordinatesAdjustment);
     enemySpawnPointsList = enemySpawnPointsList.ConvertAll<Vector2Int>(point => point += coordinatesAdjustment);
+    bigEnemySpawnPointsList = bigEnemySpawnPointsList.ConvertAll<Vector2Int>(point => point += coordinatesAdjustment);
 
-    return new LevelData(shrunkLevelTiles, spawnCoordinates, boxSpawnPointsList, enemySpawnPointsList);
+    return new LevelData(shrunkLevelTiles, spawnCoordinates, boxSpawnPointsList, enemySpawnPointsList, bigEnemySpawnPointsList);
   }
 
   private Vector2Int RandomDirection()
@@ -255,7 +267,7 @@ public class LevelRandomGenerator
   private int GetRandomPremadeSquareRoomSize()
   {
     float roomChance = Random.Range(0f, 1f);
-    foreach(PremadeSquareRoom room in premadeSquareRooms)
+    foreach (PremadeSquareRoom room in premadeSquareRooms)
     {
       if (roomChance <= room.probability)
       {
@@ -264,6 +276,21 @@ public class LevelRandomGenerator
       roomChance -= room.probability;
     }
     return 0;
+  }
+
+  private bool areAllSurroundingTilesFloor(TileType[,] levelTiles, Vector2Int tile)
+  {
+    for (int dx = -1; dx <= 1; dx++)
+    {
+      for (int dy = -1; dy <= 1; dy++)
+      {
+        if (levelTiles[tile.x + dx, tile.y + dy] != TileType.Floor)
+        {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   private void DebugLogVisualisation(TileType[,] levelTiles, List<FloorWalker> floorWalkers, int minX, int maxX, int minY, int maxY)
@@ -285,25 +312,25 @@ public class LevelRandomGenerator
       maxY = Math.Max(maxY, walker.position.y);
     }
 
-    Char[,] charArray = new Char[maxX-minX+1, maxY-minY+1];
+    Char[,] charArray = new Char[maxX - minX + 1, maxY - minY + 1];
     for (int x = minX; x <= maxX; x++)
     {
       for (int y = minY; y <= maxY; y++)
       {
-        if (levelTiles[x,y] == TileType.Floor)
+        if (levelTiles[x, y] == TileType.Floor)
         {
-          charArray[x-minX, y-minY] = '#';
-        } 
+          charArray[x - minX, y - minY] = '#';
+        }
         else
         {
-          charArray[x-minX, y-minY] = '.';
+          charArray[x - minX, y - minY] = '.';
         }
       }
     }
 
     foreach (FloorWalker walker in floorWalkers)
     {
-      charArray[walker.position.x-minX, walker.position.y-minY] = 'F';
+      charArray[walker.position.x - minX, walker.position.y - minY] = 'F';
     }
 
     return Util.CharArrayToString(charArray);
