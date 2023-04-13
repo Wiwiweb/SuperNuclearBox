@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class GameManager : MonoBehaviour
   private GameObject playerPrefab;
   [SerializeField]
   private GameObject boxPrefab;
+  [SerializeField]
+  private GameObject floatingTextPrefab;
   [SerializeField]
   private float minBoxSpawnDistanceToPlayer = 2;
 
@@ -59,10 +62,6 @@ public class GameManager : MonoBehaviour
 
   void Update()
   {
-    if (Keyboard.current.rKey.wasPressedThisFrame)
-    {
-      SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
     if (!dead)
     {
       EnemySpawnManager.UpdateEnemySpawns();
@@ -119,6 +118,11 @@ public class GameManager : MonoBehaviour
     hitStopRoutine = null;
   }
 
+  public void Restart()
+  {
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+  }
+
   public void IncrementBoxScore()
   {
     boxScore++;
@@ -127,5 +131,11 @@ public class GameManager : MonoBehaviour
       PersistentData.BestBoxScore = boxScore;
     }
     UIController.instance.UpdateScoreLabels(boxScore, PersistentData.BestBoxScore);
+  }
+
+  public void CreateFloatingText(Vector3 floatingTextPosition, string text)
+  {
+    GameObject floatingText = GameObject.Instantiate(floatingTextPrefab, floatingTextPosition, Quaternion.identity);
+    floatingText.transform.GetChild(0).GetComponent<TextMeshPro>().SetText(text);
   }
 }

@@ -33,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Restart",
+                    "type": "Button",
+                    "id": "2faac2b2-4d70-4427-97c5-7799bbfc1693",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "DebugPreviousGun",
                     "type": "Button",
                     "id": "50d4aaab-a377-43fd-abfa-66c4bde833e0",
@@ -45,6 +54,15 @@
                     "name": "DebugNextGun",
                     "type": "Button",
                     "id": "ac3ae1a0-9400-4201-865f-47fa836efc9f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DebugGodMode",
+                    "type": "Button",
+                    "id": "251d0d53-e069-4dee-9f0d-0d6dc94b5e00",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -291,6 +309,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "DebugNextGun",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7c8a5e39-d550-49c4-97b2-f5f6deb65ad4",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "185a1705-5394-4569-aa86-8a2cfab54a2d",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DebugGodMode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

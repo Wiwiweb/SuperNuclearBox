@@ -1669,6 +1669,7 @@ MonoBehaviour:
   dead: 0
   playerPrefab: {fileID: 1617220476724661980, guid: ac3f4c4c3b962df4d98224861b012f00, type: 3}
   boxPrefab: {fileID: 2796723887904218243, guid: da3bdc140addb604683ab1267f2fb498, type: 3}
+  floatingTextPrefab: {fileID: 6149240271587897057, guid: ba21a71dfebd32f4ea2ad43b5b59351b, type: 3}
   minBoxSpawnDistanceToPlayer: 2
 --- !u!1 &1939804974
 GameObject:

@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Util;
@@ -7,15 +6,13 @@ using static Util;
 public class PlayerController : MonoBehaviour
 {
   [SerializeField]
-  private GameObject floatingTextPrefab;
-
-  [SerializeField]
   private float speed = 1.5f; // Per second
   [SerializeField]
   public AbstractGun equippedGun;
 
   private Vector2 movementDirection = Vector2.zero;
   private Vector2 forcedMovement = Vector2.zero; // Per second, (i.e. already adjusted for Time.deltaTime)
+  private bool godMode = false;
 
   private new Rigidbody2D rigidbody;
   private Animator animator;
@@ -68,9 +65,12 @@ public class PlayerController : MonoBehaviour
 
   public void Die()
   {
-    Destroy(gameObject);
-    GameManager.instance.dead = true;
-    UIController.instance.ToggleDeadTextVisible(true);
+    if (!godMode)
+    {
+      Destroy(gameObject);
+      GameManager.instance.dead = true;
+      UIController.instance.ToggleDeadTextVisible(true);
+    }
   }
 
   public void Move(InputAction.CallbackContext context)
@@ -99,6 +99,14 @@ public class PlayerController : MonoBehaviour
     }
   }
 
+  public void Restart(InputAction.CallbackContext context)
+  {
+    if (context.started)
+    {
+      GameManager.instance.Restart();
+    }
+  }
+
   public void DebugPreviousGun(InputAction.CallbackContext context)
   {
     if (context.started)
@@ -114,6 +122,17 @@ public class PlayerController : MonoBehaviour
     {
       Type gunType = GunManager.DebugGetNextGun();
       switchToGun(gunType, transform.position);
+    }
+  }
+
+  public void DebugGodMode(InputAction.CallbackContext context)
+  {
+    if (context.started)
+    {
+      godMode = !godMode;
+      string onOff = godMode ? "on" : "off";
+      string text = $"God mode {onOff}!".ToUpper();
+      GameManager.instance.CreateFloatingText(transform.position, text);
     }
   }
 
@@ -138,7 +157,6 @@ public class PlayerController : MonoBehaviour
   {
     Destroy(equippedGun);
     equippedGun = gameObject.AddComponent(gunType) as AbstractGun;
-    GameObject floatingText = Instantiate(floatingTextPrefab, floatingTextPosition, Quaternion.identity);
-    floatingText.transform.GetChild(0).GetComponent<TextMeshPro>().SetText(equippedGun.GunName.ToUpper() + "!");
+    GameManager.instance.CreateFloatingText(floatingTextPosition, equippedGun.GunName.ToUpper() + "!");
   }
 }
