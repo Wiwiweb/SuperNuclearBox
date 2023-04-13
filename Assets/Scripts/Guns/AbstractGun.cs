@@ -8,18 +8,21 @@ public abstract class AbstractGun : MonoBehaviour
   protected abstract string BulletPrefabPath { get; }
   protected abstract string MuzzleFlashPrefabPath { get; }
   [field: SerializeField]
-  protected virtual float Cooldown { get; } = 0f;
+  protected virtual float Cooldown { get; } = 0;
   [field: SerializeField]
-  protected virtual float RandomSpread { get; } = 0f;
+  protected virtual float RandomSpread { get; } = 0;
   [field: SerializeField]
-  protected virtual float FixedSpread { get; } = 0f;
+  protected virtual float FixedSpread { get; } = 0;
   [field: SerializeField]
   protected virtual int NbProjectiles { get; } = 1;
+  [field: SerializeField]
+  protected virtual float Recoil { get; } = 0;
 
   public virtual void OnFirePush() { }
   public virtual void OnFireStop() { }
 
   private new Camera camera;
+  private PlayerController playerController;
   private GameObject gunSpriteObject;
   private float gunWidth;
 
@@ -37,6 +40,7 @@ public abstract class AbstractGun : MonoBehaviour
     muzzleFlashPrefab = Resources.Load<GameObject>(MuzzleFlashPrefabPath);
 
     camera = Camera.main.GetComponent<Camera>();
+    playerController = gameObject.GetComponent<PlayerController>();
     gunSpriteObject = gameObject.transform.Find("GunRotation").transform.Find("Gun").gameObject;
     SpriteRenderer spriteRenderer = gunSpriteObject.GetComponent<SpriteRenderer>();
     spriteRenderer.sprite = gunSprite;
@@ -54,13 +58,19 @@ public abstract class AbstractGun : MonoBehaviour
     Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, lookDirection);
     Instantiate(muzzleFlashPrefab, edgeOfGun, lookRotation);
 
+    if (Recoil > 0)
+    { 
+      Vector2 recoil = lookDirection * -1 * Recoil;
+      playerController.AddForcedMovement(recoil);
+    }
+
     float fixedSpreadLimit = FixedSpread / 2;
     for (int i = 0; i < NbProjectiles; i++)
     {
       float thisFixedSpread = 0;
       if (NbProjectiles > 1)
       {
-        thisFixedSpread = Mathf.LerpAngle(-fixedSpreadLimit, fixedSpreadLimit, (float) i / (NbProjectiles-1));
+        thisFixedSpread = Mathf.LerpAngle(-fixedSpreadLimit, fixedSpreadLimit, (float)i / (NbProjectiles - 1));
       }
       createOneBullet(lookDirection, edgeOfGun, thisFixedSpread);
     }

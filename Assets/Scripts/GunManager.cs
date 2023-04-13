@@ -23,6 +23,7 @@ public static class GunManager
     new GunEntry(10, typeof(MachineGun)),
     new GunEntry(10, typeof(Shotgun)),
     new GunEntry(5, typeof(TripleMachineGun)),
+    new GunEntry(5, typeof(Minigun)),
   };
   public static List<Type> gunSpawnTable = new List<Type>();
 

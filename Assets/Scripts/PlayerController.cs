@@ -10,11 +10,12 @@ public class PlayerController : MonoBehaviour
   private GameObject floatingTextPrefab;
 
   [SerializeField]
-  private float speed = 1.5f;
+  private float speed = 1.5f; // Per second
   [SerializeField]
   public AbstractGun equippedGun;
 
-  private Vector2 movementDirection = new Vector2(0, 0);
+  private Vector2 movementDirection = Vector2.zero;
+  private Vector2 forcedMovement = Vector2.zero; // Per second, (i.e. already adjusted for Time.deltaTime)
 
   private new Rigidbody2D rigidbody;
   private Animator animator;
@@ -36,9 +37,10 @@ public class PlayerController : MonoBehaviour
 
   void FixedUpdate()
   {
-    Vector2 newPosition = (Vector2)transform.position + movementDirection * speed * Time.fixedDeltaTime;
+    Vector2 newPosition = (Vector2)transform.position + movementDirection * speed * Time.fixedDeltaTime + forcedMovement;
     (newPosition, _) = RoundToPixel(newPosition);
     rigidbody.MovePosition(newPosition);
+    forcedMovement = Vector2.zero;
   }
 
   void Update()
@@ -57,6 +59,11 @@ public class PlayerController : MonoBehaviour
     Quaternion gunRotation = Quaternion.LookRotation(Vector3.forward, shootDirection);
     gunRotation = RoundRotation(gunRotation, 5);
     gunRotationObject.transform.rotation = gunRotation;
+  }
+
+  public void AddForcedMovement(Vector2 newMovement)
+  {
+    forcedMovement += newMovement * Time.deltaTime;
   }
 
   public void Die()
