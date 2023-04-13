@@ -50,6 +50,7 @@ public class SCB_FlameSkull : AbstractEnemy
   private IEnumerator StartMovingRoutine()
   {
     moving = true;
+    rigidbody.velocity = Vector3.zero;
     yield return new WaitForSeconds(timeMoving);
     StartCoroutine(StopMovingRoutine());
   }
