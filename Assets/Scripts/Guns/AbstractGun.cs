@@ -7,16 +7,12 @@ public abstract class AbstractGun : MonoBehaviour
   protected abstract string GunSpritePath { get; }
   protected abstract string BulletPrefabPath { get; }
   protected abstract string MuzzleFlashPrefabPath { get; }
-  [field: SerializeField]
-  protected virtual float Cooldown { get; } = 0;
-  [field: SerializeField]
-  protected virtual float RandomSpread { get; } = 0;
-  [field: SerializeField]
-  protected virtual float FixedSpread { get; } = 0;
-  [field: SerializeField]
-  protected virtual int NbProjectiles { get; } = 1;
-  [field: SerializeField]
-  protected virtual float Recoil { get; } = 0;
+
+  protected virtual float Cooldown { get; set; } = 0;
+  protected virtual float RandomSpread { get; set; } = 0;
+  protected virtual float FixedSpread { get; set; } = 0;
+  protected virtual int NbProjectiles { get; set; } = 1;
+  protected virtual float Recoil { get; set; } = 0;
 
   public virtual void OnFirePush() { }
   public virtual void OnFireStop() { }
