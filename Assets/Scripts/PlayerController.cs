@@ -5,6 +5,7 @@ using static Util;
 
 public class PlayerController : MonoBehaviour
 {
+  private const float HitstopOnDeath = 0.8f;
   private const float ScreenshakeOnDeath = 2;
 
   [SerializeField]
@@ -69,11 +70,16 @@ public class PlayerController : MonoBehaviour
   {
     if (!godMode)
     {
-      cameraController.AddScreenshake(ScreenshakeOnDeath);
-      Destroy(gameObject);
+      HitstopManager.instance.AddHitstop(HitstopOnDeath, DieAfterHitstop);
       GameManager.instance.dead = true;
-      UIController.instance.ToggleDeadTextVisible(true);
     }
+  }
+
+  private void DieAfterHitstop()
+  {
+    cameraController.AddScreenshake(ScreenshakeOnDeath);
+    Destroy(gameObject);
+    UIController.instance.ToggleDeadTextVisible(true);
   }
 
   public void Move(InputAction.CallbackContext context)

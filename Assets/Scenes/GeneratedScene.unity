@@ -1624,6 +1624,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1514169239}
   - component: {fileID: 1514169240}
+  - component: {fileID: 1514169241}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1675,6 +1676,18 @@ MonoBehaviour:
   boxPrefab: {fileID: 2796723887904218243, guid: da3bdc140addb604683ab1267f2fb498, type: 3}
   floatingTextPrefab: {fileID: 6149240271587897057, guid: ba21a71dfebd32f4ea2ad43b5b59351b, type: 3}
   minBoxSpawnDistanceToPlayer: 2
+--- !u!114 &1514169241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514169238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddd3c1b98aa524c478383505023e76ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1939804974
 GameObject:
   m_ObjectHideFlags: 0

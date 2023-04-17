@@ -43,8 +43,9 @@ public class GameManager : MonoBehaviour
   private int boxScore = 0;
 
 
-  void Awake() {
-      instance = this;
+  void Awake()
+  {
+    instance = this;
   }
 
   void Start()
@@ -96,27 +97,6 @@ public class GameManager : MonoBehaviour
     } while (Vector3.Distance(boxSpawnPosition, player.transform.position) < minBoxSpawnDistanceToPlayer);
 
     box = Instantiate(boxPrefab, boxSpawnPosition, Quaternion.identity);
-  }
-
-  public void HitStop(float duration, Action callback = null)
-  {
-    if (hitStopRoutine != null)
-    {
-      StopCoroutine(hitStopRoutine);
-    }
-    float previousTimescale = Time.timeScale;
-    hitStopRoutine = StartCoroutine(HitStopRoutine(duration, previousTimescale, callback));
-  }
-
-  private IEnumerator HitStopRoutine(float duration, float previousTimescale, Action callback)
-  {
-    Time.timeScale = 0;
-    yield return new WaitForSecondsRealtime(duration);
-    Time.timeScale = previousTimescale;
-    if (callback is not null) { 
-      callback();
-    }
-    hitStopRoutine = null;
   }
 
   public void Restart()
