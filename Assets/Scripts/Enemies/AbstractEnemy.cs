@@ -13,8 +13,8 @@ public abstract class AbstractEnemy : MonoBehaviour
   private Coroutine flashRoutine;
 
   private const float FlashDuration = 0.1f;
-  private const float HitStopOnHitDuration = 20/1000;
-  private const float HitStopOnDeathDuration = 80/1000;
+  private const float HitStopOnHitDuration = (float)20 / 1000;
+  private const float HitStopOnDeathDuration = 4 * HitStopOnHitDuration;
 
   public void Start()
   {
@@ -26,15 +26,14 @@ public abstract class AbstractEnemy : MonoBehaviour
   public void onBulletHit(GameObject bullet)
   {
     health -= bullet.GetComponent<BulletController>().damage;
+    FlashSprite();
     if (health <= 0)
     {
-      FlashSprite();
       Action callback = () => { Destroy(gameObject); };
       GameManager.instance.HitStop(HitStopOnDeathDuration, callback);
     }
     else
     {
-      FlashSprite();
       GameManager.instance.HitStop(HitStopOnHitDuration);
     }
   }
