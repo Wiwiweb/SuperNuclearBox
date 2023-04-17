@@ -13,11 +13,13 @@ public abstract class AbstractGun : MonoBehaviour
   protected virtual float FixedSpread { get; set; } = 0;
   protected virtual int NbProjectiles { get; set; } = 1;
   protected virtual float Recoil { get; set; } = 0;
+  protected virtual float CameraKickback { get; set; } = 1;
 
   public virtual void OnFirePush() { }
   public virtual void OnFireStop() { }
 
   private new Camera camera;
+  private CameraController cameraController;
   private PlayerController playerController;
   private GameObject gunSpriteObject;
   private float gunWidth;
@@ -36,6 +38,7 @@ public abstract class AbstractGun : MonoBehaviour
     muzzleFlashPrefab = Resources.Load<GameObject>(MuzzleFlashPrefabPath);
 
     camera = Camera.main.GetComponent<Camera>();
+    cameraController = Camera.main.GetComponent<CameraController>();
     playerController = gameObject.GetComponent<PlayerController>();
     gunSpriteObject = gameObject.transform.Find("GunRotation").transform.Find("Gun").gameObject;
     SpriteRenderer spriteRenderer = gunSpriteObject.GetComponent<SpriteRenderer>();
@@ -58,6 +61,12 @@ public abstract class AbstractGun : MonoBehaviour
     { 
       Vector2 recoil = lookDirection * -1 * Recoil;
       playerController.AddForcedMovement(recoil);
+    }
+
+    if (CameraKickback > 0)
+    { 
+      Vector2 kickback = lookDirection * -1 * CameraKickback;
+      cameraController.AddKickback(kickback);
     }
 
     float fixedSpreadLimit = FixedSpread / 2;
