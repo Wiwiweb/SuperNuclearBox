@@ -13,7 +13,7 @@ public abstract class AbstractGun : MonoBehaviour
   protected virtual float FixedSpread { get; set; } = 0;
   protected virtual int NbProjectiles { get; set; } = 1;
   protected virtual float Recoil { get; set; } = 0;
-  protected virtual float CameraKickback { get; set; } = 22;
+  protected virtual float CameraKickback { get; set; } = 2;
 
   public virtual void OnFirePush() { }
   public virtual void OnFireStop() { }
