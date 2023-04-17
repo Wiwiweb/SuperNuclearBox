@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
   private float minBoxSpawnDistanceToPlayer = 2;
 
 
-  private CameraController cameraScript;
+  private CameraController cameraController;
   private Coroutine hitStopRoutine;
   private int boxScore = 0;
 
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 
   void Start()
   {
-    cameraScript = Camera.main.GetComponent<CameraController>();
+    cameraController = Camera.main.GetComponent<CameraController>();
 
     LevelManager.CreateLevel();
     SpawnPlayer();
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
     Vector2Int spawnPointTile = LevelManager.level.spawnPointTile;
     Vector3 playerSpawnPosition = Util.WorldPositionFromTile(spawnPointTile);
     player = Instantiate(playerPrefab, playerSpawnPosition, Quaternion.identity);
-    cameraScript.player = player;
+    cameraController.player = player;
   }
 
   public void SpawnBox()
@@ -104,14 +104,15 @@ public class GameManager : MonoBehaviour
     {
       StopCoroutine(hitStopRoutine);
     }
-    hitStopRoutine = StartCoroutine(HitStopRoutine(duration, callback));
+    float previousTimescale = Time.timeScale;
+    hitStopRoutine = StartCoroutine(HitStopRoutine(duration, previousTimescale, callback));
   }
 
-  private IEnumerator HitStopRoutine(float duration, Action callback)
+  private IEnumerator HitStopRoutine(float duration, float previousTimescale, Action callback)
   {
     Time.timeScale = 0;
     yield return new WaitForSecondsRealtime(duration);
-    Time.timeScale = 1;
+    Time.timeScale = previousTimescale;
     if (callback is not null) { 
       callback();
     }

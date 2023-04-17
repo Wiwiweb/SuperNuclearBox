@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e200255368d667a4f93255ec86404b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  maxHealth: 5
   speed: 0.5
   movementDirection: {x: 0, y: 0}
 --- !u!58 &330635168286143845

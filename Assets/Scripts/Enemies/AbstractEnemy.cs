@@ -1,40 +1,49 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using static GameManager;
 
 public abstract class AbstractEnemy : MonoBehaviour
 {
-  public float health;
+  [SerializeField]
+  private float maxHealth;
 
+  private float health;
+
+  private CameraController cameraController;
   private SpriteRenderer spriteRenderer;
   private Material originalMaterial;
   private Material flashMaterial;
   private Coroutine flashRoutine;
 
   private const float FlashDuration = 0.1f;
-  private const float HitStopOnHitDuration = (float)20 / 1000;
-  private const float HitStopOnDeathDuration = 4 * HitStopOnHitDuration;
+  private const float HitStopDurationOnHit = (float)20 / 1000;
+  private const float HitStopDurationOnDeath = 4 * HitStopDurationOnHit;
+  private const float ScreenshakeOnHit = 0.1f;
+  private const float ScreenshakeOnDeathPerMaxHealth = 0.1f;
 
   public void Start()
   {
+    cameraController = Camera.main.GetComponent<CameraController>();
     spriteRenderer = GetComponent<SpriteRenderer>();
     originalMaterial = spriteRenderer.material;
     flashMaterial = Resources.Load<Material>("Fonts & Materials/Flash Material");
+    health = maxHealth;
   }
 
   public void onBulletHit(GameObject bullet)
   {
     health -= bullet.GetComponent<BulletController>().damage;
     FlashSprite();
-    if (health <= 0)
+    if (health > 0)
     {
-      Action callback = () => { Destroy(gameObject); };
-      GameManager.instance.HitStop(HitStopOnDeathDuration, callback);
+      cameraController.AddScreenshake(ScreenshakeOnHit);
+      GameManager.instance.HitStop(HitStopDurationOnHit);
     }
     else
     {
-      GameManager.instance.HitStop(HitStopOnHitDuration);
+      Action callback = () => { Destroy(gameObject); };
+      cameraController.AddScreenshake(ScreenshakeOnDeathPerMaxHealth * maxHealth);
+      GameManager.instance.HitStop(HitStopDurationOnDeath, callback);
     }
   }
 

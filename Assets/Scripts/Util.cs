@@ -103,4 +103,10 @@ internal static class Util
       int chosenIndex = Random.Range(0, list.Count);
       return list[chosenIndex];
   }
+
+  public static Vector2 GetRandomAngleVector()
+  {
+    float randomAngle = Random.Range(0f, 360f);
+    return new Vector2((float)Math.Cos(randomAngle), (float)Math.Sin(randomAngle));
+  }
 }

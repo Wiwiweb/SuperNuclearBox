@@ -5,6 +5,8 @@ using static Util;
 
 public class PlayerController : MonoBehaviour
 {
+  private const float ScreenshakeOnDeath = 2;
+
   [SerializeField]
   private float speed = 1.5f; // Per second
   [SerializeField]
@@ -67,6 +69,7 @@ public class PlayerController : MonoBehaviour
   {
     if (!godMode)
     {
+      cameraController.AddScreenshake(ScreenshakeOnDeath);
       Destroy(gameObject);
       GameManager.instance.dead = true;
       UIController.instance.ToggleDeadTextVisible(true);

@@ -6,7 +6,7 @@ public class Bandit : AbstractEnemy
 {
     new void Start()
 	{
-        health = 3;
+        // health = 3;
         base.Start();
     }
 

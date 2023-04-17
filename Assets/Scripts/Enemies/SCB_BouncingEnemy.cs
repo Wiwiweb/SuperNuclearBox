@@ -16,8 +16,7 @@ public class SCB_BouncingEnemy : AbstractEnemy
   new void Start()
   {
     rigidbody = gameObject.GetComponent<Rigidbody2D>();
-    float movementAngle = Random.Range(0f, 360f);
-    movementDirection = new Vector2((float)Math.Cos(movementAngle), (float)Math.Sin(movementAngle));
+    movementDirection = GetRandomAngleVector();
     if (movementDirection.x < 0) // Flip sprite
     {
       transform.localScale = new Vector3(-1, 1, 1);
