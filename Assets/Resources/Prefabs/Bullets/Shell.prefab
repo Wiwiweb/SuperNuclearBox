@@ -151,5 +151,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0}
   speed: 20
-  speedDecrease: 1
   damage: 1
+  speedDecrease: 1.4
+  destroyAtSpeed: 0.16

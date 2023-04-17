@@ -2,40 +2,21 @@ using UnityEngine;
 
 public class LimitedRangeBulletController : BulletController
 {
-  public float speedDecrease = 1;
+  [SerializeField]
+  private float speedDecrease;
+  [SerializeField]
+  private float destroyAtSpeed;
 
-  private new Rigidbody2D rigidbody;
-
-  void Start()
+  new void FixedUpdate()
   {
-    rigidbody = gameObject.GetComponent<Rigidbody2D>();
-  }
-
-  void Update()
-  {
-    speed -= speedDecrease;
-    if (speed < 0)
+    speed /= speedDecrease;
+    if (speed <= destroyAtSpeed)
     {
       Destroy(gameObject);
     }
     else
     {
-      Vector2 newPosition = (Vector2)transform.position + direction * speed * Time.deltaTime;
-      rigidbody.MovePosition(newPosition);
-    }
-  }
-
-  private void OnTriggerEnter2D(Collider2D other)
-  {
-    if (other.CompareTag("Wall"))
-    {
-      Destroy(gameObject);
-    }
-    else if (other.CompareTag("Enemy"))
-    {
-      AbstractEnemy otherScript = other.GetComponent<AbstractEnemy>();
-      otherScript.onBulletHit(gameObject);
-      Destroy(gameObject);
+      base.FixedUpdate();
     }
   }
 }

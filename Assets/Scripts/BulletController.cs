@@ -6,20 +6,20 @@ public class BulletController : MonoBehaviour
   public float speed = 20;
   public float damage = 1;
 
-  private new Rigidbody2D rigidbody;
+  protected new Rigidbody2D rigidbody;
 
-  void Start()
+  protected void Start()
   {
     rigidbody = gameObject.GetComponent<Rigidbody2D>();
   }
 
-  void Update()
+  protected void FixedUpdate()
   {
-    Vector2 newPosition = (Vector2) transform.position + direction * speed * Time.deltaTime;
+    Vector2 newPosition = (Vector2) transform.position + direction * speed * Time.fixedDeltaTime;
     rigidbody.MovePosition(newPosition);
   }
 
-  private void OnTriggerEnter2D(Collider2D other)
+  protected void OnTriggerEnter2D(Collider2D other)
   {
     if (other.CompareTag("Wall"))
     {
