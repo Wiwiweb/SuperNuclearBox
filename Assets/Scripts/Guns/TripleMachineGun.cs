@@ -14,4 +14,6 @@ public class TripleMachineGun : AbstractAutomaticGun
   protected override float FixedSpread { get; set; } = 30;
   [field: SerializeField]
   protected override int NbProjectiles { get; set; } = 3;
+  [field: SerializeField]
+  protected override float Recoil { get; set; } = 1;
 }

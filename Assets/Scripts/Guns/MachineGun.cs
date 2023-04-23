@@ -10,4 +10,6 @@ public class MachineGun : AbstractAutomaticGun
   protected override float Cooldown { get; set; } = 0.18f;
   [field: SerializeField]
   protected override float RandomSpread { get; set; } = 20;
+  [field: SerializeField]
+  protected override float Recoil { get; set; } = 1;
 }
