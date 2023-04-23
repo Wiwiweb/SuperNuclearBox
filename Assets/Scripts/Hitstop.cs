@@ -2,21 +2,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitstopManager : MonoBehaviour
+public static class Hitstop
 {
-  public static HitstopManager instance;
+  private static float normalTimeScale = 1;
+  private static bool inHitstop = false;
+  private static float endHitstopAt;
+  private static List<Action> callbacks = new List<Action>();
 
-  private float normalTimeScale = 1;
-  private bool inHitstop = false;
-  private float endHitstopAt;
-  private List<Action> callbacks = new List<Action>();
-
-  void Awake()
-  {
-    instance = this;
-  }
-
-  void Update()
+  public static void Update()
   {
     if (inHitstop && Time.realtimeSinceStartup >= endHitstopAt)
     {
@@ -30,7 +23,7 @@ public class HitstopManager : MonoBehaviour
     }
   }
 
-  public void AddHitstop(float addedTime, Action callback = null)
+  public static void Add(float addedTime, Action callback = null)
   {
     if (!inHitstop)
     {

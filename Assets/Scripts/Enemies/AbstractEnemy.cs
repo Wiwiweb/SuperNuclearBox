@@ -37,13 +37,13 @@ public abstract class AbstractEnemy : MonoBehaviour
     if (health > 0)
     {
       cameraController.AddScreenshake(ScreenshakeOnHit);
-      HitstopManager.instance.AddHitstop(HitStopDurationOnHit);
+      Hitstop.Add(HitStopDurationOnHit);
     }
     else
     {
       Action callback = () => { Destroy(gameObject); };
       cameraController.AddScreenshake(ScreenshakeOnDeathPerMaxHealth * maxHealth);
-      HitstopManager.instance.AddHitstop(HitStopDurationOnDeath, callback);
+      Hitstop.Add(HitStopDurationOnDeath, callback);
     }
   }
 

@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
 
   void Update()
   {
+    Hitstop.Update();
     if (!dead)
     {
       EnemySpawnManager.UpdateEnemySpawns();

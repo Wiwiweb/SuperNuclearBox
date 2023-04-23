@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
   {
     if (!godMode)
     {
-      HitstopManager.instance.AddHitstop(HitstopOnDeath, DieAfterHitstop);
+      Hitstop.Add(HitstopOnDeath, DieAfterHitstop);
       GameManager.instance.dead = true;
     }
   }
