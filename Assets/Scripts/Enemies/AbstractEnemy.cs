@@ -65,11 +65,11 @@ public abstract class AbstractEnemy : MonoBehaviour
     flashRoutine = null;
   }
 
-  private void OnCollisionEnter2D(Collision2D collision)
+  protected virtual void OnCollisionEnter2D(Collision2D collision)
   {
     if (collision.collider.gameObject.tag.Equals("Player"))
     {
-      collision.collider.gameObject.GetComponent<PlayerController>().Die();
+      collision.collider.gameObject.GetComponent<PlayerController>().Die(transform.position);
     }
   }
 }

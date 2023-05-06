@@ -1,12 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
-using Debug = UnityEngine.Debug;
-using Random = UnityEngine.Random;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -25,8 +19,8 @@ public class GameManager : MonoBehaviour
   public Tilemap wallDecorationCornerBottomRightTilemap;
 
   public GameObject box;
-  public GameObject player;
-  public bool dead = false;
+  private GameObject player;
+  private PlayerController playerController;
 
   [SerializeField]
   private GameObject playerPrefab;
@@ -42,6 +36,11 @@ public class GameManager : MonoBehaviour
   private Coroutine hitStopRoutine;
   private int boxScore = 0;
 
+  public GameObject Player
+  {
+    get => player;
+    set { player = value; playerController = player.GetComponent<PlayerController>(); }
+  }
 
   void Awake()
   {
@@ -64,7 +63,7 @@ public class GameManager : MonoBehaviour
   void Update()
   {
     Hitstop.Update();
-    if (!dead)
+    if (!playerController.dead)
     {
       EnemySpawnManager.UpdateEnemySpawns();
     }
@@ -83,8 +82,8 @@ public class GameManager : MonoBehaviour
   {
     Vector2Int spawnPointTile = LevelManager.level.spawnPointTile;
     Vector3 playerSpawnPosition = Util.WorldPositionFromTile(spawnPointTile);
-    player = Instantiate(playerPrefab, playerSpawnPosition, Quaternion.identity);
-    cameraController.player = player;
+    Player = Instantiate(playerPrefab, playerSpawnPosition, Quaternion.identity);
+    cameraController.Player = Player;
   }
 
   public void SpawnBox()
@@ -95,14 +94,9 @@ public class GameManager : MonoBehaviour
     {
       Vector2Int chosenSpawnTile = Util.RandomFromList(possibleSpawnTiles);
       boxSpawnPosition = Util.WorldPositionFromTile(chosenSpawnTile);
-    } while (Vector3.Distance(boxSpawnPosition, player.transform.position) < minBoxSpawnDistanceToPlayer);
+    } while (Vector3.Distance(boxSpawnPosition, Player.transform.position) < minBoxSpawnDistanceToPlayer);
 
     box = Instantiate(boxPrefab, boxSpawnPosition, Quaternion.identity);
-  }
-
-  public void Restart()
-  {
-    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
   }
 
   public void IncrementBoxScore()

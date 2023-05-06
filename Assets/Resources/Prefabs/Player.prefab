@@ -152,46 +152,6 @@ MonoBehaviour:
     m_ActionId: bdddbcec-f9b1-42f7-b4f5-8e6c5c3fb617
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5bded83c-67c7-41b2-b0f6-854e6bc4b925
-    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 4ea46b4a-ec43-4dd9-926a-64baf0c8318a
-    m_ActionName: UI/Submit[/Keyboard/enter]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9512cbe2-9a9e-4c93-b605-fd2f42e5f57f
-    m_ActionName: UI/Cancel[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5486507a-eeaa-43f4-bfd9-fac01edcecb5
-    m_ActionName: UI/Point[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 49e3a334-c764-4523-b5ac-4d8755e74491
-    m_ActionName: UI/Click[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8aebc877-ab9d-4b73-809c-ab4d2b99c8c1
-    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e553aaba-30aa-488d-91d0-518a49a8f46c
-    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: bfff4d97-256f-4742-90d5-d884c3572736
-    m_ActionName: UI/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b9f9864e-dd05-431d-ba4c-541a6b04c15f
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7444b28c-f72f-42c4-aeaf-739e4e9f551f
-    m_ActionName: UI/TrackedDeviceOrientation
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1617220476724661983}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
@@ -227,22 +187,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1617220476724661983}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: Restart
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 2faac2b2-4d70-4427-97c5-7799bbfc1693
-    m_ActionName: Player/Restart[/Keyboard/r]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1617220476724661983}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: DebugGodMode
         m_Mode: 0
         m_Arguments:
@@ -255,6 +199,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 251d0d53-e069-4dee-9f0d-0d6dc94b5e00
     m_ActionName: Player/DebugGodMode[/Keyboard/l]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1617220476724661983}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Restart
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9fb0b27f-5238-449e-9f23-8876c7a9e931
+    m_ActionName: Player/Restart[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -274,6 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1.5
   equippedGun: {fileID: 0}
+  dead: 0
 --- !u!58 &1617220476724661978
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -303,7 +264,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}

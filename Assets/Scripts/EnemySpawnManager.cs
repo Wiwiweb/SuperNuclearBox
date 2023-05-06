@@ -79,7 +79,7 @@ public static class EnemySpawnManager
         {
           return; // Give up this time, don't use up points
         }
-      } while (Vector3.Distance(spawnPosition, GameManager.instance.player.transform.position) < MinSpawnDistanceToPlayer);
+      } while (Vector3.Distance(spawnPosition, GameManager.instance.Player.transform.position) < MinSpawnDistanceToPlayer);
       Object.Instantiate(enemy.prefab, spawnPosition, Quaternion.identity);
       enemyPoints -= enemy.points;
     }

@@ -1172,7 +1172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a24270403789c4ebfcb741bf3bf129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   boxArrowController: {fileID: 1939804975}
   screenshakeReductionPerSec: 1
   screenshakeMultiplier: 0.05
@@ -1624,7 +1623,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1514169239}
   - component: {fileID: 1514169240}
-  - component: {fileID: 1514169241}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1670,24 +1668,10 @@ MonoBehaviour:
   wallDecorationCornerBottomLeftTilemap: {fileID: 2052889280}
   wallDecorationCornerBottomRightTilemap: {fileID: 319270665}
   box: {fileID: 0}
-  player: {fileID: 0}
-  dead: 0
   playerPrefab: {fileID: 1617220476724661980, guid: ac3f4c4c3b962df4d98224861b012f00, type: 3}
   boxPrefab: {fileID: 2796723887904218243, guid: da3bdc140addb604683ab1267f2fb498, type: 3}
   floatingTextPrefab: {fileID: 6149240271587897057, guid: ba21a71dfebd32f4ea2ad43b5b59351b, type: 3}
   minBoxSpawnDistanceToPlayer: 2
---- !u!114 &1514169241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1514169238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddd3c1b98aa524c478383505023e76ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1939804974
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,16 +33,13 @@ public class SCB_BouncingEnemy : AbstractEnemy
   }
 
 
-  private void OnCollisionEnter2D(Collision2D collision)
+  protected override void OnCollisionEnter2D(Collision2D collision)
   {
     movementDirection = Util.CollisionBounce(collision, transform, movementDirection);
-    if (collision.collider.gameObject.tag.Equals("Player"))
-    {
-      collision.collider.gameObject.GetComponent<PlayerController>().Die();
-    }
+    base.OnCollisionEnter2D(collision);
   }
 
-  private void OnCollisionStay2D(Collision2D collision)
+  protected void OnCollisionStay2D(Collision2D collision)
   {
     movementDirection = Util.CollisionBounce(collision, transform, movementDirection);
   }

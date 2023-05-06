@@ -1,17 +1,21 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using static Util;
 
 public class PlayerController : MonoBehaviour
 {
   private const float HitstopOnDeath = 0.8f;
   private const float ScreenshakeOnDeath = 2;
+  private const float DefaultDeathPushIntensity = 50;
 
   [SerializeField]
   private float speed = 1.5f; // Per second
   [SerializeField]
   public AbstractGun equippedGun;
+
+  public bool dead = false;
 
   private Vector2 movementDirection = Vector2.zero;
   private Vector2 forcedMovement = Vector2.zero; // Per second, (i.e. already adjusted for Time.deltaTime)
@@ -37,28 +41,34 @@ public class PlayerController : MonoBehaviour
 
   void FixedUpdate()
   {
-    Vector2 newPosition = (Vector2)transform.position + movementDirection * speed * Time.fixedDeltaTime + forcedMovement;
-    (newPosition, _) = RoundToPixel(newPosition);
-    rigidbody.MovePosition(newPosition);
-    forcedMovement = Vector2.zero;
+    if (!dead)
+    {
+      Vector2 newPosition = (Vector2)transform.position + movementDirection * speed * Time.fixedDeltaTime + forcedMovement;
+      (newPosition, _) = RoundToPixel(newPosition);
+      rigidbody.MovePosition(newPosition);
+      forcedMovement = Vector2.zero;
+    }
   }
 
   void Update()
   {
-    Vector2 mousePosition = Mouse.current.position.ReadValue();
-    mousePosition = camera.ScreenToWorldPoint(mousePosition);
-    Vector2 shootDirection = mousePosition - (Vector2)transform.position;
-    if (shootDirection.x > 0) // Flip gun sprite when pointing backwards
+    if (!dead)
     {
-      gunSpriteObject.transform.localScale = new Vector3(1, transform.localScale.x, 1);
+      Vector2 mousePosition = Mouse.current.position.ReadValue();
+      mousePosition = camera.ScreenToWorldPoint(mousePosition);
+      Vector2 shootDirection = mousePosition - (Vector2)transform.position;
+      if (shootDirection.x > 0) // Flip gun sprite when pointing backwards
+      {
+        gunSpriteObject.transform.localScale = new Vector3(1, transform.localScale.x, 1);
+      }
+      else
+      {
+        gunSpriteObject.transform.localScale = new Vector3(1, -transform.localScale.x, 1);
+      }
+      Quaternion gunRotation = Quaternion.LookRotation(Vector3.forward, shootDirection);
+      gunRotation = RoundRotation(gunRotation, 5);
+      gunRotationObject.transform.rotation = gunRotation;
     }
-    else
-    {
-      gunSpriteObject.transform.localScale = new Vector3(1, -transform.localScale.x, 1);
-    }
-    Quaternion gunRotation = Quaternion.LookRotation(Vector3.forward, shootDirection);
-    gunRotation = RoundRotation(gunRotation, 5);
-    gunRotationObject.transform.rotation = gunRotation;
   }
 
   public void AddForcedMovement(Vector2 newMovement)
@@ -66,45 +76,60 @@ public class PlayerController : MonoBehaviour
     forcedMovement += newMovement * Time.deltaTime;
   }
 
-  public void Die()
+  public void Die(Vector2 causePosition, float intensityMultiplier = 1)
   {
-    if (!godMode)
+    if (!godMode && !dead)
     {
       Hitstop.Add(HitstopOnDeath, DieAfterHitstop);
-      GameManager.instance.dead = true;
+      dead = true;
+
+      Vector2 causeDirection = ((Vector2) transform.position - causePosition).normalized;
+      Vector2 push = causeDirection * DefaultDeathPushIntensity * intensityMultiplier;
+      rigidbody.AddForce(push);
+
+      gameObject.layer = LayerMask.NameToLayer("Corpse");
+      movementDirection = Vector2.zero;
+      cameraController.FixPosition();
+      gunSpriteObject.GetComponent<SpriteRenderer>().enabled = false;
+      animator.SetTrigger("dead");
     }
   }
 
   private void DieAfterHitstop()
   {
     cameraController.AddScreenshake(ScreenshakeOnDeath);
-    Destroy(gameObject);
     UIController.instance.ToggleDeadTextVisible(true);
   }
 
   public void Move(InputAction.CallbackContext context)
   {
-    movementDirection = context.ReadValue<Vector2>();
-    animator.SetBool("walking", movementDirection != Vector2.zero);
-    if (movementDirection.x < 0)
+    if (!dead)
     {
-      transform.localScale = new Vector3(-1, 1, 1);
-    }
-    else if (movementDirection.x > 0)
-    {
-      transform.localScale = new Vector3(1, 1, 1);
+      movementDirection = context.ReadValue<Vector2>();
+      animator.SetBool("walking", movementDirection != Vector2.zero);
+      if (movementDirection.x < 0)
+      {
+        transform.localScale = new Vector3(-1, 1, 1);
+      }
+      else if (movementDirection.x > 0)
+      {
+        transform.localScale = new Vector3(1, 1, 1);
+      }
     }
   }
 
   public void Fire(InputAction.CallbackContext context)
   {
-    if (context.started)
+    if (!dead)
     {
-      equippedGun.OnFirePush();
-    }
-    else if (context.canceled)
-    {
-      equippedGun.OnFireStop();
+      if (context.started)
+      {
+        equippedGun.OnFirePush();
+      }
+      else if (context.canceled)
+      {
+        equippedGun.OnFireStop();
+      }
     }
   }
 
@@ -112,7 +137,7 @@ public class PlayerController : MonoBehaviour
   {
     if (context.started)
     {
-      GameManager.instance.Restart();
+      SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
   }
 

@@ -19,7 +19,7 @@ public class SCB_FlameSkull : AbstractEnemy
   {
     moving = false;
     rigidbody = gameObject.GetComponent<Rigidbody2D>();
-    if (GameManager.instance.player.transform.position.x < transform.position.x) // Make sprite look left
+    if (GameManager.instance.Player.transform.position.x < transform.position.x) // Make sprite look left
     {
       transform.localScale = new Vector3(-1, 1, 1);
     }
@@ -30,9 +30,10 @@ public class SCB_FlameSkull : AbstractEnemy
 
   void FixedUpdate()
   {
-    if (moving && !GameManager.instance.dead)
+    GameObject player = GameManager.instance.Player;
+    if (moving && !player.GetComponent<PlayerController>().dead)
     {
-      Vector2 movementDirection = GameManager.instance.player.transform.position - transform.position;
+      Vector2 movementDirection = player.transform.position - transform.position;
       movementDirection.Normalize();
       Vector2 newPosition = (Vector2)transform.position - subPixelPosition + movementDirection * speed * Time.fixedDeltaTime;
       (newPosition, subPixelPosition) = RoundToPixel(newPosition);
@@ -53,13 +54,5 @@ public class SCB_FlameSkull : AbstractEnemy
     rigidbody.velocity = Vector3.zero;
     yield return new WaitForSeconds(timeMoving);
     StartCoroutine(StopMovingRoutine());
-  }
-
-  private void OnCollisionEnter2D(Collision2D collision)
-  {
-    if (collision.collider.gameObject.tag.Equals("Player"))
-    {
-      collision.collider.gameObject.GetComponent<PlayerController>().Die();
-    }
   }
 }
