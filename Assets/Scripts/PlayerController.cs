@@ -89,6 +89,7 @@ public class PlayerController : MonoBehaviour
 
       gameObject.layer = LayerMask.NameToLayer("Corpse");
       movementDirection = Vector2.zero;
+      equippedGun.OnFireStop();
       cameraController.FixPosition();
       gunSpriteObject.GetComponent<SpriteRenderer>().enabled = false;
       animator.SetTrigger("dead");
