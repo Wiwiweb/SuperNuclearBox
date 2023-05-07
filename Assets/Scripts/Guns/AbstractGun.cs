@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 public abstract class AbstractGun : MonoBehaviour
 {
   public abstract string GunName { get; }
-  protected virtual string GunSpritePath { get => "Weapon sprites/" + this.GetType().Name; }
+  protected virtual string GunSpritePath { get => "Gun sprites/" + this.GetType().Name; }
+  protected virtual string GunSoundPath { get => "Gun sounds/" + this.GetType().Name; }
   protected abstract string BulletPrefabPath { get; }
   protected abstract string MuzzleFlashPrefabPath { get; }
 
@@ -26,14 +27,14 @@ public abstract class AbstractGun : MonoBehaviour
 
   protected float cantFireUntil = 0;
 
-  protected Sprite gunSprite;
   protected GameObject bulletPrefab;
   protected GameObject muzzleFlashPrefab;
 
+  private AudioSource audioSource;
+  private AudioClip gunSound;
 
   public void Awake()
   {
-    gunSprite = Resources.Load<Sprite>(GunSpritePath);
     bulletPrefab = Resources.Load<GameObject>(BulletPrefabPath);
     muzzleFlashPrefab = Resources.Load<GameObject>(MuzzleFlashPrefabPath);
 
@@ -41,9 +42,14 @@ public abstract class AbstractGun : MonoBehaviour
     cameraController = Camera.main.GetComponent<CameraController>();
     playerController = gameObject.GetComponent<PlayerController>();
     gunSpriteObject = gameObject.transform.Find("GunRotation").transform.Find("Gun").gameObject;
+
     SpriteRenderer spriteRenderer = gunSpriteObject.GetComponent<SpriteRenderer>();
+    Sprite gunSprite = Resources.Load<Sprite>(GunSpritePath);
     spriteRenderer.sprite = gunSprite;
     gunWidth = spriteRenderer.bounds.size.x;
+
+    audioSource = gunSpriteObject.GetComponent<AudioSource>();
+    gunSound = Resources.Load<AudioClip>(GunSoundPath);
   }
 
   protected void createBulletsTowardsCursor()
@@ -79,6 +85,13 @@ public abstract class AbstractGun : MonoBehaviour
       }
       createOneBullet(lookDirection, edgeOfGun, thisFixedSpread);
     }
+
+    playGunSound();
+  }
+
+  protected void playGunSound()
+  {
+    audioSource.PlayOneShot(gunSound);
   }
 
   private void createOneBullet(Vector2 lookDirection, Vector2 edgeOfGun, float fixedSpread = 0)
