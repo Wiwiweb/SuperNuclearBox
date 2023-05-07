@@ -91,6 +91,7 @@ public abstract class AbstractGun : MonoBehaviour
 
   protected void playGunSound()
   {
+    audioSource.pitch = Random.Range(0.8f, 1.2f);
     audioSource.PlayOneShot(gunSound);
   }
 
