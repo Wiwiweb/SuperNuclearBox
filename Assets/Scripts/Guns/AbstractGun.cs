@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public abstract class AbstractGun : MonoBehaviour
 {
   public abstract string GunName { get; }
-  protected abstract string GunSpritePath { get; }
+  protected virtual string GunSpritePath { get => "Weapon sprites/" + this.GetType().Name; }
   protected abstract string BulletPrefabPath { get; }
   protected abstract string MuzzleFlashPrefabPath { get; }
 
