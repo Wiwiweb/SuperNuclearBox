@@ -75,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1223587489
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 134ae2899a143a645b86d56e46608e27, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -153,5 +153,7 @@ MonoBehaviour:
   speed: 20
   damage: 1
   bulletHitPrefab: {fileID: 8609602201272068176, guid: 1a8674ca40637d440a96388754dc7947, type: 3}
+  hitWallSound: {fileID: 8300000, guid: 1a35d7062002730419c4e789bbb69420, type: 3}
+  hitFleshSound: {fileID: 8300000, guid: d9ccb1a275786404686a801831fb4c02, type: 3}
   speedDecrease: 1.4
   destroyAtSpeed: 0.16
