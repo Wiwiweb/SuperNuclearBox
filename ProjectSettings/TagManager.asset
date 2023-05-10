@@ -59,6 +59,9 @@ TagManager:
   - name: Flying units
     uniqueID: 4139478485
     locked: 0
+  - name: Particles
+    uniqueID: 3931627033
+    locked: 0
   - name: Projectiles
     uniqueID: 1223587489
     locked: 0

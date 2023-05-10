@@ -8,6 +8,9 @@ public class BulletController : MonoBehaviour
 
   protected new Rigidbody2D rigidbody;
 
+  [SerializeField]
+  private GameObject bulletHitPrefab;
+
   protected void Start()
   {
     rigidbody = gameObject.GetComponent<Rigidbody2D>();
@@ -23,13 +26,19 @@ public class BulletController : MonoBehaviour
   {
     if (other.CompareTag("Wall"))
     {
-      Destroy(gameObject);
+      DestroySelf();
     }
     else if (other.CompareTag("Enemy"))
     {
       AbstractEnemy otherScript = other.GetComponent<AbstractEnemy>();
       otherScript.onBulletHit(gameObject);
-      Destroy(gameObject);
+      DestroySelf();
     }
+  }
+  
+  private void DestroySelf()
+  {
+    Instantiate(bulletHitPrefab, transform.position, Util.GetRandomAngle());
+    Destroy(gameObject);
   }
 }

@@ -115,6 +115,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   speed: 10
   damage: 1
+  bulletHitPrefab: {fileID: 8609602201272068176, guid: 1a8674ca40637d440a96388754dc7947, type: 3}
 --- !u!70 &6703918226437812395
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

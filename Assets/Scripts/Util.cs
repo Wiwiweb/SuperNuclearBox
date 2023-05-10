@@ -104,6 +104,12 @@ internal static class Util
       return list[chosenIndex];
   }
 
+  public static Quaternion GetRandomAngle()
+  {
+    float randomAngle = Random.Range(0f, 360f);
+    return Quaternion.Euler(0, 0, randomAngle);
+  }
+
   public static Vector2 GetRandomAngleVector()
   {
     float randomAngle = Random.Range(0f, 360f);

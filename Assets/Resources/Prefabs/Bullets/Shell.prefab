@@ -152,5 +152,6 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   speed: 20
   damage: 1
+  bulletHitPrefab: {fileID: 8609602201272068176, guid: 1a8674ca40637d440a96388754dc7947, type: 3}
   speedDecrease: 1.4
   destroyAtSpeed: 0.16
