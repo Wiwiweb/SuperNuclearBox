@@ -6,11 +6,17 @@ public abstract class AbstractEnemy : MonoBehaviour
 {
   [SerializeField]
   private float maxHealth;
+  [SerializeField]
+  private AudioClip hitSound;
+  [SerializeField]
+  private AudioClip deathSound;
+
 
   private float health;
 
   private CameraController cameraController;
   private SpriteRenderer spriteRenderer;
+  private AudioSource audioSource;
   private Material originalMaterial;
   private Material flashMaterial;
   private Coroutine flashRoutine;
@@ -25,6 +31,7 @@ public abstract class AbstractEnemy : MonoBehaviour
   {
     cameraController = Camera.main.GetComponent<CameraController>();
     spriteRenderer = GetComponent<SpriteRenderer>();
+    audioSource = GetComponent<AudioSource>();
     originalMaterial = spriteRenderer.material;
     flashMaterial = Resources.Load<Material>("Fonts & Materials/Flash Material");
     health = maxHealth;
@@ -38,13 +45,15 @@ public abstract class AbstractEnemy : MonoBehaviour
       FlashSprite();
       if (health > 0)
       {
+        audioSource.PlayOneShot(hitSound);
         cameraController.AddScreenshake(ScreenshakeOnHit);
         Hitstop.Add(HitStopDurationOnHit);
       }
       else
       {
-        Action callback = () => { Destroy(gameObject); };
+        AudioSource.PlayClipAtPoint(deathSound, (Vector2) transform.position);
         cameraController.AddScreenshake(ScreenshakeOnDeathPerMaxHealth * maxHealth);
+        Action callback = () => { Destroy(gameObject); };
         Hitstop.Add(HitStopDurationOnDeath, callback);
       }
     }
