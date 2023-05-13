@@ -28,22 +28,23 @@ public class BulletController : MonoBehaviour
 
   protected void OnTriggerEnter2D(Collider2D other)
   {
+    Vector2 contactPoint = other.ClosestPoint(transform.position);
     if (other.CompareTag("Wall"))
     {
-      DestroySelf(hitWallSound);
+      DestroySelf(hitWallSound, contactPoint);
     }
     else if (other.CompareTag("Enemy"))
     {
       AbstractEnemy otherScript = other.GetComponent<AbstractEnemy>();
       otherScript.onBulletHit(gameObject);
-      DestroySelf(hitFleshSound);
+      DestroySelf(hitFleshSound, contactPoint);
     }
   }
   
-  private void DestroySelf(AudioClip hitSound)
+  private void DestroySelf(AudioClip hitSound, Vector2 contactPoint)
   {
-    AudioSource.PlayClipAtPoint(hitSound, transform.position);
-    Instantiate(bulletHitPrefab, transform.position, Util.GetRandomAngle());
+    AudioSource.PlayClipAtPoint(hitSound, contactPoint);
+    Instantiate(bulletHitPrefab, contactPoint, Util.GetRandomAngle());
     Destroy(gameObject);
   }
 }
