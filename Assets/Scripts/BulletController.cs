@@ -36,7 +36,7 @@ public class BulletController : MonoBehaviour
     else if (other.CompareTag("Enemy"))
     {
       AbstractEnemy otherScript = other.GetComponent<AbstractEnemy>();
-      otherScript.onBulletHit(gameObject);
+      otherScript.OnBulletHit(gameObject);
       DestroySelf(hitFleshSound, contactPoint);
     }
   }

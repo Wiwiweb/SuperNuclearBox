@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4324721581851887905}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.3718, y: 0.535, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -158,6 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e200255368d667a4f93255ec86404b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  corpsePrefab: {fileID: 6086605418394018529, guid: e7d4a113dca3ea04bba2ea6f0f9ab274, type: 3}
   maxHealth: 5
   hitSound: {fileID: 8300000, guid: 0159694cea89e0e429a85cce68744865, type: 3}
   deathSound: {fileID: 8300000, guid: f42a555d99608f747a81bc170138643c, type: 3}

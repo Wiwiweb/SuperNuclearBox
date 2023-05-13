@@ -158,6 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df89206ce563e0c40b31c10e947656bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  corpsePrefab: {fileID: 6086605418394018529, guid: e7d4a113dca3ea04bba2ea6f0f9ab274, type: 3}
   maxHealth: 2
   hitSound: {fileID: 8300000, guid: b1bec7d584aaefb469f189da64b59446, type: 3}
   deathSound: {fileID: 8300000, guid: 07303f188298f66498d8e50af3ed1489, type: 3}

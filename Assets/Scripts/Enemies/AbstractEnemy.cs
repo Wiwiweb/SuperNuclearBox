@@ -5,12 +5,14 @@ using UnityEngine;
 public abstract class AbstractEnemy : MonoBehaviour
 {
   [SerializeField]
-  private float maxHealth;
+  private GameObject corpsePrefab;
   [SerializeField]
   private AudioClip hitSound;
   [SerializeField]
   private AudioClip deathSound;
 
+  [SerializeField]
+  private float maxHealth;
 
   private float health;
 
@@ -27,7 +29,7 @@ public abstract class AbstractEnemy : MonoBehaviour
   private const float ScreenshakeOnHit = 0.1f;
   private const float ScreenshakeOnDeathPerMaxHealth = 0.1f;
 
-  public void Start()
+  protected void Start()
   {
     cameraController = Camera.main.GetComponent<CameraController>();
     spriteRenderer = GetComponent<SpriteRenderer>();
@@ -37,11 +39,12 @@ public abstract class AbstractEnemy : MonoBehaviour
     health = maxHealth;
   }
 
-  public void onBulletHit(GameObject bullet)
+  public void OnBulletHit(GameObject bullet)
   {
     if (health > 0)
     {
-      health -= bullet.GetComponent<BulletController>().damage;
+      BulletController bulletController = bullet.GetComponent<BulletController>();
+      health -= bulletController.damage;
       FlashSprite();
       if (health > 0)
       {
@@ -51,9 +54,15 @@ public abstract class AbstractEnemy : MonoBehaviour
       }
       else
       {
-        AudioSource.PlayClipAtPoint(deathSound, (Vector2) transform.position);
+        AudioSource.PlayClipAtPoint(deathSound, (Vector2)transform.position);
         cameraController.AddScreenshake(ScreenshakeOnDeathPerMaxHealth * maxHealth);
-        Action callback = () => { Destroy(gameObject); };
+        Action callback = () =>
+        {
+          GameObject corpse = Instantiate(corpsePrefab, transform.position, transform.rotation);
+          CorpseController corpseController = corpse.GetComponent<CorpseController>();
+          corpseController.Initialize(bulletController.direction, spriteRenderer.sprite, transform.localScale);
+          Destroy(gameObject);
+        };
         Hitstop.Add(HitStopDurationOnDeath, callback);
       }
     }
