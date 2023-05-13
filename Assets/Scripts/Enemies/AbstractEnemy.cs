@@ -32,18 +32,21 @@ public abstract class AbstractEnemy : MonoBehaviour
 
   public void onBulletHit(GameObject bullet)
   {
-    health -= bullet.GetComponent<BulletController>().damage;
-    FlashSprite();
     if (health > 0)
     {
-      cameraController.AddScreenshake(ScreenshakeOnHit);
-      Hitstop.Add(HitStopDurationOnHit);
-    }
-    else
-    {
-      Action callback = () => { Destroy(gameObject); };
-      cameraController.AddScreenshake(ScreenshakeOnDeathPerMaxHealth * maxHealth);
-      Hitstop.Add(HitStopDurationOnDeath, callback);
+      health -= bullet.GetComponent<BulletController>().damage;
+      FlashSprite();
+      if (health > 0)
+      {
+        cameraController.AddScreenshake(ScreenshakeOnHit);
+        Hitstop.Add(HitStopDurationOnHit);
+      }
+      else
+      {
+        Action callback = () => { Destroy(gameObject); };
+        cameraController.AddScreenshake(ScreenshakeOnDeathPerMaxHealth * maxHealth);
+        Hitstop.Add(HitStopDurationOnDeath, callback);
+      }
     }
   }
 
