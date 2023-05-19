@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6086605418394018534}
   - component: {fileID: -1110040051503383363}
   - component: {fileID: -883316606899245973}
-  - component: {fileID: 525763871618917578}
   - component: {fileID: -4719246149899539219}
+  - component: {fileID: 525763871618917578}
   m_Layer: 6
   m_Name: SCB_Zombie
   m_TagString: Enemy
@@ -146,24 +146,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &525763871618917578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6086605418394018529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e200255368d667a4f93255ec86404b2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  corpsePrefab: {fileID: 6086605418394018529, guid: e7d4a113dca3ea04bba2ea6f0f9ab274, type: 3}
-  maxHealth: 2
-  hitSound: {fileID: 8300000, guid: b1bec7d584aaefb469f189da64b59446, type: 3}
-  deathSound: {fileID: 8300000, guid: 07303f188298f66498d8e50af3ed1489, type: 3}
-  speed: 1.1
-  movementDirection: {x: 0, y: 0}
 --- !u!82 &-4719246149899539219
 AudioSource:
   m_ObjectHideFlags: 0
@@ -220,7 +202,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -260,3 +242,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &525763871618917578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6086605418394018529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e200255368d667a4f93255ec86404b2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  corpsePrefab: {fileID: 6086605418394018529, guid: e7d4a113dca3ea04bba2ea6f0f9ab274, type: 3}
+  hitSound: {fileID: 8300000, guid: b1bec7d584aaefb469f189da64b59446, type: 3}
+  deathSound: {fileID: 8300000, guid: 07303f188298f66498d8e50af3ed1489, type: 3}
+  maxHealth: 2
+  speed: 1.1
+  movementDirection: {x: 0, y: 0}

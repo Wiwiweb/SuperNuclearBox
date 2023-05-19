@@ -159,9 +159,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   corpsePrefab: {fileID: 6086605418394018529, guid: e7d4a113dca3ea04bba2ea6f0f9ab274, type: 3}
-  maxHealth: 5
   hitSound: {fileID: 8300000, guid: 0159694cea89e0e429a85cce68744865, type: 3}
   deathSound: {fileID: 8300000, guid: f42a555d99608f747a81bc170138643c, type: 3}
+  maxHealth: 5
   speed: 0.5
   movementDirection: {x: 0, y: 0}
 --- !u!82 &-8977614142514325602
@@ -220,7 +220,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
