@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using static Util;
+using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class PlayerController : MonoBehaviour
   [SerializeField]
   public AbstractGun equippedGun;
 
+  [SerializeField]
+  private AudioClip hitSound;
+  [SerializeField]
+  private AudioClip deathSound;
+
   public bool dead = false;
 
   private Vector2 movementDirection = Vector2.zero;
@@ -23,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
   private new Rigidbody2D rigidbody;
   private Animator animator;
+  private AudioSource audioSource;
   private GameObject gunSpriteObject;
   private GameObject gunRotationObject;
   private new Camera camera;
@@ -33,6 +40,7 @@ public class PlayerController : MonoBehaviour
     equippedGun = gameObject.AddComponent<Pistol>();
     rigidbody = gameObject.GetComponent<Rigidbody2D>();
     animator = gameObject.GetComponent<Animator>();
+    audioSource = gameObject.GetComponent<AudioSource>();
     gunRotationObject = gameObject.transform.Find("GunRotation").gameObject;
     gunSpriteObject = gunRotationObject.transform.Find("Gun").gameObject;
     camera = Camera.main;
@@ -83,6 +91,9 @@ public class PlayerController : MonoBehaviour
       Hitstop.Add(HitstopOnDeath, DieAfterHitstop);
       dead = true;
 
+      audioSource.pitch = Random.Range(0.9f, 1.3f);
+      audioSource.PlayOneShot(hitSound);
+
       Vector2 causeDirection = ((Vector2) transform.position - causePosition).normalized;
       Vector2 push = causeDirection * DefaultDeathPushIntensity * intensityMultiplier;
       rigidbody.AddForce(push);
@@ -98,6 +109,9 @@ public class PlayerController : MonoBehaviour
 
   private void DieAfterHitstop()
   {
+    audioSource.pitch = Random.Range(0.9f, 1.2f);
+    audioSource.PlayOneShot(deathSound);
+
     cameraController.AddScreenshake(ScreenshakeOnDeath);
     UIController.instance.ToggleDeadTextVisible(true);
   }

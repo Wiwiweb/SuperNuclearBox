@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public abstract class AbstractEnemy : MonoBehaviour
 {
@@ -48,6 +49,7 @@ public abstract class AbstractEnemy : MonoBehaviour
       FlashSprite();
       if (health > 0)
       {
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
         audioSource.PlayOneShot(hitSound);
         cameraController.AddScreenshake(ScreenshakeOnHit);
         Hitstop.Add(HitStopDurationOnHit);
