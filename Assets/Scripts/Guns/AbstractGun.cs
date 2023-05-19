@@ -3,6 +3,14 @@ using UnityEngine.InputSystem;
 
 public abstract class AbstractGun : MonoBehaviour
 {
+  public enum GunRarityType
+  {
+    // Good and bad are rare
+    Good,
+    Normal,
+    Bad,
+  }
+
   public abstract string GunName { get; }
   protected virtual string GunSpritePath { get => "Gun sprites/" + this.GetType().Name; }
   protected virtual string GunSoundPath { get => "Gun sounds/" + this.GetType().Name; }
@@ -15,6 +23,8 @@ public abstract class AbstractGun : MonoBehaviour
   protected virtual int NbProjectiles { get; set; } = 1;
   protected virtual float Recoil { get; set; } = 0;
   protected virtual float CameraKickback { get; set; } = 2;
+
+  public virtual GunRarityType GunRarity { get; set; } = GunRarityType.Normal;
 
   public virtual void OnFirePush() { }
   public virtual void OnFireStop() { }

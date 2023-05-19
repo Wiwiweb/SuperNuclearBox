@@ -399,6 +399,9 @@ MonoBehaviour:
   equippedGun: {fileID: 0}
   hitSound: {fileID: 8300000, guid: 3d6fae044de278541942c279b6eeb615, type: 3}
   deathSound: {fileID: 8300000, guid: d6ff1911d84df45418e83cf4764ff8ec, type: 3}
+  boxPickupGoodSound: {fileID: 8300000, guid: 9cf0b6097514fe141abd6dc847c7cfc3, type: 3}
+  boxPickupNormalSound: {fileID: 8300000, guid: e34560e2509def845839fba28c7cf768, type: 3}
+  boxPickupBadSound: {fileID: 8300000, guid: 4ecb5a9a25e507b41b06714c5ab3d44b, type: 3}
   dead: 0
 --- !u!1 &4233965670999848384
 GameObject:

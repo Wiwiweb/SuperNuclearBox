@@ -11,4 +11,5 @@ public class Minigun : AbstractAutomaticGun
   protected override float RandomSpread { get; set; } = 40;
   [field: SerializeField]
   protected override float Recoil { get; set; } = 2;
+  public override GunRarityType GunRarity { get; set; } = GunRarityType.Good;
 }

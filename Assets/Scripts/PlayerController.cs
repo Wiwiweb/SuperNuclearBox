@@ -20,6 +20,12 @@ public class PlayerController : MonoBehaviour
   private AudioClip hitSound;
   [SerializeField]
   private AudioClip deathSound;
+  [SerializeField]
+  private AudioClip boxPickupGoodSound;
+  [SerializeField]
+  private AudioClip boxPickupNormalSound;
+  [SerializeField]
+  private AudioClip boxPickupBadSound;
 
   public bool dead = false;
 
@@ -206,6 +212,23 @@ public class PlayerController : MonoBehaviour
   {
     Destroy(equippedGun);
     equippedGun = gameObject.AddComponent(gunType) as AbstractGun;
+    
+    AudioClip pickupSound;
+    switch(equippedGun.GunRarity)
+    {
+      case AbstractGun.GunRarityType.Good:
+        pickupSound = boxPickupGoodSound;
+        break;
+      case AbstractGun.GunRarityType.Bad:
+        pickupSound = boxPickupBadSound;
+        break;
+      case AbstractGun.GunRarityType.Normal:
+      default:
+        pickupSound = boxPickupNormalSound;
+        break;
+    }
+    audioSource.PlayOneShot(pickupSound);
+
     GameManager.instance.CreateFloatingText(floatingTextPosition, equippedGun.GunName.ToUpper() + "!");
   }
 }
