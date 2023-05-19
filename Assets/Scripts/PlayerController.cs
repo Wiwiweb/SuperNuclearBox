@@ -51,6 +51,8 @@ public class PlayerController : MonoBehaviour
     gunSpriteObject = gunRotationObject.transform.Find("Gun").gameObject;
     camera = Camera.main;
     cameraController = camera.GetComponent<CameraController>();
+
+    audioSource.ignoreListenerPause = true;
   }
 
   void FixedUpdate()
@@ -100,6 +102,8 @@ public class PlayerController : MonoBehaviour
       audioSource.pitch = Random.Range(0.9f, 1.3f);
       audioSource.PlayOneShot(hitSound);
 
+      MusicController.instance.Pause();
+
       Vector2 causeDirection = ((Vector2) transform.position - causePosition).normalized;
       Vector2 push = causeDirection * DefaultDeathPushIntensity * intensityMultiplier;
       rigidbody.AddForce(push);
@@ -117,6 +121,8 @@ public class PlayerController : MonoBehaviour
   {
     audioSource.pitch = Random.Range(0.9f, 1.2f);
     audioSource.PlayOneShot(deathSound);
+
+    MusicController.instance.UnPause();
 
     cameraController.AddScreenshake(ScreenshakeOnDeath);
     UIController.instance.ToggleDeadTextVisible(true);
@@ -212,7 +218,7 @@ public class PlayerController : MonoBehaviour
   {
     Destroy(equippedGun);
     equippedGun = gameObject.AddComponent(gunType) as AbstractGun;
-    
+
     AudioClip pickupSound;
     switch(equippedGun.GunRarity)
     {

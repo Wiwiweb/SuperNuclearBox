@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class MusicController : MonoBehaviour
 {
+  public static MusicController instance;
+
   public AudioSource audioSourceIntro;
   public AudioSource audioSourceLoop;
 
-  public static MusicController instance;
+	private bool introWasPaused;
 
   void Awake()
   {
@@ -27,4 +29,14 @@ public class MusicController : MonoBehaviour
     audioSourceIntro.PlayScheduled(startTime);
     audioSourceLoop.PlayScheduled(startTime + introLength);
   }
+
+	public void Pause()
+	{
+		AudioListener.pause = true;
+	}
+	
+	public void UnPause()
+	{
+		AudioListener.pause = false;
+	}
 }
