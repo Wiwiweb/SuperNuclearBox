@@ -34,13 +34,14 @@ public class GameManager : MonoBehaviour
 
   private CameraController cameraController;
   private Coroutine hitStopRoutine;
-  private int boxScore = 0;
+  public int BoxScore { get; private set; }
 
   public GameObject Player
   {
     get => player;
     set { player = value; playerController = player.GetComponent<PlayerController>(); }
   }
+
 
   void Awake()
   {
@@ -57,7 +58,7 @@ public class GameManager : MonoBehaviour
     EnemySpawnManager.Init();
     EnemySpawnManager.UpdateEnemySpawns();
     GunManager.Init();
-    UIController.instance.UpdateScoreLabels(boxScore, PersistentData.BestBoxScore);
+    UIController.instance.UpdateScoreLabels(BoxScore, PersistentData.BestBoxScore);
   }
 
   void Update()
@@ -101,12 +102,12 @@ public class GameManager : MonoBehaviour
 
   public void IncrementBoxScore()
   {
-    boxScore++;
-    if (boxScore > PersistentData.BestBoxScore)
+    BoxScore++;
+    if (BoxScore > PersistentData.BestBoxScore)
     {
-      PersistentData.BestBoxScore = boxScore;
+      PersistentData.BestBoxScore = BoxScore;
     }
-    UIController.instance.UpdateScoreLabels(boxScore, PersistentData.BestBoxScore);
+    UIController.instance.UpdateScoreLabels(BoxScore, PersistentData.BestBoxScore);
   }
 
   public void CreateFloatingText(Vector3 floatingTextPosition, string text)

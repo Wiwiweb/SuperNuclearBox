@@ -29,7 +29,8 @@ public static class EnemySpawnManager
 
   private const float MinSpawnDistanceToPlayer = 2;
   private const float EnemyPointsAtStart = 3;
-  private const float EnemyPointGainPerSec = 1;
+  private const float EnemyPointGainPerSecBase = 1;
+  private const float EnemyPointGainPerSecPerBox = 0.1f;
   private const int MaxSpawnTries = 10;
 
   private static float enemyPoints;
@@ -64,7 +65,7 @@ public static class EnemySpawnManager
 
   public static void UpdateEnemySpawns()
   {
-    enemyPoints += EnemyPointGainPerSec * Time.deltaTime;
+    enemyPoints += (EnemyPointGainPerSecBase + EnemyPointGainPerSecPerBox * GameManager.instance.BoxScore) * Time.deltaTime;
     if (enemyPoints >= 0)
     {
       EnemySpawnEntry enemy = getRandomEnemy();
