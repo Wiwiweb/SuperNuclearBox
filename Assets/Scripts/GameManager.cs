@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
   {
     cameraController = Camera.main.GetComponent<CameraController>();
 
+    MusicController.instance.UnPause(); // In case we restarted while the music was paused
     LevelManager.CreateLevel();
     SpawnPlayer();
     SpawnBox();
@@ -59,6 +60,8 @@ public class GameManager : MonoBehaviour
     EnemySpawnManager.UpdateEnemySpawns();
     GunManager.Init();
     UIController.instance.UpdateScoreLabels(BoxScore, PersistentData.BestBoxScore);
+
+    
   }
 
   void Update()
