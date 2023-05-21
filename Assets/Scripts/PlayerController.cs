@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
 
       MusicController.instance.Pause();
 
-      Vector2 causeDirection = ((Vector2) transform.position - causePosition).normalized;
+      Vector2 causeDirection = ((Vector2)transform.position - causePosition).normalized;
       Vector2 push = causeDirection * DefaultDeathPushIntensity * intensityMultiplier;
       rigidbody.AddForce(push);
 
@@ -119,13 +119,16 @@ public class PlayerController : MonoBehaviour
 
   private void DieAfterHitstop()
   {
-    audioSource.pitch = Random.Range(0.9f, 1.2f);
-    audioSource.PlayOneShot(deathSound);
+    if (audioSource != null) // Could happen if we restart before the callback
+    {
+      audioSource.pitch = Random.Range(0.9f, 1.2f);
+      audioSource.PlayOneShot(deathSound);
 
-    MusicController.instance.UnPause();
+      MusicController.instance.UnPause();
 
-    cameraController.AddScreenshake(ScreenshakeOnDeath);
-    UIController.instance.ToggleDeadTextVisible(true);
+      cameraController.AddScreenshake(ScreenshakeOnDeath);
+      UIController.instance.ToggleDeadTextVisible(true);
+    }
   }
 
   public void Move(InputAction.CallbackContext context)
@@ -220,7 +223,7 @@ public class PlayerController : MonoBehaviour
     equippedGun = gameObject.AddComponent(gunType) as AbstractGun;
 
     AudioClip pickupSound;
-    switch(equippedGun.GunRarity)
+    switch (equippedGun.GunRarity)
     {
       case AbstractGun.GunRarityType.Good:
         pickupSound = boxPickupGoodSound;
