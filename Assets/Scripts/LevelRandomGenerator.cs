@@ -43,16 +43,16 @@ public class LevelRandomGenerator
 
   public LevelData GenerateRandomLevel()
   {
-    TileType[,] levelTiles = new TileType[LevelGridSize, LevelGridSize];
+    TileType[,] levelTiles = new TileType[MaxLevelSize, MaxLevelSize];
     for (int x = 0; x <= levelTiles.GetUpperBound(0); x++)
     {
       for (int y = 0; y <= levelTiles.GetUpperBound(1); y++)
       {
-        levelTiles[x, y] = TileType.Wall;
+        levelTiles[x, y] = TileType.Empty;
       }
     }
 
-    int center = (LevelGridSize - 1) / 2;
+    int center = (MaxLevelSize - 1) / 2;
     Vector2Int startPoint = new Vector2Int(center, center);
 
     List<FloorWalker> floorWalkers = new List<FloorWalker>();
@@ -193,8 +193,8 @@ public class LevelRandomGenerator
     // Adjust the coordinates of spawn points.
     Vector2Int originaLevelOffset = new Vector2Int(minX, minY); // Offset of level during generation
     Vector2Int newLevelOffset = new Vector2Int(
-      LevelGridSize / 2 - (shrunkLevelTiles.GetLength(0) / 2),
-      LevelGridSize / 2 - (shrunkLevelTiles.GetLength(1) / 2)
+      MaxLevelSize / 2 - (shrunkLevelTiles.GetLength(0) / 2),
+      MaxLevelSize / 2 - (shrunkLevelTiles.GetLength(1) / 2)
     ); // Offset of level after re-centering
     Vector2Int coordinatesAdjustment = newLevelOffset - originaLevelOffset;
     Vector2Int spawnCoordinates = startPoint + coordinatesAdjustment;
@@ -204,6 +204,29 @@ public class LevelRandomGenerator
     boxSpawnPointsList = boxSpawnPointsList.ConvertAll<Vector2Int>(point => point += coordinatesAdjustment);
     enemySpawnPointsList = enemySpawnPointsList.ConvertAll<Vector2Int>(point => point += coordinatesAdjustment);
     bigEnemySpawnPointsList = bigEnemySpawnPointsList.ConvertAll<Vector2Int>(point => point += coordinatesAdjustment);
+
+    // Finally, add walls around floors
+    for (int x = 0; x <= shrunkLevelTiles.GetUpperBound(0); x++)
+    {
+      for (int y = 0; y <= shrunkLevelTiles.GetUpperBound(1); y++)
+      {
+        if (shrunkLevelTiles[x, y] == TileType.Floor)
+        {
+          for (int dx = -1; dx <= 1; dx++)
+          {
+            for (int dy = -1; dy <= 1; dy++)
+            {
+              if (0 <= x + dx && x + dx <= shrunkLevelTiles.GetUpperBound(0) &&
+                  0 <= y + dy && y + dy <= shrunkLevelTiles.GetUpperBound(1) &&
+                  shrunkLevelTiles[x + dx, y + dy] == TileType.Empty)
+              {
+                shrunkLevelTiles[x + dx, y + dy] = TileType.Wall;
+              }
+            }
+          }
+        }
+      }
+    }
 
     return new LevelData(shrunkLevelTiles, spawnCoordinates, boxSpawnPointsList, enemySpawnPointsList, bigEnemySpawnPointsList);
   }

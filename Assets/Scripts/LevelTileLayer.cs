@@ -62,23 +62,27 @@ public class LevelTileLayer
 
   public void FillLevelTilemaps()
   {
-    int floorGridSize = LevelGridSize / 2;
+    int floorGridSize = MaxLevelSize / 2;
     floorTilemap.size = new Vector3Int(floorGridSize, floorGridSize, 1);
-    wallTilemap.size = new Vector3Int(LevelGridSize, LevelGridSize, 1);
+    wallTilemap.size = new Vector3Int(MaxLevelSize, MaxLevelSize, 1);
 
     // Floors 
-    floorTilemap.FloodFill(new Vector3Int(0, 0, 0), floorTile);
+    // floorTilemap.FloodFill(new Vector3Int(0, 0, 0), floorTile);
 
     // Walls
-    int levelOffsetX = LevelGridSize / 2 - (level.GetLength(0) / 2);
-    int levelOffsetY = LevelGridSize / 2 - (level.GetLength(1) / 2);
+    int levelOffsetX = MaxLevelSize / 2 - (level.GetLength(0) / 2);
+    int levelOffsetY = MaxLevelSize / 2 - (level.GetLength(1) / 2);
     for (int x = 0; x <= level.GetUpperBound(0); x++)
     {
       for (int y = 0; y <= level.GetUpperBound(1); y++)
       {
         int tilemapX = x + levelOffsetX;
         int tilemapY = y + levelOffsetY;
-        if (level[x, y] == TileType.Wall)
+        if (level[x, y] == TileType.Floor)
+        {
+          floorTilemap.SetTile(new Vector3Int(tilemapX / 2, tilemapY / 2, 0), floorTile);
+        }
+        else if (level[x, y] == TileType.Wall)
         {
           wallTilemap.SetTile(new Vector3Int(tilemapX, tilemapY, 0), wallTile);
 
@@ -90,7 +94,7 @@ public class LevelTileLayer
         }
       }
     }
-    wallTilemap.FloodFill(new Vector3Int(0, 0, 0), wallTile);
+    // wallTilemap.FloodFill(new Vector3Int(0, 0, 0), wallTile);
   }
 
   private void checkAndPlaceWallDecoration(int x, int y, int tilemapX, int tilemapY, Tilemap tilemap, TileBase tile)

@@ -1,13 +1,11 @@
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using Debug = UnityEngine.Debug;
 
 public static class LevelManager
 {
   public enum TileType
   {
+    Empty,
     Floor,
     Wall,
   }
@@ -30,7 +28,7 @@ public static class LevelManager
     }
   }
 
-  public static int LevelGridSize = 151; // Odd for a center point
+  public static int MaxLevelSize = 501; // Odd for a center point
 
   public static LevelData level;
 
