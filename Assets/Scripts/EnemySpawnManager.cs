@@ -65,7 +65,7 @@ public static class EnemySpawnManager
 
   public static void UpdateEnemySpawns()
   {
-    enemyPoints += (EnemyPointGainPerSecBase + EnemyPointGainPerSecPerBox * GameManager.instance.BoxScore) * Time.deltaTime;
+    enemyPoints += (EnemyPointGainPerSecBase + EnemyPointGainPerSecPerBox * PersistentData.BoxScore) * Time.deltaTime;
     if (enemyPoints >= 0)
     {
       EnemySpawnEntry enemy = getRandomEnemy();

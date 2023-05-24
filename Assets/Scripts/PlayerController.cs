@@ -43,7 +43,12 @@ public class PlayerController : MonoBehaviour
 
   void Start()
   {
-    equippedGun = gameObject.AddComponent<Pistol>();
+    if (PersistentData.PlayerEquippedGunType == null)
+    {
+      PersistentData.PlayerEquippedGunType = typeof(Pistol);
+    }
+
+    equippedGun = gameObject.AddComponent(PersistentData.PlayerEquippedGunType) as AbstractGun;
     rigidbody = gameObject.GetComponent<Rigidbody2D>();
     animator = gameObject.GetComponent<Animator>();
     audioSource = gameObject.GetComponent<AudioSource>();
@@ -167,6 +172,8 @@ public class PlayerController : MonoBehaviour
   {
     if (context.started)
     {
+      PersistentData.BoxScore = 0;
+      PersistentData.PlayerEquippedGunType = null;
       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
   }
@@ -214,13 +221,21 @@ public class PlayerController : MonoBehaviour
     switchToGun(newGunType, box.transform.position);
     Destroy(box);
     GameManager.instance.IncrementBoxScore();
-    GameManager.instance.SpawnBox();
+    if (PersistentData.BoxScore % GameManager.BoxesBeforeLevelSwitch == 0)
+    {
+      SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Restart
+    }
+    else
+    {
+      GameManager.instance.SpawnBox();
+    }
   }
 
   private void switchToGun(Type gunType, Vector3 floatingTextPosition)
   {
     Destroy(equippedGun);
     equippedGun = gameObject.AddComponent(gunType) as AbstractGun;
+    PersistentData.PlayerEquippedGunType = gunType;
 
     AudioClip pickupSound;
     switch (equippedGun.GunRarity)

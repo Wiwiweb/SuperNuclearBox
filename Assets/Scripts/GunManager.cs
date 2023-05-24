@@ -41,11 +41,10 @@ public static class GunManager
   public static Type GetRandomGunType()
   {
     Type chosenGun;
-    Type currentGun = GameManager.instance.Player.GetComponent<PlayerController>().equippedGun.GetType();
     do
     {
       chosenGun = Util.RandomFromList(gunSpawnTable);
-    } while (chosenGun == currentGun);
+    } while (chosenGun == PersistentData.PlayerEquippedGunType);
     return chosenGun;
   }
 
@@ -65,10 +64,9 @@ public static class GunManager
 
   private static int DebugGetGunIndex()
   {
-    Type currentGun = GameManager.instance.Player.GetComponent<PlayerController>().equippedGun.GetType();
     for (int i = 0; i< allGuns.Count; i++)
     {
-      if (allGuns[i].type == currentGun){
+      if (allGuns[i].type == PersistentData.PlayerEquippedGunType){
         return i;
       }
     }

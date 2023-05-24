@@ -5,6 +5,8 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+  public const int BoxesBeforeLevelSwitch = 10;
+
   public static GameManager instance;
 
   public Tilemap floorTilemap;
@@ -34,7 +36,6 @@ public class GameManager : MonoBehaviour
 
   private CameraController cameraController;
   private Coroutine hitStopRoutine;
-  public int BoxScore { get; private set; }
 
   public GameObject Player
   {
@@ -59,9 +60,7 @@ public class GameManager : MonoBehaviour
     EnemySpawnManager.Init();
     EnemySpawnManager.UpdateEnemySpawns();
     GunManager.Init();
-    UIController.instance.UpdateScoreLabels(BoxScore, PersistentData.BestBoxScore);
-
-    
+    UIController.instance.UpdateScoreLabels(PersistentData.BoxScore, PersistentData.BestBoxScore);  
   }
 
   void Update()
@@ -105,12 +104,12 @@ public class GameManager : MonoBehaviour
 
   public void IncrementBoxScore()
   {
-    BoxScore++;
-    if (BoxScore > PersistentData.BestBoxScore)
+    PersistentData.BoxScore++;
+    if (PersistentData.BoxScore > PersistentData.BestBoxScore)
     {
-      PersistentData.BestBoxScore = BoxScore;
+      PersistentData.BestBoxScore = PersistentData.BoxScore;
     }
-    UIController.instance.UpdateScoreLabels(BoxScore, PersistentData.BestBoxScore);
+    UIController.instance.UpdateScoreLabels(PersistentData.BoxScore, PersistentData.BestBoxScore);
   }
 
   public void CreateFloatingText(Vector3 floatingTextPosition, string text)
