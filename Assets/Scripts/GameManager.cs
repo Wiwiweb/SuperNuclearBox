@@ -5,7 +5,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-  public const int BoxesBeforeLevelSwitch = 10;
+  public const int BoxesBeforeLevelSwitch = 2;
 
   public static GameManager instance;
 

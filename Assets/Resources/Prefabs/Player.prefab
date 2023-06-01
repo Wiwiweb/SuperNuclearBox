@@ -402,6 +402,7 @@ MonoBehaviour:
   boxPickupGoodSound: {fileID: 8300000, guid: 9cf0b6097514fe141abd6dc847c7cfc3, type: 3}
   boxPickupNormalSound: {fileID: 8300000, guid: e34560e2509def845839fba28c7cf768, type: 3}
   boxPickupBadSound: {fileID: 8300000, guid: 4ecb5a9a25e507b41b06714c5ab3d44b, type: 3}
+  portalPrefab: {fileID: 7222548573800513379, guid: a158b9c8b798d2e419c0414bf23aaf40, type: 3}
   dead: 0
 --- !u!1 &4233965670999848384
 GameObject:

@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
   [SerializeField]
   private AudioClip boxPickupBadSound;
 
+  [SerializeField]
+  private GameObject portalPrefab;
+
   public bool dead = false;
 
   private Vector2 movementDirection = Vector2.zero;
@@ -217,13 +220,15 @@ public class PlayerController : MonoBehaviour
 
   private void OnBoxPickup(GameObject box)
   {
+    Vector2 boxPosition = box.transform.position;
     Type newGunType = GunManager.GetRandomGunType();
-    switchToGun(newGunType, box.transform.position);
+    switchToGun(newGunType, boxPosition);
     Destroy(box);
     GameManager.instance.IncrementBoxScore();
     if (PersistentData.BoxScore % GameManager.BoxesBeforeLevelSwitch == 0)
     {
-      SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Restart
+      GameObject portal = Instantiate(portalPrefab, boxPosition, Quaternion.identity);
+      GetComponent<SpriteRenderer>().sortingLayerName = "Flying units"; // Stay over portal
     }
     else
     {
