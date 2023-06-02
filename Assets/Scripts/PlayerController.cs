@@ -139,6 +139,12 @@ public class PlayerController : MonoBehaviour
     }
   }
 
+  public void SetAffectedBySpriteMask()
+  {
+    GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+    gunSpriteObject.GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+  }
+
   public void Move(InputAction.CallbackContext context)
   {
     if (!dead)

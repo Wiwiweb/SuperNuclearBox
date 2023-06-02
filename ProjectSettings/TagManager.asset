@@ -59,6 +59,9 @@ TagManager:
   - name: Wall decorations over
     uniqueID: 1123393713
     locked: 0
+  - name: Portal
+    uniqueID: 205557375
+    locked: 0
   - name: Flying units
     uniqueID: 4139478485
     locked: 0
