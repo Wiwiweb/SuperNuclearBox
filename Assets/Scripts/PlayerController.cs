@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
 {
-  private const float HitstopOnDeath = 0.8f;
+  private const float HitstopOnDeath = 0.7f;
   private const float ScreenshakeOnDeath = 2;
   private const float DefaultDeathPushIntensity = 50;
 

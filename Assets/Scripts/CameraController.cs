@@ -51,7 +51,8 @@ public class CameraController : MonoBehaviour
     if (screenshakePower > 0)
     {
       targetPosition += getScreenshakeVector();
-      screenshakePower -= screenshakeReductionPerSec * Time.deltaTime;
+      screenshakePower *= 0.99f; // Percent decrease to make bigger shakes proportionally shorter
+      screenshakePower -= screenshakeReductionPerSec * Time.deltaTime; // Flat decrease
       screenshakePower = Mathf.Max(0, screenshakePower);
     }
 
