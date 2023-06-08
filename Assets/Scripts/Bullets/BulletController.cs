@@ -11,9 +11,9 @@ public class BulletController : MonoBehaviour
   [SerializeField]
   private GameObject bulletHitPrefab;
   [SerializeField]
-  private AudioClip hitWallSound;
+  protected AudioClip hitWallSound;
   [SerializeField]
-  private AudioClip hitFleshSound;
+  protected AudioClip hitFleshSound;
 
   protected void Start()
   {
@@ -22,7 +22,7 @@ public class BulletController : MonoBehaviour
 
   protected void FixedUpdate()
   {
-    Vector2 newPosition = (Vector2) transform.position + direction * speed * Time.fixedDeltaTime;
+    Vector2 newPosition = (Vector2)transform.position + direction * speed * Time.fixedDeltaTime;
     rigidbody.MovePosition(newPosition);
   }
 
@@ -39,12 +39,21 @@ public class BulletController : MonoBehaviour
       otherScript.OnBulletHit(gameObject);
       DestroySelf(hitFleshSound, contactPoint);
     }
+    else if (other.CompareTag("Player"))
+    {
+      // Friendly fire, hehe
+      PlayerController otherScript = other.GetComponent<PlayerController>();
+      otherScript.Die(transform.position);
+    }
   }
-  
-  private void DestroySelf(AudioClip hitSound, Vector2 contactPoint)
+
+  protected void DestroySelf(AudioClip hitSound, Vector2 contactPoint)
   {
     AudioSource.PlayClipAtPoint(hitSound, contactPoint);
-    Instantiate(bulletHitPrefab, contactPoint, Util.GetRandomAngle());
+    if (bulletHitPrefab != null)
+    {
+      Instantiate(bulletHitPrefab, contactPoint, Util.GetRandomAngle());
+    }
     Destroy(gameObject);
   }
 }

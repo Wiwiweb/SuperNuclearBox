@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using Random = UnityEngine.Random;
 using static Util;
 
 public class SCB_BouncingEnemy : AbstractEnemy

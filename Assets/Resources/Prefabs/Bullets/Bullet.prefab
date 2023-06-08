@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3240228103592890362}
   - component: {fileID: 3240228103592890361}
-  - component: {fileID: 3240228103592890366}
-  - component: {fileID: -8867398204634552575}
   - component: {fileID: 6703918226437812395}
   - component: {fileID: 5795706241285008471}
+  - component: {fileID: 3240228103592890366}
+  - component: {fileID: 1930356119735108455}
   m_Layer: 9
   m_Name: Bullet
   m_TagString: Untagged
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1223587489
-  m_SortingLayer: 7
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 134ae2899a143a645b86d56e46608e27, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -88,36 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3240228103592890366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3240228103592890365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f7d84e969427cd449851503808711d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-8867398204634552575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3240228103592890365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb8faf9a770c2b54d92de1de85b80cce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0}
-  speed: 10
-  damage: 1
-  bulletHitPrefab: {fileID: 8609602201272068176, guid: 1a8674ca40637d440a96388754dc7947, type: 3}
-  hitWallSound: {fileID: 8300000, guid: 1a35d7062002730419c4e789bbb69420, type: 3}
-  hitFleshSound: {fileID: 8300000, guid: d9ccb1a275786404686a801831fb4c02, type: 3}
 --- !u!70 &6703918226437812395
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -155,3 +125,33 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &3240228103592890366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3240228103592890365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7d84e969427cd449851503808711d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1930356119735108455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3240228103592890365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 322c9790a4d4dfe4ca6daa8948658858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 0, y: 0}
+  speed: 10
+  damage: 1
+  bulletHitPrefab: {fileID: 8609602201272068176, guid: 1a8674ca40637d440a96388754dc7947, type: 3}
+  hitWallSound: {fileID: 8300000, guid: 1a35d7062002730419c4e789bbb69420, type: 3}
+  hitFleshSound: {fileID: 8300000, guid: d9ccb1a275786404686a801831fb4c02, type: 3}
