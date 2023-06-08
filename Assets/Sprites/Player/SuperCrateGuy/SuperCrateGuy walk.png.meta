@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 944d3c45233064941b29d5031150b919
+guid: f2cc55f3943997747819dcf5ed54928c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,14 +42,14 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
-  spriteExtrude: 0
-  spriteMeshType: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -117,34 +117,34 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fish walk_0
+      name: SuperCrateGuy walk_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 18
-        height: 18
+        height: 19
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 114d8d52d24ca4848a6529283c84dcfd
-      internalID: 1242788603
+      spriteID: 17ff84426a08ad9488ebe1c355146d72
+      internalID: -1168863170
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fish walk_1
+      name: SuperCrateGuy walk_1
       rect:
         serializedVersion: 2
         x: 18
         y: 0
         width: 18
-        height: 18
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5629403b3f08a4b498c8addc82627b84
-      internalID: 1674866671
+      spriteID: d795fef7c50978445b06683a1d721322
+      internalID: 1501327797
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fish walk_2
+      name: SuperCrateGuy walk_2
       rect:
         serializedVersion: 2
         x: 36
         y: 0
         width: 18
-        height: 18
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9cd560d987120947b357b7cfc4e27e4
-      internalID: 770850603
+      spriteID: 9935b504e57be514aa9033cfbfc07873
+      internalID: -353253750
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fish walk_3
+      name: SuperCrateGuy walk_3
       rect:
         serializedVersion: 2
         x: 54
         y: 0
         width: 18
-        height: 18
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d425ef5fcaefc6d42a2bd195e2e725b4
-      internalID: -1115321751
+      spriteID: eae03d705369054458f25bc1a45fddc2
+      internalID: 2032384720
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fish walk_4
+      name: SuperCrateGuy walk_4
       rect:
         serializedVersion: 2
         x: 72
         y: 0
         width: 18
-        height: 18
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +215,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a70e109e5bb293f43aee1c75b9a46f64
-      internalID: 1141810947
+      spriteID: 6c6f3fa612351ab4c90294fcf52bb4e3
+      internalID: -1817867092
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fish walk_5
+      name: SuperCrateGuy walk_5
       rect:
         serializedVersion: 2
         x: 90
         y: 0
         width: 18
-        height: 18
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,8 +236,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a1f5bed68f7cb243a64333786ab5660
-      internalID: 279598471
+      spriteID: a68b611cd8b713f48a5ac2ba92538f53
+      internalID: 927034406
       vertices: []
       indices: 
       edges: []
@@ -253,12 +253,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Fish walk_3: -1115321751
-      Fish walk_2: 770850603
-      Fish walk_5: 279598471
-      Fish walk_0: 1242788603
-      Fish walk_1: 1674866671
-      Fish walk_4: 1141810947
+      SuperCrateGuy walk_1: 1501327797
+      SuperCrateGuy walk_4: -1817867092
+      SuperCrateGuy walk_3: 2032384720
+      SuperCrateGuy walk_0: -1168863170
+      SuperCrateGuy walk_2: -353253750
+      SuperCrateGuy walk_5: 927034406
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

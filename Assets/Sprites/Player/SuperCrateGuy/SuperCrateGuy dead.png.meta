@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 944d3c45233064941b29d5031150b919
+guid: 3a446f8431e89bf4eba7bafacdd71437
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,14 +42,14 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
-  spriteExtrude: 0
-  spriteMeshType: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -117,127 +117,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fish walk_0
+      name: SuperCrateGuy dead_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 20
+        height: 19
+      alignment: 9
+      pivot: {x: 0.5, y: 0.47368422}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 114d8d52d24ca4848a6529283c84dcfd
-      internalID: 1242788603
+      spriteID: 72a83a7cdd92e854aa19bc556ec89f7e
+      internalID: 1150698514
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fish walk_1
+      name: SuperCrateGuy dead_1
       rect:
         serializedVersion: 2
-        x: 18
+        x: 20
         y: 0
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 20
+        height: 19
+      alignment: 9
+      pivot: {x: 0.5, y: 0.47368422}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5629403b3f08a4b498c8addc82627b84
-      internalID: 1674866671
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Fish walk_2
-      rect:
-        serializedVersion: 2
-        x: 36
-        y: 0
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e9cd560d987120947b357b7cfc4e27e4
-      internalID: 770850603
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Fish walk_3
-      rect:
-        serializedVersion: 2
-        x: 54
-        y: 0
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d425ef5fcaefc6d42a2bd195e2e725b4
-      internalID: -1115321751
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Fish walk_4
-      rect:
-        serializedVersion: 2
-        x: 72
-        y: 0
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a70e109e5bb293f43aee1c75b9a46f64
-      internalID: 1141810947
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Fish walk_5
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 0
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6a1f5bed68f7cb243a64333786ab5660
-      internalID: 279598471
+      spriteID: 01cdf08f8882b6c4692f990ecf9b8a98
+      internalID: -830187798
       vertices: []
       indices: 
       edges: []
@@ -253,12 +169,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Fish walk_3: -1115321751
-      Fish walk_2: 770850603
-      Fish walk_5: 279598471
-      Fish walk_0: 1242788603
-      Fish walk_1: 1674866671
-      Fish walk_4: 1141810947
+      SuperCrateGuy dead_1: -830187798
+      SuperCrateGuy dead_0: 1150698514
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
