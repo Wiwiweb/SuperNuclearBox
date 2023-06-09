@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DiscController : BulletController
 {
-  private const float PlayerImmunityTime = 0.5f;
+  private const float PlayerImmunityTime = 0.1f;
 
   [SerializeField]
   private int nbBounces;
@@ -25,18 +25,9 @@ public class DiscController : BulletController
 
   protected new void OnTriggerEnter2D(Collider2D other)
   {
-    Vector2 contactPoint = other.ClosestPoint(transform.position);
     if (other.CompareTag("Wall"))
     {
-      if (bouncesLeft > 0)
-      {
-        bouncesLeft--;
-        // direction = Util.CollisionBounce(collision, transform, direction);
-      }
-      else
-      {
-        DestroySelf(hitWallSound, contactPoint);
-      }
+      OnWallHit(other);
     }
     else if (other.CompareTag("Enemy"))
     {
@@ -55,9 +46,29 @@ public class DiscController : BulletController
 
   protected void OnTriggerStay2D(Collider2D other)
   {
-    if (other.CompareTag("Enemy"))
+    if (other.CompareTag("Wall"))
+    {
+      OnWallHit(other);
+    }
+    else if (other.CompareTag("Enemy"))
     {
       OnEnemyHit(other);
+
+    }
+  }
+
+  private void OnWallHit(Collider2D wall)
+  {
+    Vector2 contactPoint = wall.ClosestPoint(transform.position);
+    if (bouncesLeft > 0)
+    {
+      bouncesLeft--;
+      AudioSource.PlayClipAtPoint(hitWallSound, contactPoint);
+      direction = Util.CollisionBounce(contactPoint, transform, direction);
+    }
+    else
+    {
+      DestroySelf(hitWallSound, contactPoint);
     }
   }
 

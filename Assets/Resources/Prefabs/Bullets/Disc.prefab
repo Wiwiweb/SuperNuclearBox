@@ -163,6 +163,6 @@ MonoBehaviour:
   bulletHitPrefab: {fileID: 8609602201272068176, guid: 97b1380064925e84ca684b6f5a5ad694, type: 3}
   hitWallSound: {fileID: 8300000, guid: 79a2ed419542daf4183f1b1eedfb9e32, type: 3}
   hitFleshSound: {fileID: 8300000, guid: 08454af5eb0addb49be24e7b7180e897, type: 3}
-  nbBounces: 0
-  hitInvincibility: 0.02
+  nbBounces: 3
+  hitInvincibility: 0.01
   hitEffectsMultiplier: 0.7

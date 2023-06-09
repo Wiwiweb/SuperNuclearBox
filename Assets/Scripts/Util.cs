@@ -13,8 +13,8 @@ internal static class Util
   {
     Vector3 eulerRotation = rotation.eulerAngles;
     eulerRotation = new Vector3(
-      Mathf.Round(eulerRotation.x / angle) * angle, 
-      Mathf.Round(eulerRotation.y / angle) * angle, 
+      Mathf.Round(eulerRotation.x / angle) * angle,
+      Mathf.Round(eulerRotation.y / angle) * angle,
       Mathf.Round(eulerRotation.z / angle) * angle);
     return Quaternion.Euler(eulerRotation);
   }
@@ -41,11 +41,15 @@ internal static class Util
     }
     averageContactPoint /= contactPoints.Length;
 
-    Vector2 localContactPoint = transform.InverseTransformPoint(averageContactPoint);
-    localContactPoint *= transform.localScale;
-    if (Math.Abs(localContactPoint.x) <= Math.Abs(localContactPoint.y)) // Horizontal wall
+    return CollisionBounce(averageContactPoint, transform, movementDirection);
+  }
+
+  public static Vector2 CollisionBounce(Vector2 contactPoint, Transform transform, Vector2 movementDirection)
+  {
+    Vector2 relativeContactPoint = contactPoint - (Vector2)transform.position;
+    if (Math.Abs(relativeContactPoint.x) <= Math.Abs(relativeContactPoint.y)) // Horizontal wall
     {
-      if (localContactPoint.y > 0) // Top hit
+      if (relativeContactPoint.y > 0) // Top hit
       {
         movementDirection.y = -Math.Abs(movementDirection.y);
       }
@@ -54,9 +58,9 @@ internal static class Util
         movementDirection.y = Math.Abs(movementDirection.y);
       }
     }
-    if (Math.Abs(localContactPoint.x) >= Math.Abs(localContactPoint.y)) // Vertical wall (not in an else, to allow for corner hits when x == y)
+    if (Math.Abs(relativeContactPoint.x) >= Math.Abs(relativeContactPoint.y)) // Vertical wall (not in an else, to allow for corner hits when x == y)
     {
-      if (localContactPoint.x > 0) // Right hit
+      if (relativeContactPoint.x > 0) // Right hit
       {
         movementDirection.x = -Math.Abs(movementDirection.x);
         transform.localScale = new Vector3(-1, 1, 1);
@@ -82,9 +86,11 @@ internal static class Util
   public static String CharArrayToString(Char[,] charArray)
   {
     var s = "";
-    for (int y = charArray.GetUpperBound(1); y >= 0; y--) {
-      for (int x = 0; x <= charArray.GetUpperBound(0); x++) {
-            s += charArray[x,y];
+    for (int y = charArray.GetUpperBound(1); y >= 0; y--)
+    {
+      for (int x = 0; x <= charArray.GetUpperBound(0); x++)
+      {
+        s += charArray[x, y];
       }
       s += '\n';
     }
@@ -100,8 +106,8 @@ internal static class Util
 
   public static T RandomFromList<T>(List<T> list)
   {
-      int chosenIndex = Random.Range(0, list.Count);
-      return list[chosenIndex];
+    int chosenIndex = Random.Range(0, list.Count);
+    return list[chosenIndex];
   }
 
   public static Quaternion GetRandomAngle()
