@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static LevelManager;
@@ -70,8 +71,8 @@ public class LevelTileLayer
     // floorTilemap.FloodFill(new Vector3Int(0, 0, 0), floorTile);
 
     // Walls
-    int levelOffsetX = MaxLevelSize / 2 - (level.GetLength(0) / 2);
-    int levelOffsetY = MaxLevelSize / 2 - (level.GetLength(1) / 2);
+    int levelOffsetX = -level.GetLength(0) / 2;
+    int levelOffsetY = -level.GetLength(1) / 2;
     for (int x = 0; x <= level.GetUpperBound(0); x++)
     {
       for (int y = 0; y <= level.GetUpperBound(1); y++)
@@ -80,7 +81,9 @@ public class LevelTileLayer
         int tilemapY = y + levelOffsetY;
         if (level[x, y] == TileType.Floor)
         {
-          floorTilemap.SetTile(new Vector3Int(tilemapX / 2, tilemapY / 2, 0), floorTile);
+          int floorTilemapX = (int) Math.Floor((float) tilemapX / 2);
+          int floorTilemapY = (int) Math.Floor((float) tilemapY / 2);
+          floorTilemap.SetTile(new Vector3Int(floorTilemapX, floorTilemapY, 0), floorTile);
         }
         else if (level[x, y] == TileType.Wall)
         {

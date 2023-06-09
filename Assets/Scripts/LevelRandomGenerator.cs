@@ -179,23 +179,25 @@ public class LevelRandomGenerator
     maxX += 1;
     maxY += 1;
 
-    // Shrink level array for faster tile laying
-    TileType[,] shrunkLevelTiles = new TileType[maxX - minX + 1, maxY - minY + 1];
-    for (int x = 0; x <= shrunkLevelTiles.GetUpperBound(0); x++)
+    // Trim level array for faster tile laying
+    TileType[,] trimmedLevelTiles = new TileType[maxX - minX + 1, maxY - minY + 1];
+    for (int x = 0; x <= trimmedLevelTiles.GetUpperBound(0); x++)
     {
-      for (int y = 0; y <= shrunkLevelTiles.GetUpperBound(1); y++)
+      for (int y = 0; y <= trimmedLevelTiles.GetUpperBound(1); y++)
       {
-        shrunkLevelTiles[x, y] = levelTiles[x + minX, y + minY];
+        trimmedLevelTiles[x, y] = levelTiles[x + minX, y + minY];
       }
     }
 
-    // Now that we have shrunk the level, it will be recentered.
-    // Adjust the coordinates of spawn points.
+    // Now that we have trimmed the level, it must be recentered.
+    // We must also translate spawn points from table index ([0, max]) to Unity coordinates ([-max/2, max/2])
     Vector2Int originaLevelOffset = new Vector2Int(minX, minY); // Offset of level during generation
     Vector2Int newLevelOffset = new Vector2Int(
-      MaxLevelSize / 2 - (shrunkLevelTiles.GetLength(0) / 2),
-      MaxLevelSize / 2 - (shrunkLevelTiles.GetLength(1) / 2)
+      -trimmedLevelTiles.GetLength(0) / 2,
+      -trimmedLevelTiles.GetLength(1) / 2
     ); // Offset of level after re-centering
+
+    // Adjust the coordinates of spawn points
     Vector2Int coordinatesAdjustment = newLevelOffset - originaLevelOffset;
     Vector2Int spawnCoordinates = startPoint + coordinatesAdjustment;
 
@@ -206,21 +208,21 @@ public class LevelRandomGenerator
     bigEnemySpawnPointsList = bigEnemySpawnPointsList.ConvertAll<Vector2Int>(point => point += coordinatesAdjustment);
 
     // Finally, add walls around floors
-    for (int x = 0; x <= shrunkLevelTiles.GetUpperBound(0); x++)
+    for (int x = 0; x <= trimmedLevelTiles.GetUpperBound(0); x++)
     {
-      for (int y = 0; y <= shrunkLevelTiles.GetUpperBound(1); y++)
+      for (int y = 0; y <= trimmedLevelTiles.GetUpperBound(1); y++)
       {
-        if (shrunkLevelTiles[x, y] == TileType.Floor)
+        if (trimmedLevelTiles[x, y] == TileType.Floor)
         {
           for (int dx = -1; dx <= 1; dx++)
           {
             for (int dy = -1; dy <= 1; dy++)
             {
-              if (0 <= x + dx && x + dx <= shrunkLevelTiles.GetUpperBound(0) &&
-                  0 <= y + dy && y + dy <= shrunkLevelTiles.GetUpperBound(1) &&
-                  shrunkLevelTiles[x + dx, y + dy] == TileType.Empty)
+              if (0 <= x + dx && x + dx <= trimmedLevelTiles.GetUpperBound(0) &&
+                  0 <= y + dy && y + dy <= trimmedLevelTiles.GetUpperBound(1) &&
+                  trimmedLevelTiles[x + dx, y + dy] == TileType.Empty)
               {
-                shrunkLevelTiles[x + dx, y + dy] = TileType.Wall;
+                trimmedLevelTiles[x + dx, y + dy] = TileType.Wall;
               }
             }
           }
@@ -228,7 +230,7 @@ public class LevelRandomGenerator
       }
     }
 
-    return new LevelData(shrunkLevelTiles, spawnCoordinates, boxSpawnPointsList, enemySpawnPointsList, bigEnemySpawnPointsList);
+    return new LevelData(trimmedLevelTiles, spawnCoordinates, boxSpawnPointsList, enemySpawnPointsList, bigEnemySpawnPointsList);
   }
 
   private Vector2Int RandomDirection()
