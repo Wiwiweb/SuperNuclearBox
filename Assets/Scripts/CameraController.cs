@@ -39,6 +39,10 @@ public class CameraController : MonoBehaviour
     }
     else {
       Vector2 mousePosition = Mouse.current.position.ReadValue();
+      if (mousePosition == Vector2.zero)
+      {
+        return;
+      }
       mousePosition.x = Mathf.Clamp(mousePosition.x, 0, Camera.main.pixelWidth);
       mousePosition.y = Mathf.Clamp(mousePosition.y, 0, Camera.main.pixelHeight);
       mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -72,6 +76,11 @@ public class CameraController : MonoBehaviour
   public void AddScreenshake(float addedScreenshake)
   {
     screenshakePower += addedScreenshake;
+  }
+
+  public void SetPosition(Vector2 position)
+  {
+    transform.position = position;
   }
   
   public void FixPosition()

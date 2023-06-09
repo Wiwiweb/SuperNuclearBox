@@ -60,7 +60,8 @@ public class GameManager : MonoBehaviour
     EnemySpawnManager.Init();
     EnemySpawnManager.UpdateEnemySpawns();
     GunManager.Init();
-    UIController.instance.UpdateScoreLabels(PersistentData.BoxScore, PersistentData.BestBoxScore);  
+    UIController.instance.UpdateScoreLabels(PersistentData.BoxScore, PersistentData.BestBoxScore);
+    cameraController.SetPosition(Player.transform.position); // Ease the first frame camera movement
   }
 
   void Update()
