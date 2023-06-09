@@ -40,7 +40,7 @@ public abstract class AbstractEnemy : MonoBehaviour
     health = maxHealth;
   }
 
-  public void OnBulletHit(GameObject bullet)
+  public void OnBulletHit(GameObject bullet, float hitEffectsMultiplier = 1)
   {
     if (health > 0)
     {
@@ -51,8 +51,8 @@ public abstract class AbstractEnemy : MonoBehaviour
       {
         audioSource.pitch = Random.Range(0.8f, 1.2f);
         audioSource.PlayOneShot(hitSound);
-        cameraController.AddScreenshake(ScreenshakeOnHit);
-        Hitstop.Add(HitStopDurationOnHit);
+        cameraController.AddScreenshake(ScreenshakeOnHit * hitEffectsMultiplier);
+        Hitstop.Add(HitStopDurationOnHit * hitEffectsMultiplier);
       }
       else
       {

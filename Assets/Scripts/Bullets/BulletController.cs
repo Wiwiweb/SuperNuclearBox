@@ -14,6 +14,9 @@ public class BulletController : MonoBehaviour
   protected AudioClip hitWallSound;
   [SerializeField]
   protected AudioClip hitFleshSound;
+  
+  protected virtual float ScreenshakeMultiplier { get; set; } = 1;
+  protected virtual float HitstopMultiplier { get; set; } = 1;
 
   protected void Start()
   {
@@ -38,12 +41,6 @@ public class BulletController : MonoBehaviour
       AbstractEnemy otherScript = other.GetComponent<AbstractEnemy>();
       otherScript.OnBulletHit(gameObject);
       DestroySelf(hitFleshSound, contactPoint);
-    }
-    else if (other.CompareTag("Player"))
-    {
-      // Friendly fire, hehe
-      PlayerController otherScript = other.GetComponent<PlayerController>();
-      otherScript.Die(transform.position);
     }
   }
 
