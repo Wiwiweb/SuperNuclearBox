@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 9163121718067108326}
   - component: {fileID: 1514481534041163243}
   - component: {fileID: 1617220476724661983}
+  - component: {fileID: -7999249994928649603}
   m_Layer: 8
   m_Name: SuperCrateGuy
   m_TagString: Player
@@ -119,8 +120,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1617220476724661983}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: -7999249994928649603}
+        m_TargetAssemblyTypeName: PlayerInputComponent, Assembly-CSharp
         m_MethodName: Move
         m_Mode: 0
         m_Arguments:
@@ -139,8 +140,8 @@ MonoBehaviour:
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1617220476724661983}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: -7999249994928649603}
+        m_TargetAssemblyTypeName: PlayerInputComponent, Assembly-CSharp
         m_MethodName: Fire
         m_Mode: 0
         m_Arguments:
@@ -155,8 +156,8 @@ MonoBehaviour:
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1617220476724661983}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: -7999249994928649603}
+        m_TargetAssemblyTypeName: PlayerInputComponent, Assembly-CSharp
         m_MethodName: DebugNextGun
         m_Mode: 0
         m_Arguments:
@@ -171,8 +172,8 @@ MonoBehaviour:
     m_ActionName: Player/DebugNextGun[/Keyboard/o]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1617220476724661983}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: -7999249994928649603}
+        m_TargetAssemblyTypeName: PlayerInputComponent, Assembly-CSharp
         m_MethodName: DebugPreviousGun
         m_Mode: 0
         m_Arguments:
@@ -187,8 +188,8 @@ MonoBehaviour:
     m_ActionName: Player/DebugPreviousGun[/Keyboard/p]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1617220476724661983}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: -7999249994928649603}
+        m_TargetAssemblyTypeName: PlayerInputComponent, Assembly-CSharp
         m_MethodName: DebugGodMode
         m_Mode: 0
         m_Arguments:
@@ -203,8 +204,8 @@ MonoBehaviour:
     m_ActionName: Player/DebugGodMode[/Keyboard/l]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1617220476724661983}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: -7999249994928649603}
+        m_TargetAssemblyTypeName: PlayerInputComponent, Assembly-CSharp
         m_MethodName: Restart
         m_Mode: 0
         m_Arguments:
@@ -403,7 +404,18 @@ MonoBehaviour:
   boxPickupNormalSound: {fileID: 8300000, guid: e34560e2509def845839fba28c7cf768, type: 3}
   boxPickupBadSound: {fileID: 8300000, guid: 4ecb5a9a25e507b41b06714c5ab3d44b, type: 3}
   portalPrefab: {fileID: 7222548573800513379, guid: a158b9c8b798d2e419c0414bf23aaf40, type: 3}
-  dead: 0
+--- !u!114 &-7999249994928649603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617220476724661980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf39933bd8f313046a311cae193475d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4233965670999848384
 GameObject:
   m_ObjectHideFlags: 0

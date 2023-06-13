@@ -30,11 +30,11 @@ public class PlayerController : MonoBehaviour
   [SerializeField]
   private GameObject portalPrefab;
 
-  public bool dead = false;
+  public bool Dead { get; set; }
+  public bool GodMode { get; set; }
+  public Vector2 MovementDirection { get; set; }
 
-  private Vector2 movementDirection = Vector2.zero;
   private Vector2 forcedMovement = Vector2.zero; // Per second, (i.e. already adjusted for Time.deltaTime)
-  private bool godMode = false;
 
   private new Rigidbody2D rigidbody;
   private Animator animator;
@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
   private new Camera camera;
   private CameraController cameraController;
 
+
   void Start()
   {
     if (PersistentData.PlayerEquippedGunType == null)
@@ -52,10 +53,10 @@ public class PlayerController : MonoBehaviour
     }
 
     equippedGun = gameObject.AddComponent(PersistentData.PlayerEquippedGunType) as AbstractGun;
-    rigidbody = gameObject.GetComponent<Rigidbody2D>();
-    animator = gameObject.GetComponent<Animator>();
-    audioSource = gameObject.GetComponent<AudioSource>();
-    gunRotationObject = gameObject.transform.Find("GunRotation").gameObject;
+    rigidbody = GetComponent<Rigidbody2D>();
+    animator = GetComponent<Animator>();
+    audioSource = GetComponent<AudioSource>();
+    gunRotationObject = transform.Find("GunRotation").gameObject;
     gunSpriteObject = gunRotationObject.transform.Find("Gun").gameObject;
     camera = Camera.main;
     cameraController = camera.GetComponent<CameraController>();
@@ -65,9 +66,9 @@ public class PlayerController : MonoBehaviour
 
   void FixedUpdate()
   {
-    if (!dead)
+    if (!Dead)
     {
-      Vector2 newPosition = (Vector2)transform.position + movementDirection * speed * Time.fixedDeltaTime + forcedMovement;
+      Vector2 newPosition = (Vector2)transform.position + MovementDirection * speed * Time.fixedDeltaTime + forcedMovement;
       (newPosition, _) = RoundToPixel(newPosition);
       rigidbody.MovePosition(newPosition);
       forcedMovement = Vector2.zero;
@@ -76,7 +77,7 @@ public class PlayerController : MonoBehaviour
 
   void Update()
   {
-    if (!dead)
+    if (!Dead)
     {
       Vector2 mousePosition = Mouse.current.position.ReadValue();
       mousePosition = camera.ScreenToWorldPoint(mousePosition);
@@ -102,10 +103,10 @@ public class PlayerController : MonoBehaviour
 
   public void Die(Vector2 causePosition, float intensityMultiplier = 1)
   {
-    if (!godMode && !dead)
+    if (!GodMode && !Dead)
     {
       Hitstop.Add(HitstopOnDeath, DieAfterHitstop);
-      dead = true;
+      Dead = true;
 
       audioSource.pitch = Random.Range(0.9f, 1.3f);
       audioSource.PlayOneShot(hitSound);
@@ -117,7 +118,7 @@ public class PlayerController : MonoBehaviour
       rigidbody.AddForce(push);
 
       gameObject.layer = LayerMask.NameToLayer("Corpse");
-      movementDirection = Vector2.zero;
+      MovementDirection = Vector2.zero;
       equippedGun.OnFireStop();
       cameraController.FixPosition();
       gunSpriteObject.GetComponent<SpriteRenderer>().enabled = false;
@@ -143,77 +144,6 @@ public class PlayerController : MonoBehaviour
   {
     GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
     gunSpriteObject.GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-  }
-
-  public void Move(InputAction.CallbackContext context)
-  {
-    if (!dead)
-    {
-      movementDirection = context.ReadValue<Vector2>();
-      animator.SetBool("walking", movementDirection != Vector2.zero);
-      if (movementDirection.x < 0)
-      {
-        transform.localScale = new Vector3(-1, 1, 1);
-      }
-      else if (movementDirection.x > 0)
-      {
-        transform.localScale = new Vector3(1, 1, 1);
-      }
-    }
-  }
-
-  public void Fire(InputAction.CallbackContext context)
-  {
-    if (!dead)
-    {
-      if (context.started)
-      {
-        equippedGun.OnFirePush();
-      }
-      else if (context.canceled)
-      {
-        equippedGun.OnFireStop();
-      }
-    }
-  }
-
-  public void Restart(InputAction.CallbackContext context)
-  {
-    if (context.started)
-    {
-      PersistentData.BoxScore = 0;
-      PersistentData.PlayerEquippedGunType = null;
-      SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-  }
-
-  public void DebugPreviousGun(InputAction.CallbackContext context)
-  {
-    if (context.started)
-    {
-      Type gunType = GunManager.DebugGetPreviousGun();
-      switchToGun(gunType, transform.position);
-    }
-  }
-
-  public void DebugNextGun(InputAction.CallbackContext context)
-  {
-    if (context.started)
-    {
-      Type gunType = GunManager.DebugGetNextGun();
-      switchToGun(gunType, transform.position);
-    }
-  }
-
-  public void DebugGodMode(InputAction.CallbackContext context)
-  {
-    if (context.started)
-    {
-      godMode = !godMode;
-      string onOff = godMode ? "on" : "off";
-      string text = $"God mode {onOff}!".ToUpper();
-      GameManager.instance.CreateFloatingText(transform.position, text);
-    }
   }
 
   private void OnTriggerEnter2D(Collider2D other)
@@ -242,7 +172,7 @@ public class PlayerController : MonoBehaviour
     }
   }
 
-  private void switchToGun(Type gunType, Vector3 floatingTextPosition)
+  public void switchToGun(Type gunType, Vector3 floatingTextPosition)
   {
     Destroy(equippedGun);
     equippedGun = gameObject.AddComponent(gunType) as AbstractGun;

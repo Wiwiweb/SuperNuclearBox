@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
   void Update()
   {
     Hitstop.Update();
-    if (!playerController.dead)
+    if (!playerController.Dead)
     {
       EnemySpawnManager.UpdateEnemySpawns();
     }

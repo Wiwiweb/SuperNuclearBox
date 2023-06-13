@@ -31,7 +31,7 @@ public class SCB_FlameSkull : AbstractEnemy
   void FixedUpdate()
   {
     GameObject player = GameManager.instance.Player;
-    if (moving && !player.GetComponent<PlayerController>().dead)
+    if (moving && !player.GetComponent<PlayerController>().Dead)
     {
       Vector2 movementDirection = player.transform.position - transform.position;
       movementDirection.Normalize();
