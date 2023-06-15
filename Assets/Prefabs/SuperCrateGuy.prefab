@@ -216,8 +216,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 9fb0b27f-5238-449e-9f23-8876c7a9e931
-    m_ActionName: Player/Restart[/Keyboard/r]
+    m_ActionId: 9f7101d1-083a-49be-a778-b6edc2c90781
+    m_ActionName: Dead/Restart[/Keyboard/r,/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player

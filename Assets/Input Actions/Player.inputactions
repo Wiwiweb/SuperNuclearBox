@@ -35,7 +35,7 @@
                 {
                     "name": "Restart",
                     "type": "Button",
-                    "id": "9fb0b27f-5238-449e-9f23-8876c7a9e931",
+                    "id": "87e2637e-2597-4879-8d36-2d1c067df9cf",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -325,11 +325,94 @@
                 },
                 {
                     "name": "",
-                    "id": "872ec9f2-2934-4ff3-a944-5f715e09cb33",
+                    "id": "3fc364a5-d185-459a-9fec-279ff3cde864",
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Dead",
+            "id": "02dcba9e-c84d-4b34-97eb-a7c8def1b803",
+            "actions": [
+                {
+                    "name": "Restart",
+                    "type": "Button",
+                    "id": "9f7101d1-083a-49be-a778-b6edc2c90781",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "355feb9e-5196-4051-ac7d-8975ab40e445",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d96eb95b-dc75-41e3-b44b-ae8c163c8bf7",
+                    "path": "<XRController>/{PrimaryAction}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XR",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "09803a74-d476-43f1-bae6-048aa723a0d7",
+                    "path": "<Joystick>/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cba44902-8ee4-4b2c-8d04-87dc42c0fcbe",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touch",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2dfc7ba7-6d49-47a5-932b-2fab6d357324",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "de49f6bc-9163-449d-8507-845cca5968e6",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "Restart",
                     "isComposite": false,
                     "isPartOfComposite": false

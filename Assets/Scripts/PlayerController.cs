@@ -128,6 +128,8 @@ public class PlayerController : MonoBehaviour
 
   private void DieAfterHitstop()
   {
+    GetComponent<PlayerInput>().SwitchCurrentActionMap("Dead"); // Press any button to reset
+
     if (audioSource != null) // Could happen if we restart before the callback
     {
       audioSource.pitch = Random.Range(0.9f, 1.2f);
