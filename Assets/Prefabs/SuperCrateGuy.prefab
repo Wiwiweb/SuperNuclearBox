@@ -135,7 +135,19 @@ MonoBehaviour:
     m_ActionId: 03f9cf9b-0b3c-4f87-9f33-65b92ff2a9d1
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -7999249994928649603}
+        m_TargetAssemblyTypeName: PlayerInputComponent, Assembly-CSharp
+        m_MethodName: Look
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 31fe1a43-3a9e-4b6b-82c8-a6e5518099d3
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
@@ -218,6 +230,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9f7101d1-083a-49be-a778-b6edc2c90781
     m_ActionName: Dead/Restart[/Keyboard/r,/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 87e2637e-2597-4879-8d36-2d1c067df9cf
+    m_ActionName: Player/Restart[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player

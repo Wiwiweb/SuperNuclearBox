@@ -64,11 +64,7 @@ public abstract class AbstractGun : MonoBehaviour
 
   protected void createBulletsTowardsCursor()
   {
-    Vector2 mousePosition = Mouse.current.position.ReadValue();
-    mousePosition = camera.ScreenToWorldPoint(mousePosition);
-
-    Vector2 lookDirection = mousePosition - (Vector2)transform.position;
-    lookDirection = lookDirection.normalized;
+    Vector2 lookDirection = playerController.LookVector.normalized;
     Vector2 edgeOfGun = gunSpriteObject.transform.position + gunSpriteObject.transform.right * gunWidth / 2 * transform.localScale.x;
     Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, lookDirection);
     Instantiate(muzzleFlashPrefab, edgeOfGun, lookRotation);

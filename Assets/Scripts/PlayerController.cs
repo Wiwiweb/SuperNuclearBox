@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
   public bool Dead { get; set; }
   public bool GodMode { get; set; }
   public Vector2 MovementDirection { get; set; }
+  public Vector2 LookVector { get; set; }
 
   private Vector2 forcedMovement = Vector2.zero; // Per second, (i.e. already adjusted for Time.deltaTime)
 
@@ -79,10 +80,7 @@ public class PlayerController : MonoBehaviour
   {
     if (!Dead)
     {
-      Vector2 mousePosition = Mouse.current.position.ReadValue();
-      mousePosition = camera.ScreenToWorldPoint(mousePosition);
-      Vector2 shootDirection = mousePosition - (Vector2)transform.position;
-      if (shootDirection.x > 0) // Flip gun sprite when pointing backwards
+      if (LookVector.x > 0) // Flip gun sprite when pointing backwards
       {
         gunSpriteObject.transform.localScale = new Vector3(1, transform.localScale.x, 1);
       }
@@ -90,7 +88,7 @@ public class PlayerController : MonoBehaviour
       {
         gunSpriteObject.transform.localScale = new Vector3(1, -transform.localScale.x, 1);
       }
-      Quaternion gunRotation = Quaternion.LookRotation(Vector3.forward, shootDirection);
+      Quaternion gunRotation = Quaternion.LookRotation(Vector3.forward, LookVector);
       gunRotation = RoundRotation(gunRotation, 5);
       gunRotationObject.transform.rotation = gunRotation;
     }

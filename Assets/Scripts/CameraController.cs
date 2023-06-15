@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
@@ -12,15 +11,17 @@ public class CameraController : MonoBehaviour
   private BoxArrowController boxArrowController;
 
   [SerializeField]
-  private float screenshakeReductionPerSec = 1;
+  private float screenshakeReductionPerSec;
   [SerializeField]
-  private float screenshakeMultiplier = 1;
+  private float screenshakeMultiplier;
+  [SerializeField]
+  private float lookMultiplier;
 
   [SerializeField]
   private Vector2 kickback = Vector2.zero;
   [SerializeField]
   private float screenshakePower = 0;
-  
+
   private bool fixPosition = false;
   private Vector2 fixedPosition;
 
@@ -37,16 +38,16 @@ public class CameraController : MonoBehaviour
     {
       targetPosition = fixedPosition;
     }
-    else {
-      Vector2 mousePosition = Mouse.current.position.ReadValue();
-      if (mousePosition == Vector2.zero)
+    else
+    {
+      if (playerController.LookVector == Vector2.zero)
       {
-        return;
+        targetPosition = (Vector2)Player.transform.position;
       }
-      mousePosition.x = Mathf.Clamp(mousePosition.x, 0, Camera.main.pixelWidth);
-      mousePosition.y = Mathf.Clamp(mousePosition.y, 0, Camera.main.pixelHeight);
-      mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-      targetPosition = (mousePosition + (Vector2)Player.transform.position * 3) / 4;
+      else
+      {
+        targetPosition = (playerController.LookVector * lookMultiplier) + (Vector2)Player.transform.position;
+      }
 
       targetPosition += kickback;
       kickback = Vector2.zero;
@@ -82,7 +83,7 @@ public class CameraController : MonoBehaviour
   {
     transform.position = position;
   }
-  
+
   public void FixPosition()
   {
     fixPosition = true;

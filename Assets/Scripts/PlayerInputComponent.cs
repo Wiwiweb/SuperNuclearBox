@@ -31,6 +31,18 @@ public class PlayerInputComponent : MonoBehaviour
     }
   }
 
+  public void Look(InputAction.CallbackContext context)
+  {
+    if (context.started || context.performed)
+    {
+      Vector2 screenLookPosition = context.ReadValue<Vector2>();
+      screenLookPosition.x = Mathf.Clamp(screenLookPosition.x, 0, Camera.main.pixelWidth);
+      screenLookPosition.y = Mathf.Clamp(screenLookPosition.y, 0, Camera.main.pixelHeight);
+      Vector2 worldLookPosition = Camera.main.ScreenToWorldPoint(screenLookPosition);
+      playerController.LookVector = worldLookPosition - (Vector2) transform.position;
+    }
+  }
+
   public void Fire(InputAction.CallbackContext context)
   {
      if (!playerController.Dead)
