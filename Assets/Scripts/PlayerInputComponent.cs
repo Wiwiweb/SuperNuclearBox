@@ -14,6 +14,11 @@ public class PlayerInputComponent : MonoBehaviour
     animator = GetComponent<Animator>();
   }
 
+  void Start()
+  {
+    UpdateOnScreenStickVisibility(GetComponent<PlayerInput>().currentControlScheme);
+  }
+
   public void Move(InputAction.CallbackContext context)
   {
     Move(context.ReadValue<Vector2>());
@@ -100,5 +105,15 @@ public class PlayerInputComponent : MonoBehaviour
       string text = $"God mode {onOff}!".ToUpper();
       GameManager.instance.CreateFloatingText(transform.position, text);
     }
+  }
+
+  public void OnControlSchemeChanged(PlayerInput playerInput)
+  {
+    UpdateOnScreenStickVisibility(playerInput.currentControlScheme);
+  }
+
+  private void UpdateOnScreenStickVisibility(string controlScheme)
+  {
+    UIToolkitOnScreenStick.instance.SetVisibility(controlScheme == "Touch");
   }
 }

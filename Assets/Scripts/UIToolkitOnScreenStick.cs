@@ -81,4 +81,10 @@ public class UIToolkitOnScreenStick : MonoBehaviour
     }
     // SendValueToControl(newPos);
   }
+
+  public void SetVisibility(bool visibility)
+  {
+    onScreenStick.visible = visibility;
+    onScreenStickBoundary.visible = visibility;
+  }
 }
