@@ -16,9 +16,14 @@ public class PlayerInputComponent : MonoBehaviour
 
   public void Move(InputAction.CallbackContext context)
   {
+    Move(context.ReadValue<Vector2>());
+  }
+
+  public void Move(Vector2 movementDirection)
+  {
     if (!playerController.Dead)
     {
-      playerController.MovementDirection = context.ReadValue<Vector2>();
+      playerController.MovementDirection = movementDirection;
       animator.SetBool("walking", playerController.MovementDirection != Vector2.zero);
       if (playerController.MovementDirection.x < 0)
       {
@@ -39,13 +44,13 @@ public class PlayerInputComponent : MonoBehaviour
       screenLookPosition.x = Mathf.Clamp(screenLookPosition.x, 0, Camera.main.pixelWidth);
       screenLookPosition.y = Mathf.Clamp(screenLookPosition.y, 0, Camera.main.pixelHeight);
       Vector2 worldLookPosition = Camera.main.ScreenToWorldPoint(screenLookPosition);
-      playerController.LookVector = worldLookPosition - (Vector2) transform.position;
+      playerController.LookVector = worldLookPosition - (Vector2)transform.position;
     }
   }
 
   public void Fire(InputAction.CallbackContext context)
   {
-     if (!playerController.Dead)
+    if (!playerController.Dead)
     {
       if (context.started)
       {

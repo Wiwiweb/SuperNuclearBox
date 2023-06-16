@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
   public GameObject box;
   private GameObject player;
   private PlayerController playerController;
+  private PlayerInputComponent playerInputComponent;
 
   [SerializeField]
   private GameObject playerPrefab;
@@ -88,6 +89,7 @@ public class GameManager : MonoBehaviour
     Vector3 playerSpawnPosition = Util.WorldPositionFromTile(spawnPointTile);
     Player = Instantiate(playerPrefab, playerSpawnPosition, Quaternion.identity);
     cameraController.Player = Player;
+    UIToolkitOnScreenStick.instance.Player = Player;
   }
 
   public void SpawnBox()

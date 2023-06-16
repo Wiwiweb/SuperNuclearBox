@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
 using UnityEngine.SceneManagement;
 using static Util;
 using Random = UnityEngine.Random;
@@ -63,6 +65,9 @@ public class PlayerController : MonoBehaviour
     cameraController = camera.GetComponent<CameraController>();
 
     audioSource.ignoreListenerPause = true;
+
+    // TouchSimulation.Enable();
+    // GetComponent<PlayerInput>().SwitchCurrentControlScheme(InputSystem.devices.First(d => d == Touchscreen.current));
   }
 
   void FixedUpdate()
@@ -126,10 +131,10 @@ public class PlayerController : MonoBehaviour
 
   private void DieAfterHitstop()
   {
-    GetComponent<PlayerInput>().SwitchCurrentActionMap("Dead"); // Press any button to reset
-
-    if (audioSource != null) // Could happen if we restart before the callback
+    if (gameObject != null) // Could happen if we restart before the callback
     {
+      GetComponent<PlayerInput>().SwitchCurrentActionMap("Dead"); // Press any button to reset
+
       audioSource.pitch = Random.Range(0.9f, 1.2f);
       audioSource.PlayOneShot(deathSound);
 

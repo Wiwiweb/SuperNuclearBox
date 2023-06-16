@@ -231,7 +231,19 @@ MonoBehaviour:
     m_ActionId: 9f7101d1-083a-49be-a778-b6edc2c90781
     m_ActionName: Dead/Restart[/Keyboard/r,/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -7999249994928649603}
+        m_TargetAssemblyTypeName: PlayerInputComponent, Assembly-CSharp
+        m_MethodName: Restart
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 87e2637e-2597-4879-8d36-2d1c067df9cf
     m_ActionName: Player/Restart[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
