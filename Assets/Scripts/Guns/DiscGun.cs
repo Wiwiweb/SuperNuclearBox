@@ -6,7 +6,7 @@ public class DiscGun : AbstractSemiAutoGun
   protected override string BulletPrefabPath { get; } = "Prefabs/Bullets/Disc";
   protected override string MuzzleFlashPrefabPath { get; } = "Prefabs/Bullet Muzzle Flash";
   [field: SerializeField]
-  protected override float Cooldown { get; set; } = 0.6f;
+  protected override float Cooldown { get; set; } = 0.5f;
   [field: SerializeField]
   protected override float RandomSpread { get; set; } = 0;
   [field: SerializeField]

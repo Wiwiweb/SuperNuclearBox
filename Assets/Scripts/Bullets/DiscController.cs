@@ -80,7 +80,7 @@ public class DiscController : BulletController
     if (!hasKey || ignoreUntil < Time.time)
     {
       AbstractEnemy otherScript = enemy.GetComponent<AbstractEnemy>();
-      otherScript.OnBulletHit(gameObject, hitEffectsMultiplier);
+      otherScript.OnBulletHit(damage, direction, hitEffectsMultiplier);
       enemiesToIgnoreUntil[enemy.gameObject] = Time.time + hitInvincibility;
     }
   }

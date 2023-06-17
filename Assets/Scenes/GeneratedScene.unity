@@ -317,7 +317,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083009ce6aa3a4147994d91355fc323b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ControlPath: <Gamepad>/leftStick
 --- !u!1 &121597712
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,8 +2,6 @@ using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.EnhancedTouch;
-using UnityEngine.SceneManagement;
 using static Util;
 using Random = UnityEngine.Random;
 

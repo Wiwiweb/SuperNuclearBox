@@ -40,12 +40,11 @@ public abstract class AbstractEnemy : MonoBehaviour
     health = maxHealth;
   }
 
-  public void OnBulletHit(GameObject bullet, float hitEffectsMultiplier = 1)
+  public void OnBulletHit(float damage, Vector2 deathDirection, float hitEffectsMultiplier = 1)
   {
     if (health > 0)
     {
-      BulletController bulletController = bullet.GetComponent<BulletController>();
-      health -= bulletController.damage;
+      health -= damage;
       FlashSprite();
       if (health > 0)
       {
@@ -62,7 +61,7 @@ public abstract class AbstractEnemy : MonoBehaviour
         {
           GameObject corpse = Instantiate(corpsePrefab, transform.position, transform.rotation);
           CorpseController corpseController = corpse.GetComponent<CorpseController>();
-          corpseController.Initialize(bulletController.direction, spriteRenderer.sprite, transform.localScale);
+          corpseController.Initialize(deathDirection, spriteRenderer.sprite, transform.localScale);
           Destroy(gameObject);
         };
         Hitstop.Add(HitStopDurationOnDeath, callback);
