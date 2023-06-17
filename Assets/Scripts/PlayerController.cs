@@ -123,6 +123,7 @@ public class PlayerController : MonoBehaviour
       equippedGun.OnFireStop();
       cameraController.FixPosition();
       gunSpriteObject.GetComponent<SpriteRenderer>().enabled = false;
+      GetComponent<SpriteRenderer>().sortingLayerName = "Dead player";
       animator.SetTrigger("dead");
     }
   }
@@ -131,6 +132,7 @@ public class PlayerController : MonoBehaviour
   {
     if (gameObject != null) // Could happen if we restart before the callback
     {
+      GetComponent<SpriteRenderer>().sortingLayerName = "Units";
       GetComponent<PlayerInput>().SwitchCurrentActionMap("Dead"); // Press any button to reset
 
       audioSource.pitch = Random.Range(0.9f, 1.2f);

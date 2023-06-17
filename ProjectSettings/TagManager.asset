@@ -74,6 +74,9 @@ TagManager:
   - name: World UI
     uniqueID: 249331263
     locked: 0
+  - name: Dead player
+    uniqueID: 2026424693
+    locked: 0
   - name: UI
     uniqueID: 2399074669
     locked: 0
