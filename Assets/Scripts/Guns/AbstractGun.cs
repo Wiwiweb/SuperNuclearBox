@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public abstract class AbstractGun : MonoBehaviour
 {
@@ -105,6 +104,7 @@ public abstract class AbstractGun : MonoBehaviour
   {
     float spread = fixedSpread + Random.Range(-RandomSpread / 2, RandomSpread / 2);
     Vector2 shootDirection = Quaternion.AngleAxis(spread, Vector3.forward) * lookDirection;
+    shootDirection.Normalize();
     Quaternion shootRotation = Quaternion.LookRotation(Vector3.forward, shootDirection);
 
     GameObject bullet = Instantiate(bulletPrefab, edgeOfGun, shootRotation);

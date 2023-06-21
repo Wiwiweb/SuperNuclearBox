@@ -28,53 +28,6 @@ internal static class Util
     return (roundedVector, roundedVector - vector);
   }
 
-  public static Vector2 CollisionBounce(Collision2D collision, Transform transform, Vector2 movementDirection)
-  {
-    ContactPoint2D[] contactPoints = new ContactPoint2D[collision.contactCount];
-    collision.GetContacts(contactPoints);
-
-    Vector2 averageContactPoint = Vector2.zero;
-    foreach (ContactPoint2D contactPoint in contactPoints)
-    {
-      // Instantiate(positionMarkerPrefab, contactPoint.point, Quaternion.identity);
-      averageContactPoint += contactPoint.point;
-    }
-    averageContactPoint /= contactPoints.Length;
-
-    return CollisionBounce(averageContactPoint, transform, movementDirection);
-  }
-
-  public static Vector2 CollisionBounce(Vector2 contactPoint, Transform transform, Vector2 movementDirection)
-  {
-    Vector2 relativeContactPoint = contactPoint - (Vector2)transform.position;
-    if (Math.Abs(relativeContactPoint.x) <= Math.Abs(relativeContactPoint.y)) // Horizontal wall
-    {
-      if (relativeContactPoint.y > 0) // Top hit
-      {
-        movementDirection.y = -Math.Abs(movementDirection.y);
-      }
-      else // Bottom hit
-      {
-        movementDirection.y = Math.Abs(movementDirection.y);
-      }
-    }
-    if (Math.Abs(relativeContactPoint.x) >= Math.Abs(relativeContactPoint.y)) // Vertical wall (not in an else, to allow for corner hits when x == y)
-    {
-      if (relativeContactPoint.x > 0) // Right hit
-      {
-        movementDirection.x = -Math.Abs(movementDirection.x);
-        transform.localScale = new Vector3(-1, 1, 1);
-      }
-      else // Left hit
-      {
-        movementDirection.x = Math.Abs(movementDirection.x);
-        transform.localScale = new Vector3(1, 1, 1);
-      }
-    }
-
-    return movementDirection;
-  }
-
   public static void PrintStopwatch(Stopwatch stopwatch)
   {
     stopwatch.Stop();

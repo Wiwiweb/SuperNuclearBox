@@ -64,7 +64,7 @@ public class DiscController : BulletController
     {
       bouncesLeft--;
       AudioSource.PlayClipAtPoint(hitWallSound, contactPoint);
-      direction = Util.CollisionBounce(contactPoint, transform, direction);
+      direction = UtilCollision.CollisionBounce(contactPoint, transform, direction);
     }
     else
     {

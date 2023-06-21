@@ -33,12 +33,12 @@ public class SCB_BouncingEnemy : AbstractEnemy
 
   protected override void OnCollisionEnter2D(Collision2D collision)
   {
-    movementDirection = Util.CollisionBounce(collision, transform, movementDirection);
+    movementDirection = UtilCollision.CollisionBounce(collision, transform, movementDirection);
     base.OnCollisionEnter2D(collision);
   }
 
   protected void OnCollisionStay2D(Collision2D collision)
   {
-    movementDirection = Util.CollisionBounce(collision, transform, movementDirection);
+    movementDirection = UtilCollision.CollisionBounce(collision, transform, movementDirection);
   }
 }

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+  public const float SpeedToForce = 35f;
+
   public Vector2 direction;
   public float speed = 10;
   public float damage = 1;
@@ -29,7 +31,7 @@ public class BulletController : MonoBehaviour
     rigidbody.MovePosition(newPosition);
   }
 
-  protected void OnTriggerEnter2D(Collider2D other)
+  protected virtual void OnTriggerEnter2D(Collider2D other)
   {
     Vector2 contactPoint = other.ClosestPoint(transform.position);
     if (other.CompareTag("Wall"))
