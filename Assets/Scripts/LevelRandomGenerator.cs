@@ -30,7 +30,7 @@ public class LevelRandomGenerator
     public int size;
   }
 
-  public int FloorsMax = 300;
+  public int FloorsMax = 350;
   public float TurnChanceLeft = 2 / 14f;
   public float TurnChanceRight = 2 / 14f;
   public float TurnChance180 = 1 / 14f;
@@ -38,7 +38,7 @@ public class LevelRandomGenerator
   public float WalkerSpawnChance = 1 / 16f;
   public float WalkerDieChance = 1 / 19f;
   private PremadeSquareRoom[] premadeSquareRooms = new PremadeSquareRoom[] {
-    new PremadeSquareRoom(0.3f, 2)
+    new PremadeSquareRoom(0.6f, 2)
   };
 
   public LevelData GenerateRandomLevel()
