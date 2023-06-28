@@ -22,6 +22,7 @@ public static class GunManager
     new GunEntry(10, typeof(Pistol)),
     new GunEntry(10, typeof(MachineGun)),
     new GunEntry(10, typeof(Shotgun)),
+    new GunEntry(10, typeof(LaserGun)),
     new GunEntry(5, typeof(TripleMachineGun)),
     new GunEntry(5, typeof(DiscGun)),
     new GunEntry(5, typeof(Bazooka)),

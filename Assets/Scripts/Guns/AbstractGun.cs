@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public abstract class AbstractGun : MonoBehaviour
 {
@@ -14,7 +16,7 @@ public abstract class AbstractGun : MonoBehaviour
   protected virtual string GunSpritePath { get => "Gun sprites/" + this.GetType().Name; }
   protected virtual string GunSoundPath { get => "Gun sounds/" + this.GetType().Name; }
   protected abstract string BulletPrefabPath { get; }
-  protected abstract string MuzzleFlashPrefabPath { get; }
+  protected virtual string MuzzleFlashPrefabPath { get => null; }
 
   protected virtual float Cooldown { get; set; } = 0;
   protected virtual float RandomSpread { get; set; } = 0;
@@ -45,7 +47,10 @@ public abstract class AbstractGun : MonoBehaviour
   public void Awake()
   {
     bulletPrefab = Resources.Load<GameObject>(BulletPrefabPath);
-    muzzleFlashPrefab = Resources.Load<GameObject>(MuzzleFlashPrefabPath);
+    if (MuzzleFlashPrefabPath != null)
+    {
+      muzzleFlashPrefab = Resources.Load<GameObject>(MuzzleFlashPrefabPath);
+    }
 
     camera = Camera.main.GetComponent<Camera>();
     cameraController = Camera.main.GetComponent<CameraController>();
@@ -63,19 +68,31 @@ public abstract class AbstractGun : MonoBehaviour
 
   protected void createBulletsTowardsCursor()
   {
+    Action<Vector2, Vector2, float> shootAction = (lookDirection, edgeOfGun, thisFixedSpread) =>
+      {
+        createOneBullet(lookDirection, edgeOfGun, thisFixedSpread);
+      };
+    shoot(shootAction);
+  }
+
+  private void shoot(Action<Vector2, Vector2, float> shootAction)
+  {
     Vector2 lookDirection = playerController.LookVector.normalized;
     Vector2 edgeOfGun = gunSpriteObject.transform.position + gunSpriteObject.transform.right * gunWidth / 2 * transform.localScale.x;
     Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, lookDirection);
-    Instantiate(muzzleFlashPrefab, edgeOfGun, lookRotation);
+    if (muzzleFlashPrefab != null)
+    {
+      Instantiate(muzzleFlashPrefab, edgeOfGun, lookRotation);
+    }
 
     if (Recoil > 0)
-    { 
+    {
       Vector2 recoil = lookDirection * -1 * Recoil;
       playerController.AddForcedMovement(recoil);
     }
 
     if (CameraKickback > 0)
-    { 
+    {
       Vector2 kickback = lookDirection * -1 * CameraKickback;
       cameraController.AddKickback(kickback);
     }
@@ -88,7 +105,7 @@ public abstract class AbstractGun : MonoBehaviour
       {
         thisFixedSpread = Mathf.LerpAngle(-fixedSpreadLimit, fixedSpreadLimit, (float)i / (NbProjectiles - 1));
       }
-      createOneBullet(lookDirection, edgeOfGun, thisFixedSpread);
+      shootAction(lookDirection, edgeOfGun, thisFixedSpread);
     }
 
     playGunSound();
@@ -102,14 +119,12 @@ public abstract class AbstractGun : MonoBehaviour
 
   private void createOneBullet(Vector2 lookDirection, Vector2 edgeOfGun, float fixedSpread = 0)
   {
-    float spread = fixedSpread + Random.Range(-RandomSpread / 2, RandomSpread / 2);
-    Vector2 shootDirection = Quaternion.AngleAxis(spread, Vector3.forward) * lookDirection;
-    shootDirection.Normalize();
+    Vector2 shootDirection = getShootDirection(lookDirection, fixedSpread);
     Quaternion shootRotation = Quaternion.LookRotation(Vector3.forward, shootDirection);
 
     GameObject bullet = Instantiate(bulletPrefab, edgeOfGun, shootRotation);
     BulletController bulletScript = bullet.GetComponent<BulletController>();
-    if (bulletScript is null)
+    if (bulletScript is null) // TODO: This is an ugly hack, fix
     {
       LimitedRangeBulletController s = bullet.GetComponent<LimitedRangeBulletController>();
       s.direction = shootDirection;
@@ -118,5 +133,12 @@ public abstract class AbstractGun : MonoBehaviour
     {
       bulletScript.direction = shootDirection;
     }
+  }
+
+  private Vector2 getShootDirection(Vector2 lookDirection, float fixedSpread)
+  {
+    float spread = fixedSpread + Random.Range(-RandomSpread / 2, RandomSpread / 2);
+    Vector2 shootDirection = Quaternion.AngleAxis(spread, Vector3.forward) * lookDirection;
+    return shootDirection.normalized;
   }
 }
