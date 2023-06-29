@@ -12,7 +12,6 @@ public class LaserController : BulletController
     startTime = Time.time;
     lineRenderer = GetComponent<LineRenderer>();
 
-
     RaycastHit2D wallHit = Physics2D.Raycast(transform.position, direction, Mathf.Infinity, LayerMask.GetMask("Wall"));
     float distanceToWall = wallHit.distance;
     lineRenderer.SetPosition(0, transform.position);

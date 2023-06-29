@@ -15,6 +15,7 @@ public abstract class AbstractGun : MonoBehaviour
   public abstract string GunName { get; }
   protected virtual string GunSpritePath { get => "Gun sprites/" + this.GetType().Name; }
   protected virtual string GunSoundPath { get => "Gun sounds/" + this.GetType().Name; }
+  public virtual string GunPickupSoundPath { get => null; }
   protected abstract string BulletPrefabPath { get; }
   protected virtual string MuzzleFlashPrefabPath { get => null; }
 
@@ -24,6 +25,10 @@ public abstract class AbstractGun : MonoBehaviour
   protected virtual int NbProjectiles { get; set; } = 1;
   protected virtual float Recoil { get; set; } = 0;
   protected virtual float CameraKickback { get; set; } = 2;
+
+  protected virtual float HeldAngle { get; set; } = 0;
+  protected virtual Vector2 HeldOffset { get; set; } = Vector2.zero;
+  protected virtual float BulletSpawnOffset { get; set; } = 0;
 
   public virtual GunRarityType GunRarity { get; set; } = GunRarityType.Normal;
 
@@ -44,7 +49,7 @@ public abstract class AbstractGun : MonoBehaviour
   private AudioSource audioSource;
   private AudioClip gunSound;
 
-  public void Awake()
+  void Start()
   {
     bulletPrefab = Resources.Load<GameObject>(BulletPrefabPath);
     if (MuzzleFlashPrefabPath != null)
@@ -55,7 +60,11 @@ public abstract class AbstractGun : MonoBehaviour
     camera = Camera.main.GetComponent<Camera>();
     cameraController = Camera.main.GetComponent<CameraController>();
     playerController = gameObject.GetComponent<PlayerController>();
-    gunSpriteObject = gameObject.transform.Find("GunRotation").transform.Find("Gun").gameObject;
+    Transform gunOffsetTransform = gameObject.transform.Find("GunRotation").transform.Find("GunOffset");
+    gunSpriteObject = gunOffsetTransform.Find("Gun").gameObject;
+
+    gunOffsetTransform.localEulerAngles = new Vector3(0, 0, HeldAngle);
+    gunOffsetTransform.localPosition = HeldOffset;
 
     SpriteRenderer spriteRenderer = gunSpriteObject.GetComponent<SpriteRenderer>();
     Sprite gunSprite = Resources.Load<Sprite>(GunSpritePath);
@@ -122,14 +131,10 @@ public abstract class AbstractGun : MonoBehaviour
     Vector2 shootDirection = getShootDirection(lookDirection, fixedSpread);
     Quaternion shootRotation = Quaternion.LookRotation(Vector3.forward, shootDirection);
 
-    GameObject bullet = Instantiate(bulletPrefab, edgeOfGun, shootRotation);
+    Vector2 spawnPosition = edgeOfGun + shootDirection * BulletSpawnOffset;
+    GameObject bullet = Instantiate(bulletPrefab, spawnPosition, shootRotation);
     BulletController bulletScript = bullet.GetComponent<BulletController>();
-    if (bulletScript is null) // TODO: This is an ugly hack, fix
-    {
-      LimitedRangeBulletController s = bullet.GetComponent<LimitedRangeBulletController>();
-      s.direction = shootDirection;
-    }
-    else
+    if (bulletScript is not null)
     {
       bulletScript.direction = shootDirection;
     }

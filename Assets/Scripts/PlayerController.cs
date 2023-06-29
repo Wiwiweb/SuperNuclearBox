@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
   private Animator animator;
   private AudioSource audioSource;
   private GameObject gunSpriteObject;
-  private GameObject gunRotationObject;
+  private Transform gunRotationTransform;
   private new Camera camera;
   private CameraController cameraController;
 
@@ -57,8 +57,8 @@ public class PlayerController : MonoBehaviour
     rigidbody = GetComponent<Rigidbody2D>();
     animator = GetComponent<Animator>();
     audioSource = GetComponent<AudioSource>();
-    gunRotationObject = transform.Find("GunRotation").gameObject;
-    gunSpriteObject = gunRotationObject.transform.Find("Gun").gameObject;
+    gunRotationTransform = transform.Find("GunRotation");
+    gunSpriteObject = gunRotationTransform.Find("GunOffset").Find("Gun").gameObject;
     camera = Camera.main;
     cameraController = camera.GetComponent<CameraController>();
 
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
       }
       Quaternion gunRotation = Quaternion.LookRotation(Vector3.forward, LookVector);
       gunRotation = RoundRotation(gunRotation, 5);
-      gunRotationObject.transform.rotation = gunRotation;
+      gunRotationTransform.rotation = gunRotation;
     }
   }
 
@@ -182,23 +182,33 @@ public class PlayerController : MonoBehaviour
     Destroy(equippedGun);
     equippedGun = gameObject.AddComponent(gunType) as AbstractGun;
     PersistentData.PlayerEquippedGunType = gunType;
+    playGunPickupSound(equippedGun);
+    GameManager.instance.CreateFloatingText(floatingTextPosition, equippedGun.GunName.ToUpper() + "!");
+  }
 
+  private void playGunPickupSound(AbstractGun gun)
+  {
     AudioClip pickupSound;
-    switch (equippedGun.GunRarity)
+    if (gun.GunPickupSoundPath != null)
     {
-      case AbstractGun.GunRarityType.Good:
-        pickupSound = boxPickupGoodSound;
-        break;
-      case AbstractGun.GunRarityType.Bad:
-        pickupSound = boxPickupBadSound;
-        break;
-      case AbstractGun.GunRarityType.Normal:
-      default:
-        pickupSound = boxPickupNormalSound;
-        break;
+      pickupSound = Resources.Load<AudioClip>(gun.GunPickupSoundPath);
+    }
+    else
+    {
+      switch (gun.GunRarity)
+      {
+        case AbstractGun.GunRarityType.Good:
+          pickupSound = boxPickupGoodSound;
+          break;
+        case AbstractGun.GunRarityType.Bad:
+          pickupSound = boxPickupBadSound;
+          break;
+        case AbstractGun.GunRarityType.Normal:
+        default:
+          pickupSound = boxPickupNormalSound;
+          break;
+      }
     }
     audioSource.PlayOneShot(pickupSound);
-
-    GameManager.instance.CreateFloatingText(floatingTextPosition, equippedGun.GunName.ToUpper() + "!");
   }
 }
