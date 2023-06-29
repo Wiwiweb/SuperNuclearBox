@@ -32,6 +32,7 @@ public static class GunManager
     new GunEntry(2, typeof(Screwdriver)),
     new GunEntry(2, typeof(GoldenGun)),
     new GunEntry(2, typeof(Peashooter)),
+    new GunEntry(2, typeof(GatlingBazooka)),
     new GunEntry(1, typeof(DoubleMinigun)),
     new GunEntry(1, typeof(LaserMinigun)),
     new GunEntry(1, typeof(QuadrupleMachineGun)),
