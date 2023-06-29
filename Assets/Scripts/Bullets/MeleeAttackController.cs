@@ -9,7 +9,7 @@ public class MeleeAttackController : MonoBehaviour
   {
     if (other.CompareTag("Enemy"))
     {
-      Vector2 direction = transform.rotation * Vector3.forward;
+      Vector2 direction = transform.rotation * Vector3.up;
       AbstractEnemy otherScript = other.GetComponent<AbstractEnemy>();
       otherScript.OnBulletHit(damage, direction);
     }
