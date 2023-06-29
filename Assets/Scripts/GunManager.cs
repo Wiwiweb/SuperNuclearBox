@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using Random = UnityEngine.Random;
 
 public static class GunManager
 {
@@ -27,7 +25,10 @@ public static class GunManager
     new GunEntry(5, typeof(DiscGun)),
     new GunEntry(5, typeof(Bazooka)),
     new GunEntry(5, typeof(GrenadeLauncher)),
+    new GunEntry(5, typeof(Katana)),
+    new GunEntry(5, typeof(Sledgehammer)),
     new GunEntry(2, typeof(Minigun)),
+    new GunEntry(2, typeof(Screwdriver)),
   };
   public static List<Type> gunSpawnTable = new List<Type>();
 
