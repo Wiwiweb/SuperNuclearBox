@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Util;
@@ -130,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
   private void DieAfterHitstop()
   {
-    if (gameObject != null) // Could happen if we restart before the callback
+    if (gameObject is not null) // Could happen if we restart before the callback
     {
       GetComponent<SpriteRenderer>().sortingLayerName = "Units";
       GetComponent<PlayerInput>().SwitchCurrentActionMap("Dead"); // Press any button to reset

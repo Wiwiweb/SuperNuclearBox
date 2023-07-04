@@ -38,4 +38,9 @@ public static class Hitstop
       callbacks.Add(callback);
     }
   }
+
+  public static void ClearCallbacks()
+  {
+    callbacks.Clear();
+  }
 }

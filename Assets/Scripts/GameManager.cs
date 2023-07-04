@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     cameraController = Camera.main.GetComponent<CameraController>();
 
     MusicController.instance.UnPause(); // In case we restarted while the music was paused
+    Hitstop.ClearCallbacks(); // In case we restarted while hitstop was happening
     LevelManager.CreateLevel();
     SpawnPlayer();
     SpawnBox();

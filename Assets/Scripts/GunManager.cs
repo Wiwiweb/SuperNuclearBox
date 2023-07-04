@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public static class GunManager
 {
+  private static int NbGunsToRemember = 5;
+
   public class GunEntry
   {
     public GunEntry(int probabilityWeight, Type type)
@@ -40,7 +42,9 @@ public static class GunManager
     new GunEntry(1, typeof(SuperBazooka)),
     new GunEntry(1, typeof(SuperGrenadeLauncher)),
   };
-  public static List<Type> gunSpawnTable = new List<Type>();
+  private static List<Type> gunSpawnTable = new List<Type>();
+
+  private static Type[] lastGunsFound = new Type[NbGunsToRemember];
 
   public static void Init()
   {
@@ -51,6 +55,8 @@ public static class GunManager
         gunSpawnTable.Add(entry.type);
       }
     }
+
+    lastGunsFound[0] = typeof(Pistol);
   }
 
   public static Type GetRandomGunType()
@@ -59,8 +65,13 @@ public static class GunManager
     do
     {
       chosenGun = Util.RandomFromList(gunSpawnTable);
-    } while (chosenGun == PersistentData.PlayerEquippedGunType);
+    } while (gunIsInLastGunsFound(chosenGun));
     return chosenGun;
+  }
+
+  public static bool gunIsInLastGunsFound(Type gun)
+  {
+    return Array.Exists(lastGunsFound, element => element == gun);
   }
 
   public static Type DebugGetPreviousGun()
