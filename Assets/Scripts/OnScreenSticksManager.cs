@@ -5,7 +5,7 @@ using System;
 public class OnScreenSticksManager : MonoBehaviour
 {
   public static OnScreenSticksManager instance;
-  
+
   private UIToolkitOnScreenStick leftStick;
   private UIToolkitOnScreenStick rightStick;
 
@@ -36,7 +36,15 @@ public class OnScreenSticksManager : MonoBehaviour
       {
         if (playerInputComponent != null)
         {
-          playerInputComponent.Look(stickPosition);
+          if (stickPosition == Vector2.zero)
+          {
+            playerInputComponent.StopFire();
+          }
+          else
+          {
+            playerInputComponent.Look(stickPosition);
+            playerInputComponent.StartFire(); // Rapid-fire every frame
+          }
         }
       };
 

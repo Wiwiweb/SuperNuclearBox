@@ -60,17 +60,27 @@ public class PlayerInputComponent : MonoBehaviour
 
   public void Fire(InputAction.CallbackContext context)
   {
+    if (context.started)
+    {
+      StartFire();
+    }
+    else if (context.canceled)
+    {
+      StopFire();
+    }
+  }
+
+  public void StartFire()
+  {
     if (!playerController.Dead)
     {
-      if (context.started)
-      {
-        playerController.equippedGun.OnFirePush();
-      }
-      else if (context.canceled)
-      {
-        playerController.equippedGun.OnFireStop();
-      }
+      playerController.equippedGun.OnFirePush();
     }
+  }
+
+  public void StopFire()
+  {
+    playerController.equippedGun.OnFireStop();
   }
 
   public void Restart(InputAction.CallbackContext context)
