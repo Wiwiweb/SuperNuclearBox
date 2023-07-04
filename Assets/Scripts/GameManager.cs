@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
     Vector3 playerSpawnPosition = Util.WorldPositionFromTile(spawnPointTile);
     Player = Instantiate(playerPrefab, playerSpawnPosition, Quaternion.identity);
     cameraController.Player = Player;
-    UIToolkitOnScreenStick.instance.Player = Player;
+    OnScreenSticksManager.instance.Player = Player;
   }
 
   public void SpawnBox()

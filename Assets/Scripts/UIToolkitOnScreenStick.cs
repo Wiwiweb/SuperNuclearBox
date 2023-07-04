@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
+using System;
 
 // OnScreenStick that works with UI Toolkit instead of a canvas image
 // Ideally I would use SendValueToControl just like Unity's OnScreenStick,
 // but I need "isolated input" and I can't figure out the black magic they use to make that work.
 // So I just hardcoded the stick to call Move()
 // Eventually Unity will come up with a OnScreenStick that works with UI Toolkit.
-public class UIToolkitOnScreenStick : MonoBehaviour
+public class UIToolkitOnScreenStick
 {
   public static UIToolkitOnScreenStick instance;
 
@@ -15,28 +16,18 @@ public class UIToolkitOnScreenStick : MonoBehaviour
   private VisualElement onScreenStickBoundary;
   private Vector2 pointerDownPosition;
   private float movementRange;
-  private GameObject player;
-  private PlayerInputComponent playerInputComponent;
 
   private InputAction pointerDownAction;
   private InputAction pointerMoveAction;
 
-  public GameObject Player
-  {
-    get => player;
-    set { player = value; playerInputComponent = player.GetComponent<PlayerInputComponent>(); }
-  }
+  private Action<Vector2> stickAction;
 
-  void Awake()
+  public UIToolkitOnScreenStick(string prefix, VisualElement root, Action<Vector2> stickAction)
   {
-    instance = this;
-  }
+    this.stickAction = stickAction;
 
-  void OnEnable()
-  {
-    VisualElement root = GetComponent<UIDocument>().rootVisualElement;
-    onScreenStick = root.Q("OnScreenStick");
-    onScreenStickBoundary = root.Q("OnScreenStickBoundary");
+    onScreenStick = root.Q(prefix + "OnScreenStick");
+    onScreenStickBoundary = root.Q(prefix + "OnScreenStickBoundary");
 
     onScreenStick.RegisterCallback<PointerDownEvent>(OnPointerDown);
     onScreenStick.RegisterCallback<PointerUpEvent>(OnPointerUp);
@@ -54,10 +45,7 @@ public class UIToolkitOnScreenStick : MonoBehaviour
     onScreenStick.ReleasePointer(e.pointerId);
     onScreenStick.transform.position = Vector3.zero;
 
-    if (playerInputComponent != null)
-    {
-      playerInputComponent.Move(Vector2.zero);
-    }
+    stickAction(Vector2.zero);
     // SendValueToControl(Vector2.zero);
   }
 
@@ -75,10 +63,7 @@ public class UIToolkitOnScreenStick : MonoBehaviour
     onScreenStick.transform.position = pointerDelta;
 
     Vector2 newPos = new Vector2(pointerDelta.x / movementRange, -pointerDelta.y / movementRange); // Minus Y because UI Y axis is inverted
-    if (playerInputComponent != null)
-    {
-      playerInputComponent.Move(newPos);
-    }
+    stickAction(newPos);
     // SendValueToControl(newPos);
   }
 

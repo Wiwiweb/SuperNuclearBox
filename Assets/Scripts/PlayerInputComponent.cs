@@ -53,6 +53,11 @@ public class PlayerInputComponent : MonoBehaviour
     }
   }
 
+  public void Look(Vector2 LookVector)
+  {
+    playerController.LookVector = LookVector;
+  }
+
   public void Fire(InputAction.CallbackContext context)
   {
     if (!playerController.Dead)
@@ -114,6 +119,6 @@ public class PlayerInputComponent : MonoBehaviour
 
   private void UpdateOnScreenStickVisibility(string controlScheme)
   {
-    UIToolkitOnScreenStick.instance.SetVisibility(controlScheme == "Touch");
+    OnScreenSticksManager.instance.SetVisibility(controlScheme == "Touch");
   }
 }

@@ -6,7 +6,10 @@
         <ui:Label text="0" display-tooltip-when-elided="true" name="BestBoxScore" class="pixel-text" style="width: 36px; font-size: 10px; height: 14px; -unity-text-align: middle-left; align-items: flex-start;" />
     </ui:VisualElement>
     <ui:Label text="DEAD" display-tooltip-when-elided="true" name="DeadCenterText" class="pixel-text" style="overflow: visible; position: absolute; left: 0; top: 0; right: 0; bottom: 0; -unity-text-align: middle-center; justify-content: flex-start; width: 100%; height: 100%; font-size: 40px; visibility: hidden;" />
-    <ui:VisualElement name="OnScreenStickBoundary" style="background-image: url(&apos;project://database/Assets/Sprites/Other/OnScreenStickBoundary.png?fileID=21300000&amp;guid=f85e8590455983a4f966f06a564a2167&amp;type=3#OnScreenStickBoundary&apos;); width: 100px; height: 100px; right: auto; bottom: 10px; left: 10px; position: absolute;">
-        <ui:VisualElement name="OnScreenStick" style="background-image: url(&apos;project://database/Assets/Sprites/Other/OnScreenStick%20White.png?fileID=21300000&amp;guid=10719ce746cd11548a189b4bc99ee19b&amp;type=3#OnScreenStick White&apos;); width: 48px; height: 48px; left: 25px; top: 25px;" />
+    <ui:VisualElement name="LeftOnScreenStickBoundary" style="background-image: url(&apos;project://database/Assets/Sprites/Other/OnScreenStickBoundary.png?fileID=21300000&amp;guid=f85e8590455983a4f966f06a564a2167&amp;type=3#OnScreenStickBoundary&apos;); width: 64px; height: 64px; right: auto; bottom: 5px; left: 5px; position: absolute;">
+        <ui:VisualElement name="LeftOnScreenStick" style="background-image: url(&apos;project://database/Assets/Sprites/Other/OnScreenStick%20White.png?fileID=21300000&amp;guid=10719ce746cd11548a189b4bc99ee19b&amp;type=3#OnScreenStick White&apos;); width: 32px; height: 32px; left: 16px; top: 16px;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="RightOnScreenStickBoundary" style="background-image: url(&apos;project://database/Assets/Sprites/Other/OnScreenStickBoundary.png?fileID=21300000&amp;guid=f85e8590455983a4f966f06a564a2167&amp;type=3#OnScreenStickBoundary&apos;); width: 64px; height: 64px; right: 5px; bottom: 5px; left: auto; position: absolute;">
+        <ui:VisualElement name="RightOnScreenStick" style="background-image: url(&apos;project://database/Assets/Sprites/Other/OnScreenStick%20White.png?fileID=21300000&amp;guid=10719ce746cd11548a189b4bc99ee19b&amp;type=3#OnScreenStick White&apos;); width: 32px; height: 32px; left: 16px; top: 16px;" />
     </ui:VisualElement>
 </ui:UXML>
