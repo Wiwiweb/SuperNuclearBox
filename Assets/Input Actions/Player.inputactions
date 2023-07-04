@@ -292,11 +292,33 @@
                 },
                 {
                     "name": "",
+                    "id": "9e6f7ddd-3fe6-4af2-a8d3-98415d27bee1",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "MultiTap(tapCount=3)",
+                    "processors": "",
+                    "groups": "Touch",
+                    "action": "DebugNextGun",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "185a1705-5394-4569-aa86-8a2cfab54a2d",
                     "path": "<Keyboard>/l",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
+                    "action": "DebugGodMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b47c00e6-3032-4dba-8216-1b6eebcd9c79",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "MultiTap(tapCount=4)",
+                    "processors": "",
+                    "groups": "Touch",
                     "action": "DebugGodMode",
                     "isComposite": false,
                     "isPartOfComposite": false

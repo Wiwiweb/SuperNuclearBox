@@ -43,7 +43,7 @@ public class PlayerInputComponent : MonoBehaviour
 
   public void Look(InputAction.CallbackContext context)
   {
-    if (context.started || context.performed)
+    if (context.performed)
     {
       Vector2 screenLookPosition = context.ReadValue<Vector2>();
       screenLookPosition.x = Mathf.Clamp(screenLookPosition.x, 0, Camera.main.pixelWidth);
@@ -60,7 +60,7 @@ public class PlayerInputComponent : MonoBehaviour
 
   public void Fire(InputAction.CallbackContext context)
   {
-    if (context.started)
+    if (context.performed)
     {
       StartFire();
     }
@@ -85,7 +85,7 @@ public class PlayerInputComponent : MonoBehaviour
 
   public void Restart(InputAction.CallbackContext context)
   {
-    if (context.started)
+    if (context.performed)
     {
       PersistentData.BoxScore = 0;
       PersistentData.PlayerEquippedGunType = null;
@@ -95,7 +95,7 @@ public class PlayerInputComponent : MonoBehaviour
 
   public void DebugPreviousGun(InputAction.CallbackContext context)
   {
-    if (context.started)
+    if (context.performed)
     {
       Type gunType = GunManager.DebugGetPreviousGun();
       playerController.switchToGun(gunType, transform.position);
@@ -104,7 +104,7 @@ public class PlayerInputComponent : MonoBehaviour
 
   public void DebugNextGun(InputAction.CallbackContext context)
   {
-    if (context.started)
+    if (context.performed)
     {
       Type gunType = GunManager.DebugGetNextGun();
       playerController.switchToGun(gunType, transform.position);
@@ -113,7 +113,7 @@ public class PlayerInputComponent : MonoBehaviour
 
   public void DebugGodMode(InputAction.CallbackContext context)
   {
-    if (context.started)
+    if (context.performed)
     {
       playerController.GodMode = !playerController.GodMode;
       string onOff = playerController.GodMode ? "on" : "off";
