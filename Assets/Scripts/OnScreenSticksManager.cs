@@ -29,7 +29,7 @@ public class OnScreenSticksManager : MonoBehaviour
       {
         if (playerInputComponent != null)
         {
-          playerInputComponent.Move(stickPosition);
+          playerInputComponent.Move(stickPosition.normalized);
         }
       };
     Action<Vector2> rightAction = (stickPosition) =>
